@@ -1,4 +1,6 @@
 @import '~antd/dist/antd.css';
+@import './img/btn-home-toLoginHover.png';
+@import './img/btn-home-toStoreHover.png';
 :root {
   --butterWhite: #F9F9F9;
   --mainDarkGreen: #496030;
@@ -7,6 +9,7 @@
   width: 100%;
   align-self: center;
   margin: auto;
+  background-color: var(--butterWhite);
 }
 .main-layout {
   display: flex;
@@ -16,7 +19,7 @@
 
 .ant-layout-header {
   display: flex;
-  background-color: var(--butterWhite);
+  background-color: transparent;
   width: 100vw;
   /* align-self: center; */
   height: 9vw;
@@ -45,3 +48,22 @@
 .homeBag {
   width: 2vw;
 }
+.entryLeft {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  justify-content: center;
+}
+.homeTitle {
+  width: 24vw;
+  margin-bottom: 3vh;
+}
+.entryLeftImg {
+  width: 22vw;
+  margin-right: 2vw;
+  margin-top: 2.5vh;
+}
+/* .toLogin:hover .toLogin img {
+  content: url();
+} */

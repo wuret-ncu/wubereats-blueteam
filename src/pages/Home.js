@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout } from 'antd';
-import StoreList from '../components/StoreList';
+import Entry from '../components/Entry';
 import HomeHeader from '../components/HomeHeader';
 
 const {Header, Content, Footer } = Layout;
@@ -13,7 +13,7 @@ function Home() {
                     <HomeHeader />
                 </Header>
                 <Content>
-                    <StoreList />
+                    <Entry />
                 </Content>
             </Layout>         
         </Layout>
