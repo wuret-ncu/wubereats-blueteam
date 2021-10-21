@@ -1,16 +1,23 @@
+import React from 'react';
 import { Layout } from 'antd';
-import { HomeHeader } from '../components/HomeHeader';
+import StoreList from '../components/StoreList';
+import HomeHeader from '../components/HomeHeader';
 
-const { Header, Content, Footer } = Layout;
+const {Header, Content, Footer } = Layout;
 
-export default function Home() {
+function Home() {
     return(
         <Layout className="container main-layout">
             <Layout>
-                <Header style={{posution:'fixed', zIndex:1}}>
+                <Header style={{position: 'fixed', zIndex: 1}}>
                     <HomeHeader />
                 </Header>
-            </Layout>
+                <Content>
+                    <StoreList />
+                </Content>
+            </Layout>         
         </Layout>
     );
 }
+
+export default Home;
