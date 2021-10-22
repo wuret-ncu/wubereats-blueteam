@@ -18,11 +18,12 @@
 .ant-layout-content {
   background-color: var(--butterWhite);
 }
+/* homeheader~53 */
 .ant-layout-header {
   display: flex;
   background-color: transparent;
   width: 100vw;
-  height: 8.5vw;
+  height: 14vh;
 }
 .headerBgc {
   display: flex;
@@ -34,12 +35,19 @@
   width: 18vw;
   align-self: center;
 }
-.headerName {
+.homeHeaderName {
   font-size: 1.8vw;
   color: var(--wordWhite);
 }
-.headerName:hover {
+.homeHeaderName:hover {
   color: var(--wordWhite);
+}
+.headerName {
+  font-size: 1.8vw;
+  color: var(--mainDarkGreen);
+}
+.headerName:hover {
+  color: var(--mainDarkGreen);
 }
 .homeMember {
   width: 2vw;
@@ -50,6 +58,7 @@
 .homeBag {
   width: 2vw;
 }
+/* home~89 */
 .entryLeft {
   display: flex;
   flex-direction: column;
@@ -59,7 +68,6 @@
 }
 .homeTitle {
   width: 24vw;
-  /* margin-bottom: 3vh; */
 }
 .entryLeftImg {
   width: 22vw;
@@ -86,6 +94,7 @@
 .banner {
   height: 100vh;
 }
+/* footer~103 */
 .layout-footer-home {
   background-color: var(--footerGreen);
   width: 100vw;
@@ -98,4 +107,15 @@
   color: var(--wordWhite);
   font-weight: 400;
   font-size: 1.5vw;
+}
+/* StoreList */
+.storeSlogan {
+  color: var(--mainDarkGreen);
+  font-weight: bold;
+  font-size: 2.2vw;
+  font-family: Helvetica, Arial, sans-serif;
+}
+.storeBgc {
+  margin-top: 14vh;
+  padding: 0 7vw;
 }

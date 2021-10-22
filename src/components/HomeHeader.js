@@ -8,14 +8,12 @@ import bag from '../img/btn-bag.png';
 import member from '../img/btn-member.png';
 
 export default function HomeHeader() {
-    // const [headerBgc, setHeaderBgc] = useState("transparent")
     const [headerNameColor, setHeaderNameColor] = useState("#FFF")
     const [bagColor, setBagColor] = useState(homeBag)
     const [memberColor, setMemberColor] = useState(homeMember)
 
     // 監聽滾動，改變header樣貌
     const listenScrollEvent = () => {
-        // window.scrollY > 100 ? setHeaderBgc("rgba(249, 249, 249, 0.8)") : setHeaderBgc("transparent")
         window.scrollY > 100 ? setHeaderNameColor("#496030") : setHeaderNameColor("#FFF")
         window.scrollY > 100 ? setBagColor(bag) : setBagColor(homeBag)
         window.scrollY > 100 ? setMemberColor(member) : setMemberColor(homeMember)
@@ -32,10 +30,10 @@ export default function HomeHeader() {
                 </Link> 
             </div>
             <div>
-                <Link to="/" className="headerName mgl-4" style={{color: headerNameColor}}>
+                <Link to="/" className="homeHeaderName mgl-4" style={{color: headerNameColor}}>
                     Home
                 </Link>
-                <Link to="/Stores" className="headerName mgl-4" style={{color: headerNameColor}}>
+                <Link to="/Stores" className="homeHeaderName mgl-4" style={{color: headerNameColor}}>
                     Stores
                 </Link>
                 <Link to="/">

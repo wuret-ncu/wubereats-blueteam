@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import homeTitle from '../img/img-home-title.png';
 import banner from '../img/img-home-banner.png';
 
-
 export default function Entry() {
     return(
         <Row>

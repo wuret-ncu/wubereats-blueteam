@@ -7,7 +7,7 @@ import AllFooter from '../components/Footer';
 
 const {Header, Content, Footer } = Layout;
 
-function Home() {
+export default function Home() {
     const [layoutHomeHeader, setlayoutHomeHeader] = useState("transparent")
 
     // 監聽滾動，改變header樣貌
@@ -34,5 +34,3 @@ function Home() {
         </Layout>
     );
 }
-
-export default Home;

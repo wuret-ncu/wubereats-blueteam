@@ -1,11 +1,11 @@
 import React from 'react';
 import { Layout } from 'antd';
-import StoreList from '../components/StoreList';
 import AllHeader from '../components/Header';
+import Add from '../components/Add'
 
 const {Header, Content, Footer } = Layout;
 
-export default function Stores() {
+export default function AddStore() {
     return(
         <Layout className="container main-layout">
             <Layout>
@@ -13,7 +13,7 @@ export default function Stores() {
                     <AllHeader />
                 </Header>
                 <Content>
-                    <StoreList />
+                    <Add />
                 </Content>
             </Layout>         
         </Layout>
