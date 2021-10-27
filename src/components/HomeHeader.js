@@ -37,10 +37,10 @@ export default function HomeHeader() {
                     Stores
                 </Link>
                 <Link to="/">
-                    <img className="homeBag mgl-4" src={bagColor} />
+                    <img className="homeBag mgl-4 pdb-10" src={bagColor} />
                 </Link>
                 <Link to="/" >
-                    <img className="homeMember mgl-4" src={memberColor} />
+                    <img className="homeMember mgl-4 pdb-10" src={memberColor} />
                 </Link>
             </div>
             

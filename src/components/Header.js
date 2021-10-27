@@ -21,10 +21,10 @@ export default function Header() {
                     Stores
                 </Link>
                 <Link to="/">
-                    <img className="homeBag mgl-4" src={bag} />
+                    <img className="homeBag mgl-4 pdb-10" src={bag} />
                 </Link>
                 <Link to="/" >
-                    <img className="homeMember mgl-4" src={member} />
+                    <img className="homeMember mgl-4 pdb-10" src={member} />
                 </Link>
             </div>
             

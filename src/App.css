@@ -4,6 +4,8 @@
   --mainDarkGreen: #496030;
   --wordWhite: #FFF;
   --footerGreen: #314120;
+  --wordDarkGreen: #222E16;
+  --hoverBlue: #2C625A;
 }
 .container {
   width: 100%;
@@ -54,6 +56,9 @@
 }
 .mgl-4 {
   margin-left: 4vw;
+}
+.pdb-10 {
+  padding-bottom: 10px;
 }
 .homeBag {
   width: 2vw;
@@ -116,6 +121,105 @@
   font-family: Helvetica, Arial, sans-serif;
 }
 .storeBgc {
-  margin-top: 14vh;
+  margin-top: 15vh;
   padding: 0 7vw;
+}
+.addMenuBtn {
+  font-weight: 500;
+  font-size: 1.4vw;
+  color: var(--wordWhite);
+  letter-spacing: 0.1vw;
+  border-radius: 0.5vw;
+  width: 12.2vw;
+  height: 3.3vw;
+  background-color: var(--mainDarkGreen);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 2vw;
+}
+.addMenuPlus {
+  font-size: 2vw;
+  padding-right: 4px;
+  margin-bottom: 3px;
+}
+.addMenuBtn:hover {
+  color: var(--wordWhite);
+  background-color: var(--hoverBlue);
+}
+.listBgc {
+  margin-top: 6vh;
+  margin-bottom: 5vh;
+}
+.listBox {
+  height: 68.5vh;
+  padding: 0 1vw;
+}
+.storeDot {
+  width: 1.1vw;
+}
+.listTitle {
+  color: var(--wordDarkGreen);
+  font-size: 2.3vw;
+  margin-left: 0.8vw;
+}
+.listTitleAll {
+  display: flex;
+  align-items: center;
+}
+.cardBox {
+  height: 91%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.card {
+  background-color: rgba(221, 222, 167, 0.5);
+  width: 95%;
+  height: 160px;
+  border-radius: 0.6vw;
+  padding: 1vh 0.5vw;
+  margin-top: 2vh;
+  border-color: transparent;
+}
+.storeLine {
+  height: 16vh;
+  margin-top: -7vh;
+  width: 0.6vh;
+}
+.ant-card-head {
+  margin-left: 2.55vw;
+  border-bottom: none;
+}
+.ant-card-head-title {
+  color: var(--wordDarkGreen);
+  font-size: 1.7vw;
+  font-weight: 500;
+  letter-spacing: 0.1vw;
+}
+.storeInformation {
+  color: var(--wordDarkGreen);
+  font-size: 1.2vw;
+  font-weight: 500;
+}
+.informationDetail {
+  margin-bottom: 0.8vh;
+}
+.storeToOrder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 4.8vh;
+  background-color: rgba(249,249,249,0.8);
+  margin-bottom: 0.5vh;
+  border-radius: 0.2vw;
+}
+.storeToOrderWord {
+  color: var(--wordDarkGreen);
+  font-size: 1.2vw;
+  font-weight: 500;
+}
+.storeToOrderWord:hover {
+  color: var(--wordDarkGreen);
 }
