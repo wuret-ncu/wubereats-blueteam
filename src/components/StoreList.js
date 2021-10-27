@@ -26,8 +26,8 @@ export default function StoreList() {
                                     <div className="informationDetail">電話： 03-577-7999</div>
                                     <div className="informationDetail">公休日： 六、日</div>
                                 </Col>
-                                <Col span={7} offset={3} className="storeToOrder">
-                                    <Link className="storeToOrderWord">前往點餐 {'>>'}</Link>
+                                <Col span={7} offset={3} className="storeToMenu">
+                                    <Link to="/menu" className="storeToMenuWord">前往點餐 {'>>'}</Link>
                                 </Col>
                             </Row>                        
                         </Card>
@@ -38,8 +38,8 @@ export default function StoreList() {
                                     <div className="informationDetail">電話： 03-577-7999</div>
                                     <div className="informationDetail">公休日： 六、日</div>
                                 </Col>
-                                <Col span={7} offset={3} className="storeToOrder">
-                                    <Link className="storeToOrderWord">前往點餐 {'>>'}</Link>
+                                <Col span={7} offset={3} className="storeToMenu">
+                                    <Link to="/menu" className="storeToMenuWord">前往點餐 {'>>'}</Link>
                                 </Col>
                             </Row>                        
                         </Card>
@@ -50,8 +50,8 @@ export default function StoreList() {
                                     <div className="informationDetail">電話： 03-577-7999</div>
                                     <div className="informationDetail">公休日： 六、日</div>
                                 </Col>
-                                <Col span={7} offset={3} className="storeToOrder">
-                                    <Link className="storeToOrderWord">前往點餐 {'>>'}</Link>
+                                <Col span={7} offset={3} className="storeToMenu">
+                                    <Link to="/menu" className="storeToMenuWord">前往點餐 {'>>'}</Link>
                                 </Col>
                             </Row>                        
                         </Card>
@@ -62,8 +62,8 @@ export default function StoreList() {
                                     <div className="informationDetail">電話： 03-577-7999</div>
                                     <div className="informationDetail">公休日： 六、日</div>
                                 </Col>
-                                <Col span={7} offset={3} className="storeToOrder">
-                                    <Link className="storeToOrderWord">前往點餐 {'>>'}</Link>
+                                <Col span={7} offset={3} className="storeToMenu">
+                                    <Link to="/menu" className="storeToMenuWord">前往點餐 {'>>'}</Link>
                                 </Col>
                             </Row>                        
                         </Card>
@@ -79,8 +79,8 @@ export default function StoreList() {
                                     <div className="informationDetail">電話： 03-577-7999</div>
                                     <div className="informationDetail">公休日： 六、日</div>
                                 </Col>
-                                <Col span={7} offset={3} className="storeToOrder">
-                                    <Link className="storeToOrderWord">前往點餐 {'>>'}</Link>
+                                <Col span={7} offset={3} className="storeToMenu">
+                                    <Link to="/menu" className="storeToMenuWord">前往點餐 {'>>'}</Link>
                                 </Col>
                             </Row>                        
                         </Card>

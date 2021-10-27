@@ -206,7 +206,7 @@
 .informationDetail {
   margin-bottom: 0.8vh;
 }
-.storeToOrder {
+.storeToMenu {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -215,11 +215,11 @@
   margin-bottom: 0.5vh;
   border-radius: 0.2vw;
 }
-.storeToOrderWord {
+.storeToMenuWord {
   color: var(--wordDarkGreen);
   font-size: 1.2vw;
   font-weight: 500;
 }
-.storeToOrderWord:hover {
+.storeToMenuWord:hover {
   color: var(--wordDarkGreen);
 }
