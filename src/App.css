@@ -9,6 +9,7 @@
 }
 .container {
   width: 100%;
+  display: flex;
   align-self: center;
   margin: auto;
 }
@@ -177,14 +178,14 @@
 .card {
   background-color: rgba(221, 222, 167, 0.5);
   width: 95%;
-  height: 160px;
+  height: 21vh;
   border-radius: 0.6vw;
   padding: 1vh 0.5vw;
   margin-top: 2vh;
   border-color: transparent;
 }
 .storeLine {
-  height: 16vh;
+  height: 16.8vh;
   margin-top: -7vh;
   width: 0.6vh;
 }

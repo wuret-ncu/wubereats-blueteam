@@ -5,10 +5,12 @@ import Stores from './pages/Stores';
 import AddStore from './pages/AddStore';
 import MenuDetail from './components/MenuDetail';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
+import { StoreProvider } from './store';
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <StoreProvider>
+      <BrowserRouter>
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/stores" component={Stores} />
@@ -16,5 +18,7 @@ export default function App() {
         <Route exact path="/menu" component={MenuDetail} />
       </Switch>
     </BrowserRouter>
+    </StoreProvider>
+    
   );
 }
