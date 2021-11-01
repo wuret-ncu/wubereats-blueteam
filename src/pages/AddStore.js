@@ -9,7 +9,7 @@ export default function AddStore() {
     return(
         <Layout className="container main-layout">
             <Layout>
-                <Header style={{position: 'fixed', zIndex: 1}}>
+                <Header style={{position: 'fixed', zIndex: 1, backgroundColor: 'rgb(249,249,249)'}}>
                     <AllHeader />
                 </Header>
                 <Content>
