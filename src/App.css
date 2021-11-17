@@ -8,6 +8,7 @@
   --hoverBlue: #2C625A;
   --mainLightGreen: #DDDEA7;
   --mainMediumGreen: #94A366;
+  --lightGreen: #9ABAB6;
 }
 .container {
   width: 100%;
@@ -23,7 +24,7 @@
 .ant-layout-content {
   background-color: var(--butterWhite);
 }
-/* homeheader~66 */
+/* homeheader~70 */
 .ant-layout-header {
   display: flex;
   background-color: transparent;
@@ -65,8 +66,12 @@
 }
 .homeBag {
   width: 2vw;
+  cursor: pointer;
 }
-/* home~102 */
+.ant-drawer-body {
+  background-color: var(--mainMediumGreen);
+}
+/* home~106 */
 .entryLeft {
   display: flex;
   flex-direction: column;
@@ -102,7 +107,7 @@
 .banner {
   height: 100vh;
 }
-/* footer~116 */
+/* footer~120 */
 .layout-footer-home {
   background-color: var(--footerGreen);
   width: 100vw;
@@ -116,7 +121,7 @@
   font-weight: 400;
   font-size: 1.5vw;
 }
-/* StoreList~226 */
+/* StoreList~230 */
 .storeSlogan {
   color: var(--mainDarkGreen);
   font-weight: bold;
@@ -226,7 +231,7 @@
 .storeToMenuWord:hover {
   color: var(--wordDarkGreen);
 }
-/* AddStore */
+/* AddStore~359 */
 .addBgc {
   background-color: var(--mainLightGreen);
   width: 100%;
@@ -305,4 +310,53 @@
   display: flex;
   align-items: center;
   border-right: var(--butterWhite) 0.2vw solid;
+}
+.addCancelBtn {
+  color: var(--mainDarkGreen);
+  background-color: var(--butterWhite);
+  width: 11.4vw;
+  height: 7vh;
+  font-size: 1.9vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.8vh;
+  letter-spacing: 0.1vw;
+}
+.addBtns {
+  margin-top: 6vh;
+  display: flex;
+}
+.addCreateBtn {
+  color: var(--butterWhite);
+  background-color: var(--lightGreen);
+  width: 11.4vw;
+  height: 6.9vh;
+  font-size: 1.9vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.8vh;
+  letter-spacing: 0.1vw;
+  border-color: transparent;
+}
+.addCreateBtn:hover, .addCreateBtn:focus {
+  background-color: var(--lightGreen);
+  border-color: transparent;
+  color: var(--butterWhite);
+}
+.addInputs {
+  height: 7vh;
+  background-color: transparent;
+  width: 110%;
+  border-style: none;
+  outline: none;
+  font-size: 1.3vw;
+}
+.ant-input:focus {
+  box-shadow: none;
+}
+.ant-form-item-has-error :not(.ant-input-disabled):not(.ant-input-borderless).ant-input, .ant-form-item-has-error :not(.ant-input-affix-wrapper-disabled):not(.ant-input-affix-wrapper-borderless).ant-input-affix-wrapper, .ant-form-item-has-error :not(.ant-input-disabled):not(.ant-input-borderless).ant-input:hover, .ant-form-item-has-error :not(.ant-input-affix-wrapper-disabled):not(.ant-input-affix-wrapper-borderless).ant-input-affix-wrapper:hover {
+  background-color: transparent;
+  border: none;
 }

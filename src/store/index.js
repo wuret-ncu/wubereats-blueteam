@@ -1,25 +1,27 @@
 import React from 'react';
 import { createContext } from 'react';
 import useReducerWithThunk from 'use-reducer-thunk';
+import { SET_VISIBLE
+    } from '../utils/constants';
 
 export const StoreContext = createContext();
 
-let foodStores = [
-    {id: "fs1", name: "大嗑蔬菜蛋餅", phone: "03-377-7999", restDay: "六、日"},
-    {id: "fs2", name: "品樂", phone: "03-237-4449", restDay: "六"},
-    {id: "fs3", name: "竹香", phone: "03-222-9999", restDay: "五、六、日"}
-]
 const initialState = {
-    stores:{
-        foodStores
-    }
+    visible: false
 }
+
 function reducer(state, action) {
     switch (action.type) {
+        case SET_VISIBLE:
+            return{
+                ...state,
+                visible: action.payload
+            }
         default: 
             return state;
     }
 }
+
 export function StoreProvider(props) {
     const [state, dispatch] = useReducerWithThunk(
         reducer,

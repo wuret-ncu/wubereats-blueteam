@@ -3,7 +3,7 @@ import { Layout } from 'antd';
 import AllHeader from '../components/Header';
 import Add from '../components/Add'
 
-const {Header, Content, Footer } = Layout;
+const {Header, Content} = Layout;
 
 export default function AddStore() {
     return(
