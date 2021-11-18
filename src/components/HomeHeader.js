@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { Drawer } from 'antd';
+import { Drawer, Row, Col } from 'antd';
 import logo from '../img/btn-Logo.png';
 import homeBag from '../img/btn-home-bag.png';
 import homeMember from '../img/btn-home-member.png';
@@ -59,8 +59,28 @@ export default function HomeHeader() {
                     <img className="homeMember mgl-4 pdb-10" src={memberColor} alt="" />
                 </Link>
             </div>
-            <Drawer placement="right" onClose={onClose} visible={visible}>
-                
+            <Drawer placement="right" onClose={onClose} visible={visible} width={'30vw'}>
+                <div className="drawerName">餐點資料</div>
+                <Row>
+                    <Col className="drawerTitle" span={10}>店家</Col>
+                    <Col className="drawerTitle" span={8}>品項</Col>
+                    <Col className="drawerTitle" span={6}>價格</Col>
+                </Row>
+                <Row>
+                    <Col className="drawerContent" span={10}>大嗑蔬菜蛋餅</Col>
+                    <Col className="drawerContent" span={8}>肉絲蛋炒飯</Col>
+                    <Col className="drawerContent" span={6}>70</Col>
+                </Row>
+                <div className="drawerLineBox">
+                   <img className="drawerLine" src={drawerLine} /> 
+                </div>
+                <Row>
+                    <Col className="drawerContentRight" span={3} offset={15}>總價</Col>
+                    <Col className="drawerContent" span={6}>70</Col>
+                </Row>
+                <Link className="drawerBtnBox" to="/">
+                    <div className="drawerBtnToCart">前往購物車 {'>>'}</div>
+                </Link>    
             </Drawer> 
         </header>
     );
