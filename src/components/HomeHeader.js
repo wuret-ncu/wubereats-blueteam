@@ -9,6 +9,7 @@ import bag from '../img/btn-bag.png';
 import member from '../img/btn-member.png';
 import { StoreContext } from '../store';
 import { SET_VISIBLE } from '../utils/constants';
+import drawerLine from '../img/img_drawer_line.png';
 
 export default function HomeHeader() {
     const [headerNameColor, setHeaderNameColor] = useState("#FFF")
@@ -78,7 +79,7 @@ export default function HomeHeader() {
                     <Col className="drawerContentRight" span={3} offset={15}>總價</Col>
                     <Col className="drawerContent" span={6}>70</Col>
                 </Row>
-                <Link className="drawerBtnBox" to="/">
+                <Link className="drawerBtnBox" to="/cart">
                     <div className="drawerBtnToCart">前往購物車 {'>>'}</div>
                 </Link>    
             </Drawer> 
