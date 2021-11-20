@@ -6,7 +6,7 @@ const instance = axios.create({
         'X-Powered-By':'Express',
         'Content-Type':'application/json'
     },
-    timeout:10000,
+    timeout:20000,
 })
 
 instance.interceptors.request.use(

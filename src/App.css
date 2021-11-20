@@ -9,6 +9,10 @@
   --mainLightGreen: #DDDEA7;
   --mainMediumGreen: #94A366;
   --lightGreen: #9ABAB6;
+  --lightGray: #727272;
+  --infoBgBlack: #323232;
+  --yesRed: #F75600;
+  --noYellow: #EBC649;
 }
 .container {
   width: 100%;
@@ -24,7 +28,7 @@
 .ant-layout-content {
   background-color: var(--butterWhite);
 }
-/* homeheader~70 */
+/* homeheader~132 */
 .ant-layout-header {
   display: flex;
   background-color: transparent;
@@ -130,7 +134,7 @@
   justify-content: end;
   margin-right: 1vw;
 }
-/* home~106 */
+/* home~168 */
 .entryLeft {
   display: flex;
   flex-direction: column;
@@ -166,7 +170,7 @@
 .banner {
   height: 100vh;
 }
-/* footer~120 */
+/* footer~182 */
 .layout-footer-home {
   background-color: var(--footerGreen);
   width: 100vw;
@@ -180,7 +184,7 @@
   font-weight: 400;
   font-size: 1.5vw;
 }
-/* StoreList~230 */
+/* StoreList~292 */
 .storeSlogan {
   color: var(--mainDarkGreen);
   font-weight: bold;
@@ -290,7 +294,7 @@
 .storeToMenuWord:hover {
   color: var(--wordDarkGreen);
 }
-/* AddStore~359 */
+/* AddStore~421 */
 .addBgc {
   background-color: var(--mainLightGreen);
   width: 100%;
@@ -418,4 +422,171 @@
 .ant-form-item-has-error :not(.ant-input-disabled):not(.ant-input-borderless).ant-input, .ant-form-item-has-error :not(.ant-input-affix-wrapper-disabled):not(.ant-input-affix-wrapper-borderless).ant-input-affix-wrapper, .ant-form-item-has-error :not(.ant-input-disabled):not(.ant-input-borderless).ant-input:hover, .ant-form-item-has-error :not(.ant-input-affix-wrapper-disabled):not(.ant-input-affix-wrapper-borderless).ant-input-affix-wrapper:hover {
   background-color: transparent;
   border: none;
+}
+/* Cart */
+.cartTitle {
+  font-size: 2.6vw;
+  color: var(--mainDarkGreen);
+  font-weight: bold;
+  letter-spacing: 0.1vw;
+  margin-bottom: 4vh;
+}
+.cartBox {
+  margin-top: 14vh;
+  padding: 0 4vw;
+}
+.cartStoreName {
+  font-size: 1.8vw;
+  color: var(--wordDarkGreen);
+  font-weight: bold;
+  padding: 1.3vh 1vw;
+  border-bottom: 0.2vw solid lightgray;
+}
+.cartPhone {
+  letter-spacing: 0;
+  color: var(--lightGray);
+  font-size: 1.5vw;
+  margin-left: 2vw;
+  font-weight: bold;
+}
+.cartBlockTitles {
+  padding-left: 1.5vw;
+  padding-top: 1.3vh;
+}
+.cartBlockTitle {
+  color: var(--lightGray);
+  font-size: 1.5vw;
+  font-weight: 400;
+  letter-spacing: 0.1vw;
+}
+.cartBlockContents {
+  padding: 4vh 1.5vw;
+  border-bottom: 0.15vw solid lightgray;
+}
+.cartBlockContent {
+  font-size: 1.8vw;
+  color: var(--wordDarkGreen);
+}
+.cartDelete {
+  width: 1vw;
+  cursor: pointer;
+}
+.cartBlockContent2 {
+  padding-left: 0.5vw;
+  font-size: 1.5vw;
+}
+.cartBlockContent3 {
+  padding-left: 1vw;
+  font-size: 1.5vw;
+}
+.cartMarkPaying {
+  border: 0.2vw solid var(--mainDarkGreen);
+  color: var(--mainDarkGreen);
+  font-size: 1.4vw;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.5vw;
+  letter-spacing: 0.1vw;
+  height: 5.5vh;
+  width: 80%;
+  cursor: pointer;
+}
+.cartFinishMarking {
+  border: 0.2vw solid var(--mainDarkGreen);
+  background-color: var(--mainMediumGreen);
+  color: white;
+  font-size: 1.4vw;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.5vw;
+  letter-spacing: 0.1vw;
+  height: 5.5vh;
+  width: 80%;
+  cursor: pointer;
+}
+.cartMarkPaying:hover, .cartFinish:hover {
+  background-color: var(--mainMediumGreen);
+  color: white;
+}
+.cartFinish {
+  border: 0.2vw solid var(--mainDarkGreen);
+  color: var(--mainDarkGreen);
+  font-size: 1.4vw;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.5vw;
+  letter-spacing: 0.1vw;
+  height: 5.5vh;
+  width: 80%;
+  cursor: pointer;
+}
+.cartBtnBox {
+  display: flex;
+  justify-content: end;
+}
+.cartBtnsBox {
+  margin-top: 4vh;
+  margin-bottom: 4vh;
+}
+.checkPay {
+  margin-right: 1.5vw;
+
+}
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: var(--lightGreen);
+  border-color: var(--lightGray);
+}
+.ant-popover-inner-content {
+  background-color: var(--infoBgBlack);
+  border-radius: 0.5vw;
+}
+.ant-popover-message-title {
+  color: var(--butterWhite);
+}
+
+.ant-popover-buttons .ant-btn {
+  background-color: transparent;
+  border: none;
+  color: var(--noYellow);
+}
+.ant-popover-buttons .ant-btn-primary {
+  color: var(--yesRed);
+}
+.modalIcon {
+  color: var(--noYellow);
+  margin-right: 1.6vw;
+}
+.modalTitle {
+  color: var(--infoBgBlack);
+  font-weight: 400;
+  font-size: 1.4vw;
+}
+.ant-modal-header, .ant-modal-footer {
+  border: none
+}
+.ant-modal-header {
+  padding-top: 1.6vw;
+}
+.ant-modal-footer {
+  padding-bottom: 1.6vw;
+  padding-right: 1.6vw;
+}
+.modalText {
+  padding: 0 3vw;
+  color: var(--infoBgBlack);
+  font-size: 1.2vw;
+  font-weight: 400;
+}
+.ant-modal-content {
+  width: 35vw;
+  margin: auto;
+}
+.modal .ant-btn-primary {
+  background-color: var(--hoverBlue);
 }

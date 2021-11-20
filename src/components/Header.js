@@ -63,7 +63,7 @@ export default function Header() {
                     <Col className="drawerContentRight" span={3} offset={15}>總價</Col>
                     <Col className="drawerContent" span={6}>70</Col>
                 </Row>
-                <Link className="drawerBtnBox" to="/cart">
+                <Link className="drawerBtnBox" to="/cart" onClick={onClose}>
                     <div className="drawerBtnToCart">前往購物車 {'>>'}</div>
                 </Link>    
             </Drawer> 
