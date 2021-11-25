@@ -16,7 +16,7 @@ function Cards(props) {
                     <div className="informationDetail">公休日： {props.restDay}</div>
                 </Col>
                 <Col span={7} offset={3} className="storeToMenu">
-                    <Link to="/menu" className="storeToMenuWord">前往點餐 {'>>'}</Link>
+                    <Link to={`/menu/${props.id}`} className="storeToMenuWord">前往點餐 {'>>'}</Link>
                 </Col>
             </Row>                        
         </Card>

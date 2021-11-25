@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { Row, Col, Form, Button, Input } from 'antd';
-import { Link, useHistory, Redirect } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { postStore, getStores } from '../api';
 
 export default function Add() {
@@ -37,7 +37,6 @@ export default function Add() {
 
     useEffect(() => {
         console.log(storeObj);
-        console.log('here');
         const num = allStores.findIndex(store => store.StoreName === storeObj.StoreName)
             if(num === -1 && storeObj !== null) {
                 postStore(storeObj).then((response) => {
