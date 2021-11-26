@@ -294,7 +294,17 @@
 .storeToMenuWord:hover {
   color: var(--wordDarkGreen);
 }
-/* AddStore~425 */
+.storeSearchBgc {
+  border-radius: 0.6vw;
+  background-color: #EEEEEE;
+  box-shadow: 0 0 0.3vw 0.1vw rgba(114, 114, 114, 0.2);
+  display: flex;
+  align-items: center;
+}
+.storeSearchInput {
+  width: 70%;
+}
+/* AddStore~446 */
 .addBgc {
   background-color: var(--mainLightGreen);
   width: 100%;
@@ -423,7 +433,28 @@
   background-color: transparent;
   border: none;
 }
-/* Cart~592 */
+.ant-upload.ant-upload-drag {
+  height: 60%;
+  width: 100%;
+  border: 0.4vw dashed var(--mainDarkGreen);
+}
+.uploadMenuBox {
+  padding: 0 5vw;
+}
+.uploadTitle {
+  color: var(--wordDarkGreen);
+  font-size: 1.5vw;
+  margin-left: 0.8vw;
+  letter-spacing: 0.1vw;
+  font-weight: 400;
+}
+.dragger {
+  margin-top: 3vh;
+}
+.uploadMenuBox .anticon svg {
+  color: var(--mainDarkGreen);
+}
+/* Cart~612 */
 .cartTitle {
   font-size: 2.6vw;
   color: var(--mainDarkGreen);
@@ -589,7 +620,7 @@
 .modal .ant-btn-primary {
   background-color: var(--hoverBlue);
 }
-/* Menu */
+/* Menu~708 */
 .menuImg {
   background-color: var(--mainLightGreen);
   height: 74vh;

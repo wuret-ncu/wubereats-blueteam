@@ -20,7 +20,7 @@ function CartItemList(props) {
     }
     return(
         <Row className="cartBlockContents">
-            <Col className="cartBlockContent" span={8}>{checkingVisible ? <span><Checkbox className="checkPay"></Checkbox></span> : ""}Jenny</Col>
+            <Col className="cartBlockContent" span={8}>{checkingVisible ? <span><Checkbox className="checkPay"></Checkbox></span> : ""}</Col>
             <Col className="cartBlockContent cartBlockContent2" span={8}>{props.item}</Col>
             <Col className="cartBlockContent cartBlockContent3" span={7}>{props.sum}</Col>
             <Col span={1}>
@@ -31,7 +31,7 @@ function CartItemList(props) {
                     cancelText="No"
                     placement="bottomLeft"
                 >
-                    <img className="cartDelete" src={cartDelete} />
+                    <img className="cartDelete" src={cartDelete} alt="" />
                 </Popconfirm>
             </Col>
         </Row>
@@ -54,9 +54,8 @@ export default function CartDetail() {
                 payload: response.data
             })
         })
-        let a = [];
         let b = [];
-        a = cartsData ? cartsData.map(s => {
+        let a = cartsData ? cartsData.map(s => {
             b.push(s.Price);
         }) : ""
         dispatch({
@@ -64,11 +63,10 @@ export default function CartDetail() {
             payload: lodash.sum(b)
         })
     }, []);
-    
+
     useEffect(() => {
-        let a = [];
         let b = [];
-        a = cartsData ? cartsData.map(s => {
+        let a = cartsData ? cartsData.map(s => {
             b.push(s.Price);
         }) : ""
         dispatch({
@@ -126,7 +124,7 @@ export default function CartDetail() {
             {
                 cartsData ? cartsData.map(data =>
                 <CartItemList key={data._id} item={data.Meals} sum={data.Price} />)
-                : <Empty />
+                : <Empty style={{marginTop: "10vh"}} />
             }
             <Row className="cartBtnsBox">
                 <Col className="cartBtnBox" span={3} offset={18} onClick={onClickCheckingBtn}>{checkingBtn}</Col>

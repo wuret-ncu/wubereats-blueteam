@@ -19,12 +19,12 @@ function JustOrdered(props) {
     return(
         <>
             <Row>
-                <Col className="drawerContent" span={10}>大嗑蔬菜蛋餅</Col>
+                <Col className="drawerContent" span={10}></Col>
                 <Col className="drawerContent" span={8}>{props.item}</Col>
                 <Col className="drawerContent" span={6}>{props.sum}</Col>
             </Row>
             <div className="drawerLineBox">
-            <img className="drawerLine" src={drawerLine} /> 
+            <img className="drawerLine" src={drawerLine} alt="" /> 
             </div>
         </>   
     );
@@ -44,16 +44,15 @@ export default function HomeHeader() {
                 payload: response.data
             })
         })
-        let a = [];
         let b = [];
-        a = cartsData ? cartsData.map(s => {
+        let a = cartsData ? cartsData.map(s => {
             b.push(s.Price);
         }) : ""
         dispatch({
             type: SET_TOTAL_PRICE,
             payload: lodash.sum(b)
         })
-    }, [visible === true]);
+    }, [visible]);
 
     const showDrawer = () => {
         dispatch({

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Drawer, Row, Col, Empty } from 'antd';
 import logo from '../img/btn-Logo.png';
@@ -17,12 +17,12 @@ function JustOrdered(props) {
     return(
         <>
             <Row>
-                <Col className="drawerContent" span={10}>大嗑蔬菜蛋餅</Col>
+                <Col className="drawerContent" span={10}></Col>
                 <Col className="drawerContent" span={8}>{props.item}</Col>
                 <Col className="drawerContent" span={6}>{props.sum}</Col>
             </Row>
             <div className="drawerLineBox">
-            <img className="drawerLine" src={drawerLine} /> 
+            <img className="drawerLine" src={drawerLine} alt="" /> 
             </div>
         </>   
     );
@@ -39,16 +39,15 @@ export default function Header() {
                 payload: response.data
             })
         })
-        let a = [];
         let b = [];
-        a = cartsData ? cartsData.map(s => {
+        let a = cartsData ? cartsData.map(s => {
             b.push(s.Price);
         }) : ""
         dispatch({
             type: SET_TOTAL_PRICE,
             payload: lodash.sum(b)
         })
-    }, [visible === true]);
+    }, [visible]);
 
     const showDrawer = () => {
         dispatch({

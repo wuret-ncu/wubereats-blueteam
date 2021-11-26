@@ -47,4 +47,5 @@ export const getDrinksStores = data => instance.get('/stores/Drinks', data);
 export const postStore = data => instance.post('/stores', data);
 export const postCart = data => instance.post('/carts', data);
 export const getCarts = data => instance.get('/carts', data);
+export const postMenu = data => instance.post('/images', data);
  

@@ -1,8 +1,10 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Row, Col, Form, Button, Input } from 'antd';
+import { Row, Col, Form, Button, Input, Upload, message } from 'antd';
+import { InboxOutlined } from '@ant-design/icons';
 import { Link, useHistory } from 'react-router-dom';
-import { postStore, getStores } from '../api';
+import { postStore, getStores, postMenu } from '../api';
+import storeDot from '../img/img-store-dot.png';
 
 export default function Add() {
     const [type, setType] = useState('Foods');
@@ -12,11 +14,13 @@ export default function Add() {
     const [menuURL, setMenuURL] = useState('');
     const [storeObj, setStoreObj] = useState(null);
     const [allStores, setAllStores] = useState([]);
+    const [menu, setMenu] = useState([]);
     const activeFoodsBtn = "activeFoodsBtn"
     const activeDrinksBtn = "activeDrinksBtn"
     const typeBtn = "typeBtn"
     const [form] = Form.useForm();
     const history = useHistory();
+    const Dragger = Upload.Dragger;
 
     useEffect(() => {
         getStores().then((response) => {
@@ -54,10 +58,41 @@ export default function Add() {
         setRestDay('');
         setMenuURL('');
     }, [storeObj])
-
+    const props = {
+        beforeUpload: file => {
+            if(file.type !== 'image/png') {
+                message.error(`${file.name} is not an image file`);
+            }
+            return true
+        },
+        onChange: info => {
+            console.log(info.fileList);
+        }
+    };
+    // const onChangeDragger = ({fileList}) => {
+    //     setMenu(fileList);
+    // }
+    // const onDropMenu = (e) => {
+    //     console.log('Dropped files', e.dataTransfer.menu);
+    // }
     return(
         <Row className="addBgc">
-            <Col span={12}></Col>
+            <Col span={12} className="uploadMenuBox">
+                <div className="listTitleAll"><img src={storeDot} className="storeDot" alt=""/><span className="uploadTitle">請在此處上傳菜單</span></div>
+                <Dragger {...props}
+                    className="dragger"
+                    // name='menu'
+                    // multiple={true}
+                    // accept='image/*'
+                    // fileList={menu}
+                    // beforeUpload={() => false}
+                    // onChange={onChangeDragger()}
+                >
+                    <p className="ant-upload-drag-icon">
+                        <InboxOutlined />
+                    </p>
+                </Dragger>
+            </Col>
             <Col span={12} className="addForm">
                 <div className="typeBtnBox">
                     <div 

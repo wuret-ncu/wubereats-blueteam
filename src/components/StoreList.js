@@ -26,6 +26,7 @@ function Cards(props) {
 export default function StoreList() {
     const [foodDatas, setFoodData] = useState(null);
     const [drinkDatas, setDrinkData] = useState(null);
+    const [search, setSearch] = useState(``);
 
     useEffect(() => {
         getFoodsStores().then((response) => {
@@ -36,6 +37,27 @@ export default function StoreList() {
         })
     }, [])
 
+    useEffect(() => {
+        if(search === ``) {
+            getFoodsStores().then((response) => {
+                setFoodData(response.data);
+            })
+            getDrinksStores().then((response) => {
+                setDrinkData(response.data);
+            })
+        }
+    }, [search])
+
+    const onClickSearch = () => {
+        if(foodDatas !== null){
+            const foodResult = foodDatas.filter(data => data.StoreName.includes(search));
+            setFoodData(foodResult);
+        }
+        if(drinkDatas !== null){
+            const drinkResult = drinkDatas.filter(data => data.StoreName.includes(search));
+            setDrinkData(drinkResult);
+        }
+    }
 
     return(
         <div className="storeBgc">
@@ -43,7 +65,22 @@ export default function StoreList() {
                 <Col span={12} className="storeSlogan">
                     Choose what you want to eat.
                 </Col>
-                <Col span={4} offset={8}>
+                <Col span={7} offset={1} className="storeSearchBgc">
+                    <input
+                        name='searchBar'
+                        type='text'
+                        onChange={e => setSearch(e.target.value)}
+                        placeholder='搜尋店家...'
+                        value={search}
+                        className="storeSearchInput"
+                    /> 
+                    <button
+                        onClick={onClickSearch}
+                    >
+                        Search
+                    </button>
+                </Col>
+                <Col span={4}>
                     <Link to="/addStore" className="addMenuBtn"><span className="addMenuPlus">+</span> Add menu</Link> 
                 </Col>
             </Row>
