@@ -4,7 +4,8 @@ import useReducerWithThunk from 'use-reducer-thunk';
 import { SET_VISIBLE,
          SET_TOTAL_PRICE,
          SET_CHECKING_VISIBLE,
-         GET_CARTS_DATA
+         GET_CARTS_DATA,
+         SET_SEARCH_VALUE
     } from '../utils/constants';
 
 export const StoreContext = createContext();
@@ -13,7 +14,8 @@ const initialState = {
     visible: false,
     total: 0,
     checkingVisible: false,
-    cartsData: null
+    cartsData: null,
+    search:``
 }
 
 function reducer(state, action) {
@@ -37,6 +39,11 @@ function reducer(state, action) {
             return{
                 ...state,
                 cartsData: action.payload
+            }
+        case SET_SEARCH_VALUE:
+            return{
+                ...state,
+                search: action.payload
             }
         default: 
             return state;

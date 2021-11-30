@@ -153,7 +153,6 @@
 .toLogin {
   content: url('https://raw.githubusercontent.com/wuret-ncu/wubereats-blueteam/huoh/src/img/btn-home-toLogin.png');
   background-size: contain;
-  margin-top: 5.5vh;
 }
 .toStores {
   content: url('https://raw.githubusercontent.com/wuret-ncu/wubereats-blueteam/huoh/src/img/btn-home-toStore.png');
@@ -169,6 +168,39 @@
 }
 .banner {
   height: 100vh;
+}
+.searchBtnEntry {
+  background-color: var(--hoverBlue);
+  color: white;
+  border: none;
+  width: 32%;
+  font-size: 1.3vw;
+  height: 5.8vh;
+  border-radius: 0.4vw;
+  cursor: pointer;
+}
+.entrySearchBgc {
+  border-radius: 0.6vw;
+  background-color: #EEEEEE;
+  box-shadow: 0 0.2vh 0.3vw 0.2vw rgba(114, 114, 114, 0.2);
+  display: flex;
+  align-items: center;
+  padding-left: 0.4vw;
+  padding-right: 0.4vw;
+  width: 60%;
+  height: 7.5vh;
+  align-self:flex-end;
+  margin-right: 7.5vw;
+  margin-top: 4.5vh;
+  margin-bottom: 1.5vh;
+}
+.entrySearchInput {
+  width: 68%;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  padding-left: 0.8vw;
+  font-size: 1.4vw;
 }
 /* footer~186 */
 .layout-footer-home {
@@ -300,9 +332,35 @@
   box-shadow: 0 0 0.3vw 0.1vw rgba(114, 114, 114, 0.2);
   display: flex;
   align-items: center;
+  padding-left: 0.4vw;
+  padding-right: 0.4vw;
 }
 .storeSearchInput {
-  width: 70%;
+  width: 60%;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  padding-left: 0.8vw;
+  font-size: 1.2vw;
+}
+.searchBtn {
+  background-color: var(--mainDarkGreen);
+  color: white;
+  border: none;
+  width: 30%;
+  font-size: 1.3vw;
+  height: 4.8vh;
+  border-radius: 0.4vw;
+  cursor: pointer;
+}
+.searchDelete {
+  width: 0.8vw;
+}
+.searchDeleteBox {
+  width: 10%;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
 }
 /* AddStore~446 */
 .addBgc {

@@ -1,10 +1,13 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Row, Col, Card, Empty } from 'antd';
 import { Link } from 'react-router-dom';
 import storeDot from '../img/img-store-dot.png';
 import line from '../img/img-store-line.png';
+import searchDelete from '../img/btn_cart_delete.png';
 import { getDrinksStores, getFoodsStores } from '../api/index';
+import { StoreContext } from '../store';
+import { SET_SEARCH_VALUE } from '../utils/constants';
 
 function Cards(props) {
     return(
@@ -24,16 +27,18 @@ function Cards(props) {
 }
 
 export default function StoreList() {
+    const { state: { search }, dispatch } = useContext(StoreContext);
     const [foodDatas, setFoodData] = useState(null);
     const [drinkDatas, setDrinkData] = useState(null);
-    const [search, setSearch] = useState(``);
-
+    
     useEffect(() => {
         getFoodsStores().then((response) => {
-            setFoodData(response.data);
+            const foodResult = response.data.filter(data => data.StoreName.includes(search));
+            setFoodData(foodResult);
         })
         getDrinksStores().then((response) => {
-            setDrinkData(response.data);
+            const drinkResult = response.data.filter(data => data.StoreName.includes(search));
+            setDrinkData(drinkResult);
         })
     }, [])
 
@@ -49,14 +54,20 @@ export default function StoreList() {
     }, [search])
 
     const onClickSearch = () => {
-        if(foodDatas !== null){
+        if(foodDatas !== null && search !== ``){
             const foodResult = foodDatas.filter(data => data.StoreName.includes(search));
             setFoodData(foodResult);
         }
-        if(drinkDatas !== null){
+        if(drinkDatas !== null && search !== ``){
             const drinkResult = drinkDatas.filter(data => data.StoreName.includes(search));
             setDrinkData(drinkResult);
         }
+    }
+    const onClickSearchDeleteBtn = () => {
+        dispatch({
+            type: SET_SEARCH_VALUE,
+            payload: ``
+        })
     }
 
     return(
@@ -69,12 +80,26 @@ export default function StoreList() {
                     <input
                         name='searchBar'
                         type='text'
-                        onChange={e => setSearch(e.target.value)}
+                        onChange={e => {
+                            dispatch({
+                                type: SET_SEARCH_VALUE,
+                                payload: e.target.value
+                            })
+                        }}
                         placeholder='搜尋店家...'
                         value={search}
                         className="storeSearchInput"
+                        autoComplete='off'
                     /> 
+                    <div 
+                        className="searchDeleteBox"
+                        onClick={onClickSearchDeleteBtn}
+                    >
+                        <img src={searchDelete} className="searchDelete" />
+                    </div>
+                    
                     <button
+                        className="searchBtn"
                         onClick={onClickSearch}
                     >
                         Search
