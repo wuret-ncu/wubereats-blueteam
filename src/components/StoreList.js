@@ -1,17 +1,29 @@
 import React from 'react';
 import { useState, useEffect, useContext } from 'react';
-import { Row, Col, Card, Empty } from 'antd';
+import { Row, Col, Card, Empty, Popover, Divider } from 'antd';
 import { Link } from 'react-router-dom';
 import storeDot from '../img/img-store-dot.png';
 import line from '../img/img-store-line.png';
 import searchDelete from '../img/btn_cart_delete.png';
+import storeMore from '../img/btn-store-more.png';
 import { getDrinksStores, getFoodsStores } from '../api/index';
 import { StoreContext } from '../store';
-import { SET_SEARCH_VALUE } from '../utils/constants';
+import { SET_SEARCH_VALUE,
+         SET_ENTRY_SEARCH_BTN
+} from '../utils/constants';
 
 function Cards(props) {
+    const content=(
+        <div>
+            <Link to={`/edit/${props.id}`} className="popOverText">
+                Edit
+            </Link>
+            <Divider className="storeDivider" />
+            <div className="popOverText">Delete</div>
+        </div>
+    );
     return(
-        <Card size="small" key={props.id} title={props.name} className="card">
+        <Card size="small" key={props.id} title={props.name} extra={<Popover content={content} placement="bottomLeft" trigger="click" className="storeMoreBox"><img className="storeMore" src={storeMore} /></Popover>} className="card">
             <Row align="bottom">
                 <Col span={2}><img className="storeLine" src={line} alt="" /></Col>
                 <Col span={12} className="storeInformation">
@@ -27,19 +39,30 @@ function Cards(props) {
 }
 
 export default function StoreList() {
-    const { state: { search }, dispatch } = useContext(StoreContext);
+    const { state: { search, entrySearchBtn }, dispatch } = useContext(StoreContext);
     const [foodDatas, setFoodData] = useState(null);
     const [drinkDatas, setDrinkData] = useState(null);
     
     useEffect(() => {
-        getFoodsStores().then((response) => {
-            const foodResult = response.data.filter(data => data.StoreName.includes(search));
-            setFoodData(foodResult);
-        })
-        getDrinksStores().then((response) => {
-            const drinkResult = response.data.filter(data => data.StoreName.includes(search));
-            setDrinkData(drinkResult);
-        })
+        if(entrySearchBtn === null) {
+            dispatch({
+                type: SET_SEARCH_VALUE,
+                payload: ``
+            })
+        } else {
+            getFoodsStores().then((response) => {
+                const foodResult = response.data.filter(data => data.StoreName.includes(search));
+                setFoodData(foodResult);
+            })
+            getDrinksStores().then((response) => {
+                const drinkResult = response.data.filter(data => data.StoreName.includes(search));
+                setDrinkData(drinkResult);
+            })   
+            dispatch({
+                type: SET_ENTRY_SEARCH_BTN,
+                payload: null
+            })    
+        }  
     }, [])
 
     useEffect(() => {
@@ -54,14 +77,14 @@ export default function StoreList() {
     }, [search])
 
     const onClickSearch = () => {
-        if(foodDatas !== null && search !== ``){
-            const foodResult = foodDatas.filter(data => data.StoreName.includes(search));
+        getFoodsStores().then((response) => {
+            const foodResult = response.data.filter(data => data.StoreName.includes(search));
             setFoodData(foodResult);
-        }
-        if(drinkDatas !== null && search !== ``){
-            const drinkResult = drinkDatas.filter(data => data.StoreName.includes(search));
+        })
+        getDrinksStores().then((response) => {
+            const drinkResult = response.data.filter(data => data.StoreName.includes(search));
             setDrinkData(drinkResult);
-        }
+        })
     }
     const onClickSearchDeleteBtn = () => {
         dispatch({

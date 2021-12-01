@@ -134,13 +134,12 @@
   justify-content: end;
   margin-right: 1vw;
 }
-/* home~172 */
+/* home~203 */
 .entryLeft {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 26vh;
-  height: 95vh;
 }
 .homeTitle {
   width: 24vw;
@@ -174,7 +173,7 @@
   color: white;
   border: none;
   width: 32%;
-  font-size: 1.3vw;
+  font-size: 1.4vw;
   height: 5.8vh;
   border-radius: 0.4vw;
   cursor: pointer;
@@ -187,10 +186,10 @@
   align-items: center;
   padding-left: 0.4vw;
   padding-right: 0.4vw;
-  width: 60%;
+  width: 66%;
   height: 7.5vh;
   align-self:flex-end;
-  margin-right: 7.5vw;
+  margin-right: 5vw;
   margin-top: 4.5vh;
   margin-bottom: 1.5vh;
 }
@@ -202,7 +201,7 @@
   padding-left: 0.8vw;
   font-size: 1.4vw;
 }
-/* footer~186 */
+/* footer~217 */
 .layout-footer-home {
   background-color: var(--footerGreen);
   width: 100vw;
@@ -216,7 +215,7 @@
   font-weight: 400;
   font-size: 1.5vw;
 }
-/* StoreList~296 */
+/* StoreList~363 */
 .storeSlogan {
   color: var(--mainDarkGreen);
   font-weight: bold;
@@ -362,7 +361,41 @@
   justify-content: center;
   cursor: pointer;
 }
-/* AddStore~446 */
+.storeMore {
+  width: 1.5vw;
+  margin-top: -2vh;
+}
+.storeMoreBox {
+  cursor: pointer;
+}
+.popOverText {
+  color: #EEEEEE;
+  cursor: pointer;
+}
+.popOverText:hover {
+  color: #EEEEEE;
+}
+.ant-popover-placement-bottomLeft  .ant-popover-inner {
+  background-color: #505050;
+  border-radius: 1vw;
+  width: 8.5vw;
+  font-size: 1.3vw;
+  font-weight: 400;
+  letter-spacing: 0.1vw;
+}
+.ant-popover-placement-bottomLeft .ant-popover-inner-content {
+  background-color: #505050;
+  border-radius: 1vw;
+  padding: 1vh 1vw;
+}
+.ant-popover-placement-bottomLeft .ant-popover-arrow-content {
+  background-color: #505050;
+}
+.storeDivider {
+  border-color: #EEEEEE;
+  margin: 0.6vw 0;
+}
+/* AddStore~513 */
 .addBgc {
   background-color: var(--mainLightGreen);
   width: 100%;
@@ -512,7 +545,7 @@
 .uploadMenuBox .anticon svg {
   color: var(--mainDarkGreen);
 }
-/* Cart~612 */
+/* Cart~679 */
 .cartTitle {
   font-size: 2.6vw;
   color: var(--mainDarkGreen);
@@ -678,7 +711,7 @@
 .modal .ant-btn-primary {
   background-color: var(--hoverBlue);
 }
-/* Menu~708 */
+/* Menu~775 */
 .menuImg {
   background-color: var(--mainLightGreen);
   height: 74vh;

@@ -5,6 +5,7 @@ import Stores from './pages/Stores';
 import AddStore from './pages/AddStore';
 import Menu from './pages/Menu';
 import Cart from './pages/Cart';
+import Edit from './pages/Edit';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import { StoreProvider } from './store';
 
@@ -18,6 +19,7 @@ export default function App() {
         <Route exact path="/addStore" component={AddStore} />
         <Route exact path="/menu/:storeId" component={Menu} />
         <Route exact path="/cart" component={Cart} />
+        <Route exact path="/edit/:storeId" component={Edit} />
       </Switch>
     </BrowserRouter>
     </StoreProvider>

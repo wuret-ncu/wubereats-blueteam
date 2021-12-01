@@ -7,13 +7,19 @@ import banner from '../img/img-home-banner.png';
 import homeToLogin from '../img/btn-home-toLogin.png';
 import homeToStore from '../img/btn-home-toStore.png';
 import { StoreContext } from '../store';
-import { SET_SEARCH_VALUE } from '../utils/constants';
+import { SET_SEARCH_VALUE,
+         SET_ENTRY_SEARCH_BTN
+} from '../utils/constants';
 
 export default function Entry() {
     const { state: { search }, dispatch } = useContext(StoreContext);
     const history = useHistory();
 
     const onClickEntrySearch = () => {
+        dispatch({
+            type: SET_ENTRY_SEARCH_BTN,
+            payload: true
+        })
         if(search !== ``) {
             history.push('/Stores')  
         }
