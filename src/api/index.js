@@ -4,7 +4,8 @@ const instance = axios.create({
     baseURL:'http://localhost:8080/',
     headers:{
         'X-Powered-By':'Express',
-        'Content-Type':'application/json'
+        'Content-Type':'application/json',
+        'Access-Control-Allow-Origin': '*'
     },
     timeout:20000,
 })

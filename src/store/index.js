@@ -7,7 +7,8 @@ import { SET_VISIBLE,
          GET_CARTS_DATA,
          SET_SEARCH_VALUE,
          SET_ENTRY_SEARCH_BTN,
-         SET_EDIT_ITEM
+         SET_EDIT_ITEM,
+         SET_EDIT_ID
     } from '../utils/constants';
 
 export const StoreContext = createContext();
@@ -25,7 +26,8 @@ const initialState = {
         Phone: '',
         RestDate: [],
         MenuUrl: ''
-    }
+    },
+    editId: ''
 }
 
 function reducer(state, action) {
@@ -64,6 +66,11 @@ function reducer(state, action) {
             return{
                 ...state,
                 editItem: action.payload
+            }
+        case SET_EDIT_ID:
+            return{
+                ...state,
+                editId: action.payload
             }
         default: 
             return state;

@@ -5,3 +5,4 @@ export const GET_CARTS_DATA = 'GET_CARTS_DATA';
 export const SET_SEARCH_VALUE = 'SET_SEARCH_VALUE';
 export const SET_ENTRY_SEARCH_BTN = 'SET_ENTRY_SEARCH_BTN';
 export const SET_EDIT_ITEM = 'SET_EDIT_ITEM';
+export const SET_EDIT_ID = 'SET_EDIT_ID';

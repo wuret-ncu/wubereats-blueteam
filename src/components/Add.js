@@ -59,39 +59,37 @@ export default function Add() {
         setMenuURL('');
     }, [storeObj])
     const props = {
-        beforeUpload: file => {
-            if(file.type !== 'image/png') {
-                message.error(`${file.name} is not an image file`);
-            }
-            return true
-        },
-        onChange: info => {
-            console.log(info.fileList);
+        name: 'file',
+        beforeUpload: ()=>false,
+        onChange:({fileList}) => {
+            console.log('fileList', fileList);
+            setMenu(fileList);
         }
     };
-    // const onChangeDragger = ({fileList}) => {
-    //     setMenu(fileList);
-    // }
-    // const onDropMenu = (e) => {
-    //     console.log('Dropped files', e.dataTransfer.menu);
-    // }
+    const onClickUpload = (event) => {
+        console.log(menu[0].originFileObj)
+        event.preventDefault();
+        // let formData = new FormData();
+        // formData.append("file", menu[0].originFileObj);
+        postMenu(menu[0].originFileObj).then(res => {
+            console.log("res"+ res);
+        }).catch(
+            input => {console.log(input.res)}
+        )
+        console.log(menu[0].originFileObj);
+    }
     return(
         <Row className="addBgc">
             <Col span={12} className="uploadMenuBox">
                 <div className="listTitleAll"><img src={storeDot} className="storeDot" alt=""/><span className="uploadTitle">請在此處上傳菜單</span></div>
                 <Dragger {...props}
                     className="dragger"
-                    // name='menu'
-                    // multiple={true}
-                    // accept='image/*'
-                    // fileList={menu}
-                    // beforeUpload={() => false}
-                    // onChange={onChangeDragger()}
                 >
                     <p className="ant-upload-drag-icon">
                         <InboxOutlined />
                     </p>
-                </Dragger>
+                </Dragger>                                    
+                <Button style={{marginTop:'10vh'}} onClick={onClickUpload}>a</Button>
             </Col>
             <Col span={12} className="addForm">
                 <div className="typeBtnBox">

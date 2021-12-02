@@ -516,6 +516,13 @@
   border-style: none;
   outline: none;
   font-size: 1.3vw;
+  color: var(--wordDarkGreen);
+}
+.ant-input[disabled] {
+  background-color: transparent;
+  border-style: none;
+  outline: none;
+  color: var(--wordDarkGreen);
 }
 .ant-input:focus {
   box-shadow: none;

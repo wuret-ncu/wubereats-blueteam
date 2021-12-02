@@ -9,13 +9,32 @@ import storeMore from '../img/btn-store-more.png';
 import { getDrinksStores, getFoodsStores } from '../api/index';
 import { StoreContext } from '../store';
 import { SET_SEARCH_VALUE,
-         SET_ENTRY_SEARCH_BTN
+         SET_ENTRY_SEARCH_BTN,
+         SET_EDIT_ITEM,
+         SET_EDIT_ID
 } from '../utils/constants';
 
 function Cards(props) {
+    const { dispatch } = useContext(StoreContext);
+    const onClickEdit = () => {
+        dispatch({
+            type: SET_EDIT_ID,
+            payload: props.id
+        })
+        dispatch({
+            type: SET_EDIT_ITEM,
+            payload: {
+                StoreType: props.type,
+                StoreName: props.name,
+                Phone: props.phone,
+                RestDate: props.restDay,
+                MenuUrl: props.menuUrl
+            }
+        })
+    }
     const content=(
         <div>
-            <Link to={`/edit/${props.id}`} className="popOverText">
+            <Link to={`/edit/${props.id}`} className="popOverText" onClick={onClickEdit}>
                 Edit
             </Link>
             <Divider className="storeDivider" />
@@ -138,7 +157,7 @@ export default function StoreList() {
                     <div className="cardBox">
                         {
                             foodDatas ? foodDatas.map(store => 
-                            <Cards key={store._id} id={store._id} name={store.StoreName} phone={store.Phone} restDay={store.RestDate}/>)
+                            <Cards key={store._id} id={store._id} name={store.StoreName} phone={store.Phone} restDay={store.RestDate} type={store.StoreType} menuUrl={store.MenuUrl}/>)
                              : <Empty style={{marginTop:'10vh'}} />
                         }
                     </div>
@@ -148,7 +167,7 @@ export default function StoreList() {
                     <div className="cardBox">
                         {
                             drinkDatas ? drinkDatas.map(store => 
-                            <Cards key={store._id} id={store._id} name={store.StoreName} phone={store.Phone} restDay={store.RestDate}/>)
+                            <Cards key={store._id} id={store._id} name={store.StoreName} phone={store.Phone} restDay={store.RestDate} type={store.StoreType} menuUrl={store.MenuUrl}/>)
                              : <Empty style={{marginTop:'10vh'}} />
                         }
                     </div>

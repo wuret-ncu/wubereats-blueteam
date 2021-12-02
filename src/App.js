@@ -6,7 +6,8 @@ import AddStore from './pages/AddStore';
 import Menu from './pages/Menu';
 import Cart from './pages/Cart';
 import Edit from './pages/Edit';
-import { Switch, Route, BrowserRouter } from 'react-router-dom';
+import EditDetail from './components/EditDetail';
+import { Switch, Route, BrowserRouter, useParams } from 'react-router-dom';
 import { StoreProvider } from './store';
 
 export default function App() {
@@ -19,10 +20,16 @@ export default function App() {
         <Route exact path="/addStore" component={AddStore} />
         <Route exact path="/menu/:storeId" component={Menu} />
         <Route exact path="/cart" component={Cart} />
-        <Route exact path="/edit/:storeId" component={Edit} />
+        <Route exact path="/edit/:storeId" component={Edit} children={<Child />} />
       </Switch>
     </BrowserRouter>
     </StoreProvider>
     
   );
+  function Child() {
+    let{ storeId } = useParams();
+    return (
+      <Edit storeId={storeId} />
+    );
+  }
 }
