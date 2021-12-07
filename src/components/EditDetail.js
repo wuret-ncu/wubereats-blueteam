@@ -1,24 +1,22 @@
 import React from 'react';
 import { useState, useEffect, useContext } from 'react';
-import { Row, Col, Form, Button, Input, Upload, message } from 'antd';
+import { Row, Col, Form, Button, Input, Upload, message, Spin } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
 import { Link, useHistory } from 'react-router-dom';
-import { postStore, getStores, postMenu } from '../api';
 import storeDot from '../img/img-store-dot.png';
 import { StoreContext } from '../store';
-import { SET_EDIT_ITEM } from '../utils/constants';
+import axios from 'axios';
 
 
 export default function EditDetail(appProps) {
-    const { state: { editItem: { StoreType, StoreName, Phone, RestDate, MenuUrl } } , dispatch } = useContext(StoreContext);
-    const [type, setType] = useState('Foods');
+    const [type, setType] = useState('');
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
     const [restDay, setRestDay] = useState('');
     const [menuURL, setMenuURL] = useState('');
     const [storeObj, setStoreObj] = useState(null);
-    const [allStores, setAllStores] = useState([]);
     const [menu, setMenu] = useState([]);
+    const [loading, setLoading] = useState(true);
     const activeFoodsBtn = "activeFoodsBtn"
     const activeDrinksBtn = "activeDrinksBtn"
     const typeBtn = "typeBtn"
@@ -27,27 +25,41 @@ export default function EditDetail(appProps) {
     const Dragger = Upload.Dragger;
 
     useEffect(() => {
-        getStores().then((response) => {
-            setAllStores(response.data);
-        })
+        console.log(appProps.storeId);
+        (async  () => {
+            axios.get(`http://localhost:8080/store/${appProps.storeId}`).then(
+            function(response) {
+                console.log(response.data);
+                setName(response.data.StoreName)
+                setType(response.data.StoreType[0][0])
+                setPhone(response.data.Phone)
+                setRestDay(response.data.RestDate)
+                setMenuURL(response.data.MenuUrl)
+                setLoading(false);
+            }).catch((error) => {
+                console.log(error);
+            });
+        })();
     }, [])
+    
     useEffect(() => {
-        setStoreObj(allStores.filter((item) => item._id === appProps.storeId));
-    }, [allStores])
-    useEffect(() => {
-        storeObj ? storeObj.map(s => {
-            s.StoreType.map(t => setType(t))
-        }): console.log('non');
+        if(storeObj !== null) {
+            axios.post(`http://localhost:8080/store/${appProps.storeId}`, storeObj).then((res) => {
+                console.log(res.data);
+                history.push('/stores');
+            }).catch((err) => {
+                console.log(err)
+            })
+        }
     }, [storeObj])
-    console.log(type);
+
     const onClickConfirm = () => {
-        // setStoreObj({
-        //     StoreType: type,
-        //     StoreName: StoreName,
-        //     Phone: phone,
-        //     RestDate: restDay,
-        //     MuneUrl: menuURL
-        // })
+        setStoreObj({
+            StoreType: type,
+            Phone: phone,
+            RestDate: restDay,
+            MuneUrl: menuURL
+        })
         console.log('onClickConfirm');
     }
 
@@ -75,37 +87,26 @@ export default function EditDetail(appProps) {
                 </Dragger>
             </Col>
             <Col span={12} className="addForm">
+            {loading ? <Spin style={{display:"flex", justifyContent:"center", marginTop:"25vh"}} size="large" /> :
+            <>
                 <div className="typeBtnBox">
                     <div 
-                        className={`${StoreType === 'Foods' ? activeFoodsBtn : typeBtn}`}
-                        onClick={()=>{
-                            dispatch({
-                                type: SET_EDIT_ITEM,
-                                payload: {
-                                    StoreType: 'Foods'
-                                }
-                            })
-                        }}
+                        className={`${type === 'Foods' ? activeFoodsBtn : typeBtn}`}
+                        onClick={()=>setType('Foods')}
                     >
                         Foods
                     </div>
                     <div 
-                        className={`${StoreType === 'Drinks' ? activeDrinksBtn : typeBtn}`}
-                        onClick={()=>{
-                            dispatch({
-                                type: SET_EDIT_ITEM,
-                                payload: {
-                                    StoreType: 'Drinks'
-                                }
-                            })
-                        }}
+                        className={`${type === 'Drinks' ? activeDrinksBtn : typeBtn}`}
+                        onClick={()=>setType('Drinks')}
                     >
                         Drinks
                     </div>
                 </div>
                 <Form
                     form={form} 
-                    name="addStore"  
+                    name="addStore"
+                    initialValues={{storeName:name, storePhone:phone, storeRestDay:restDay, storeMenuURL:menuURL}}
                 >
                     <Row className="formItem">
                         <Col span={6} className="formItemTitle">
@@ -114,20 +115,11 @@ export default function EditDetail(appProps) {
                         <Col span={15}>
                             <Form.Item
                                 name="storeName"
-                                rules={[
-                                    {
-                                        required:true,
-                                        message:'Please input the store name'
-                                    }
-                                ]}
                             >
                                 <Input
-                                    value={StoreName}
-                                    defaultValue={StoreName}
+                                    value={name}
                                     className="addInputs"
                                     disabled={true}
-                                    // autoComplete="off"
-                                    // onChange={(e) => setName(e.target.value)}
                                 />
                             </Form.Item>
                         </Col>
@@ -141,17 +133,10 @@ export default function EditDetail(appProps) {
                                 name="storePhone"
                             >
                                 <Input 
-                                    defaultValue={Phone}
+                                    value={phone}
                                     className="addInputs" 
                                     autoComplete="off"
-                                    onChange={(e) => {
-                                        dispatch({
-                                            type: SET_EDIT_ITEM,
-                                            payload: {
-                                                Phone: e.target.value
-                                            }
-                                        })
-                                    }}
+                                    onChange={(e) => setPhone(e.target.value)}
                                 />
                             </Form.Item>
                         </Col>
@@ -164,18 +149,11 @@ export default function EditDetail(appProps) {
                             <Form.Item
                                 name="storeRestDay"
                             >
-                                <Input 
-                                    defaultValue={RestDate}
+                                <Input
+                                    value={restDay}
                                     className="addInputs" 
                                     autoComplete="off"
-                                    onChange={(e) => {
-                                        dispatch({
-                                            type: SET_EDIT_ITEM,
-                                            payload: {
-                                                RestDate: e.target.value
-                                            }
-                                        })
-                                    }}
+                                    onChange={(e) => setRestDay(e.target.value)}
                                 />
                             </Form.Item>
                         </Col>
@@ -189,17 +167,10 @@ export default function EditDetail(appProps) {
                                 name="storeMenuURL"
                             >
                                 <Input
-                                    defaultValue={MenuUrl}
+                                    value={menuURL}
                                     className="addInputs" 
                                     autoComplete="off"
-                                    onChange={(e) => {
-                                        dispatch({
-                                            type: SET_EDIT_ITEM,
-                                            payload: {
-                                                MenuUrl: e.target.value
-                                            }
-                                        })
-                                    }}
+                                    onChange={(e) => setMenuURL(e.target.value)}
                                 />
                             </Form.Item>
                         </Col>
@@ -224,6 +195,7 @@ export default function EditDetail(appProps) {
                         </Col>
                     </Row>
                 </Form>
+            </>}
             </Col>
         </Row>
     );

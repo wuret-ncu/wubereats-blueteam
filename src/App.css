@@ -434,13 +434,13 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  margin-right: 2.8vw;
 }
 .typeBtn:hover {
   background-color: var(--mainMediumGreen);
   color: var(--butterWhite);
 }
 .activeDrinksBtn {
-  margin-left: 2.8vw;
   height: 7.4vh;
   width: 12.2vw;
   border-style: solid;

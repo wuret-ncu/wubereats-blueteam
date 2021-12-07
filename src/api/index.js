@@ -5,7 +5,7 @@ const instance = axios.create({
     headers:{
         'X-Powered-By':'Express',
         'Content-Type':'application/json',
-        'Access-Control-Allow-Origin': '*'
+        'Access-Control-Allow-Origin':'*'
     },
     timeout:20000,
 })
@@ -49,4 +49,5 @@ export const postStore = data => instance.post('/stores', data);
 export const postCart = data => instance.post('/carts', data);
 export const getCarts = data => instance.get('/carts', data);
 export const postMenu = data => instance.post('/images', data);
+// export const getAStore = data => instance.get('/stores', data); 
  

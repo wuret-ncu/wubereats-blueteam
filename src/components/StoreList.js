@@ -9,32 +9,13 @@ import storeMore from '../img/btn-store-more.png';
 import { getDrinksStores, getFoodsStores } from '../api/index';
 import { StoreContext } from '../store';
 import { SET_SEARCH_VALUE,
-         SET_ENTRY_SEARCH_BTN,
-         SET_EDIT_ITEM,
-         SET_EDIT_ID
+         SET_ENTRY_SEARCH_BTN
 } from '../utils/constants';
 
 function Cards(props) {
-    const { dispatch } = useContext(StoreContext);
-    const onClickEdit = () => {
-        dispatch({
-            type: SET_EDIT_ID,
-            payload: props.id
-        })
-        dispatch({
-            type: SET_EDIT_ITEM,
-            payload: {
-                StoreType: props.type,
-                StoreName: props.name,
-                Phone: props.phone,
-                RestDate: props.restDay,
-                MenuUrl: props.menuUrl
-            }
-        })
-    }
     const content=(
         <div>
-            <Link to={`/edit/${props.id}`} className="popOverText" onClick={onClickEdit}>
+            <Link to={`/edit/${props.id}`} className="popOverText">
                 Edit
             </Link>
             <Divider className="storeDivider" />
@@ -42,7 +23,7 @@ function Cards(props) {
         </div>
     );
     return(
-        <Card size="small" key={props.id} title={props.name} extra={<Popover content={content} placement="bottomLeft" trigger="click" className="storeMoreBox"><img className="storeMore" src={storeMore} /></Popover>} className="card">
+        <Card size="small" key={props.id} title={props.name} extra={<Popover content={content} placement="bottomLeft" trigger="click" className="storeMoreBox"><img className="storeMore" src={storeMore} alt="" /></Popover>} className="card">
             <Row align="bottom">
                 <Col span={2}><img className="storeLine" src={line} alt="" /></Col>
                 <Col span={12} className="storeInformation">
@@ -137,7 +118,7 @@ export default function StoreList() {
                         className="searchDeleteBox"
                         onClick={onClickSearchDeleteBtn}
                     >
-                        <img src={searchDelete} className="searchDelete" />
+                        <img src={searchDelete} className="searchDelete" alt="" />
                     </div>
                     
                     <button

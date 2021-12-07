@@ -6,9 +6,7 @@ import { SET_VISIBLE,
          SET_CHECKING_VISIBLE,
          GET_CARTS_DATA,
          SET_SEARCH_VALUE,
-         SET_ENTRY_SEARCH_BTN,
-         SET_EDIT_ITEM,
-         SET_EDIT_ID
+         SET_ENTRY_SEARCH_BTN
     } from '../utils/constants';
 
 export const StoreContext = createContext();
@@ -19,15 +17,7 @@ const initialState = {
     checkingVisible: false,
     cartsData: null,
     search:``,
-    entrySearchBtn: null,
-    editItem: {
-        StoreType: [],
-        StoreName: '',
-        Phone: '',
-        RestDate: [],
-        MenuUrl: ''
-    },
-    editId: ''
+    entrySearchBtn: null
 }
 
 function reducer(state, action) {
@@ -61,16 +51,6 @@ function reducer(state, action) {
             return{
                 ...state,
                 entrySearchBtn: action.payload
-            }
-        case SET_EDIT_ITEM:
-            return{
-                ...state,
-                editItem: action.payload
-            }
-        case SET_EDIT_ID:
-            return{
-                ...state,
-                editId: action.payload
             }
         default: 
             return state;

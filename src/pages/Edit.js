@@ -6,7 +6,7 @@ import EditDetail from '../components/EditDetail';
 
 const {Header, Content, Footer } = Layout;
 
-export default function Edit() {
+export default function Edit(pageEditProps) {
     return(
         <Layout className="container main-layout">
             <Layout>
@@ -14,7 +14,7 @@ export default function Edit() {
                     <AllHeader />
                 </Header>
                 <Content>
-                    <EditDetail />
+                    <EditDetail storeId={pageEditProps.storeId}/>
                 </Content>
                 <Footer className="layout-footer-home">
                     <AllFooter />

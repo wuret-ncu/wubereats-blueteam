@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Row, Col, Form, Button, Input, Upload, message } from 'antd';
+import { Row, Col, Form, Button, Input, Upload } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
 import { Link, useHistory } from 'react-router-dom';
 import { postStore, getStores, postMenu } from '../api';
@@ -45,7 +45,7 @@ export default function Add() {
             if(num === -1 && storeObj !== null) {
                 postStore(storeObj).then((response) => {
                     console.log(response);
-                    history.push('/Stores')
+                    history.push('/stores')
                 }).catch(
                     input => {console.log(input.response)}
                 )
