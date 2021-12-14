@@ -394,8 +394,11 @@
   border-color: #EEEEEE;
   margin: 0.6vw 0;
 }
-.storeConfirm .ant-popover-inner-content {
+.storeConfirm .ant-popover-inner-content, .storeConfirm .ant-popover-arrow-content {
   background-color: var(--infoBgBlack);
+}
+.storeConfirm .ant-popover-inner {
+  background-color: transparent;
 }
 .storeConfirm .ant-popover {
   width: 23vw;

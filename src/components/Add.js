@@ -40,7 +40,7 @@ export default function Add() {
     }
 
     useEffect(() => {
-        console.log(storeObj);
+        // console.log(storeObj);
         const num = allStores.findIndex(store => store.StoreName === storeObj.StoreName)
             if(num === -1 && storeObj !== null) {
                 postStore(storeObj).then((response) => {
@@ -59,25 +59,24 @@ export default function Add() {
         setMenuURL('');
     }, [storeObj])
     const props = {
-        name: 'file',
+        name: 'image',
         beforeUpload: ()=>false,
         onChange:({fileList}) => {
-            console.log('fileList', fileList);
-            setMenu(fileList[0]);
+            console.log(fileList[0]);
+            setMenu(fileList);
         }
     };
-    const onClickUpload = (event) => {
-        console.log(menu[0].originFileObj)
-        event.preventDefault();
+    const onClickUpload = async () => {
+        // console.log(menu[0].originFileObj)
+        // event.preventDefault();
         let formData = new FormData();
-        // for(var key in )
-        formData.append("file", menu);
-        postMenu(formData).then(res => {
-            console.log("res"+ res);
+        formData.append('image', menu[0]);
+        await postMenu(formData).then(res => {
+            console.log(res);
         }).catch(
             input => {console.log(input.res)}
         )
-        console.log(menu[0].originFileObj);
+        console.log(menu[0]);
     }
     return(
         <Row className="addBgc">
