@@ -378,7 +378,6 @@
 .ant-popover-placement-bottomLeft  .ant-popover-inner {
   background-color: #505050;
   border-radius: 1vw;
-  width: 8.5vw;
   font-size: 1.3vw;
   font-weight: 400;
   letter-spacing: 0.1vw;
@@ -394,6 +393,12 @@
 .storeDivider {
   border-color: #EEEEEE;
   margin: 0.6vw 0;
+}
+.storeConfirm .ant-popover-inner-content {
+  background-color: var(--infoBgBlack);
+}
+.storeConfirm .ant-popover {
+  width: 23vw;
 }
 /* AddStore~513 */
 .addBgc {

@@ -1,29 +1,59 @@
 import React from 'react';
 import { useState, useEffect, useContext } from 'react';
-import { Row, Col, Card, Empty, Popover, Divider } from 'antd';
+import { Row, Col, Card, Empty, Popover, Divider, Popconfirm } from 'antd';
 import { Link } from 'react-router-dom';
 import storeDot from '../img/img-store-dot.png';
 import line from '../img/img-store-line.png';
 import searchDelete from '../img/btn_cart_delete.png';
 import storeMore from '../img/btn-store-more.png';
-import { getDrinksStores, getFoodsStores } from '../api/index';
+import { getDrinksStores, getFoodsStores, deleteAStore } from '../api/index';
 import { StoreContext } from '../store';
 import { SET_SEARCH_VALUE,
-         SET_ENTRY_SEARCH_BTN
+         SET_ENTRY_SEARCH_BTN,
+         SET_DELETE_STORE
 } from '../utils/constants';
 
 function Cards(props) {
+    const { state: { deleteStore } , dispatch } = useContext(StoreContext);
     const content=(
-        <div>
+        <div className="storeCard">
             <Link to={`/edit/${props.id}`} className="popOverText">
                 Edit
             </Link>
             <Divider className="storeDivider" />
-            <div className="popOverText">Delete</div>
+            <Popconfirm
+                placement="bottomLeft"
+                title={"Are you sure to delete this store?"}
+                onConfirm={() => {
+                    deleteAStore(props.id).then((response) => {
+                        console.log(response);
+                        dispatch({
+                            type: SET_DELETE_STORE,
+                            payload: !deleteStore
+                        })
+                    }).catch(
+                        input => {console.log(input.response)}
+                    )
+                }}
+                okText="Yes"
+                cancelText="No"
+                overlayClassName="storeConfirm"
+            >
+                <div className="popOverText">Delete</div>
+            </Popconfirm>
         </div>
     );
     return(
-        <Card size="small" key={props.id} title={props.name} extra={<Popover content={content} placement="bottomLeft" trigger="click" className="storeMoreBox"><img className="storeMore" src={storeMore} alt="" /></Popover>} className="card">
+        <Card 
+            size="small" 
+            key={props.id} 
+            title={props.name} 
+            extra={
+            <Popover content={content} placement="bottomLeft" trigger="click" className="storeMoreBox" overlayStyle={{width: "8.5vw"}}>
+                <img className="storeMore" src={storeMore} alt="" />
+            </Popover>} 
+            className="card"
+        >
             <Row align="bottom">
                 <Col span={2}><img className="storeLine" src={line} alt="" /></Col>
                 <Col span={12} className="storeInformation">
@@ -39,10 +69,21 @@ function Cards(props) {
 }
 
 export default function StoreList() {
-    const { state: { search, entrySearchBtn }, dispatch } = useContext(StoreContext);
+    const { state: { search, entrySearchBtn, deleteStore }, dispatch } = useContext(StoreContext);
     const [foodDatas, setFoodData] = useState(null);
     const [drinkDatas, setDrinkData] = useState(null);
     
+    useEffect(() => {
+        getFoodsStores().then((response) => {
+            const foodResult = response.data.filter(data => data.StoreName.includes(search));
+            setFoodData(foodResult);
+        })
+        getDrinksStores().then((response) => {
+            const drinkResult = response.data.filter(data => data.StoreName.includes(search));
+            setDrinkData(drinkResult);
+        })   
+    }, [deleteStore])
+
     useEffect(() => {
         if(entrySearchBtn === null) {
             dispatch({

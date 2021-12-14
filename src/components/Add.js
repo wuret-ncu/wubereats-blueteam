@@ -14,7 +14,7 @@ export default function Add() {
     const [menuURL, setMenuURL] = useState('');
     const [storeObj, setStoreObj] = useState(null);
     const [allStores, setAllStores] = useState([]);
-    const [menu, setMenu] = useState([]);
+    const [menu, setMenu] = useState(null);
     const activeFoodsBtn = "activeFoodsBtn"
     const activeDrinksBtn = "activeDrinksBtn"
     const typeBtn = "typeBtn"
@@ -63,15 +63,16 @@ export default function Add() {
         beforeUpload: ()=>false,
         onChange:({fileList}) => {
             console.log('fileList', fileList);
-            setMenu(fileList);
+            setMenu(fileList[0]);
         }
     };
     const onClickUpload = (event) => {
         console.log(menu[0].originFileObj)
         event.preventDefault();
-        // let formData = new FormData();
-        // formData.append("file", menu[0].originFileObj);
-        postMenu(menu[0].originFileObj).then(res => {
+        let formData = new FormData();
+        // for(var key in )
+        formData.append("file", menu);
+        postMenu(formData).then(res => {
             console.log("res"+ res);
         }).catch(
             input => {console.log(input.res)}

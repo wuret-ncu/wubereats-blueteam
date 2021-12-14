@@ -4,9 +4,8 @@ import { Row, Col, Form, Button, Input, Upload, message, Spin } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
 import { Link, useHistory } from 'react-router-dom';
 import storeDot from '../img/img-store-dot.png';
-import { StoreContext } from '../store';
 import axios from 'axios';
-
+import { getAStore, postEditedStore } from '../api';
 
 export default function EditDetail(appProps) {
     const [type, setType] = useState('');
@@ -27,7 +26,7 @@ export default function EditDetail(appProps) {
     useEffect(() => {
         console.log(appProps.storeId);
         (async  () => {
-            axios.get(`http://localhost:8080/store/${appProps.storeId}`).then(
+            getAStore(appProps.storeId).then(
             function(response) {
                 console.log(response.data);
                 setName(response.data.StoreName)
@@ -44,7 +43,7 @@ export default function EditDetail(appProps) {
     
     useEffect(() => {
         if(storeObj !== null) {
-            axios.post(`http://localhost:8080/store/${appProps.storeId}`, storeObj).then((res) => {
+            postEditedStore(storeObj, appProps.storeId).then((res) => {
                 console.log(res.data);
                 history.push('/stores');
             }).catch((err) => {
