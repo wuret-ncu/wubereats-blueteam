@@ -24,15 +24,17 @@ export default function MenuDetail() {
     }
 
     useEffect(() => {
-        postCart(addToCart).then((response) => {
+        if(addToCart !== null) {
+           postCart(addToCart).then((response) => {
             console.log(response);
             dispatch({
                 type: SET_VISIBLE,
                 payload: true
             })
-        }).catch(
-            input => {console.log(input.response)}
-        )
+            }).catch(
+                input => {console.log(input.response)}
+            ) 
+        }
     }, [addToCart])
 
     return(

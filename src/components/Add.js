@@ -28,7 +28,17 @@ export default function Add() {
         })
     }, [])
 
-    const onClickCreate = async (e) => {
+    const onClickCreate = async () => {
+        let formData = new FormData();
+        for(let i = 0; i < menu.length; i++) {
+            formData.append('image', menu[i].originFileObj);
+        }
+        await postMenu(formData).then(res => {
+            console.log(res);
+        }).catch(
+            input => {console.log(input.res)}
+        )
+        console.log(menu[0].originFileObj);
         setStoreObj({
             StoreType: type,
             StoreName: name,
@@ -62,22 +72,20 @@ export default function Add() {
         name: 'image',
         beforeUpload: ()=>false,
         onChange:({fileList}) => {
-            console.log(fileList[0]);
+            // console.log(fileList.length);
             setMenu(fileList);
         }
     };
-    const onClickUpload = async () => {
-        // console.log(menu[0].originFileObj)
-        // event.preventDefault();
-        let formData = new FormData();
-        formData.append('image', menu[0]);
-        await postMenu(formData).then(res => {
-            console.log(res);
-        }).catch(
-            input => {console.log(input.res)}
-        )
-        console.log(menu[0]);
-    }
+    // const onClickUpload = async () => {
+    //     let formData = new FormData();
+    //     formData.append('image', menu[0].originFileObj);
+    //     await postMenu(formData).then(res => {
+    //         console.log(res);
+    //     }).catch(
+    //         input => {console.log(input.res)}
+    //     )
+    //     console.log(menu[0].originFileObj);
+    // }
     return(
         <Row className="addBgc">
             <Col span={12} className="uploadMenuBox">
@@ -89,7 +97,7 @@ export default function Add() {
                         <InboxOutlined />
                     </p>
                 </Dragger>                                    
-                <Button style={{marginTop:'10vh'}} onClick={onClickUpload}>a</Button>
+                {/* <Button style={{marginTop:'10vh'}} onClick={onClickUpload}>a</Button> */}
             </Col>
             <Col span={12} className="addForm">
                 <div className="typeBtnBox">

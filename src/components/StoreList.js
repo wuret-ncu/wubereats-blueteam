@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect, useContext } from 'react';
-import { Row, Col, Card, Empty, Popover, Divider, Popconfirm } from 'antd';
+import { Row, Col, Card, Empty, Popover, Divider, Popconfirm, message } from 'antd';
 import { Link } from 'react-router-dom';
 import storeDot from '../img/img-store-dot.png';
 import line from '../img/img-store-line.png';
@@ -31,6 +31,7 @@ function Cards(props) {
                             type: SET_DELETE_STORE,
                             payload: !deleteStore
                         })
+                        message.success("Successfully deleted !")
                     }).catch(
                         input => {console.log(input.response)}
                     )
