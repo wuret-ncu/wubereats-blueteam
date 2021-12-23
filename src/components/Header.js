@@ -99,8 +99,8 @@ export default function Header() {
                 visible={menuVisible}
                 className="menuDrawer"
             >
-                <div className="drawerItem drawerItem1"><span><img className="drawerIcon1" src={drawerHome} alt="" /></span>Home</div>
-                <div className="drawerItem drawerItem2"><span><img className="drawerIcon2" src={drawerStore} alt="" /></span>Stores</div>
+                <Link to="/" className="drawerItem drawerItem1"><span><img className="drawerIcon1" src={drawerHome} alt="" /></span>Home</Link>
+                <Link to="/stores" className="drawerItem drawerItem2"><span><img className="drawerIcon2" src={drawerStore} alt="" /></span>Stores</Link>
                 <Divider className="drawerDivider"/>
                 <div className="drawerItem drawerItem3"><span><img className="drawerIcon3" src={drawerLogin} alt="" /></span>Login</div>
             </Drawer>

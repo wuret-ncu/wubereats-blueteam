@@ -210,16 +210,30 @@
   border-top: 0.1vw solid white;
 }
 .drawerItem1 {
-  margin-top: 10vh;
+  margin-top: 12vh;
+  background-image: url(https://raw.githubusercontent.com/wuret-ncu/wubereats-blueteam/huoh/src/img/img-menu-bg.png);
+  background-repeat: no-repeat;
+  height: 6vh;
+  display: flex;
+  align-items: center;
+  background-size: 86%;
+  margin-bottom: 3vh;
+  color: black;
 }
 .drawerItem2, .drawerItem3 {
  color: white;
+ margin-top: 3vh;
 }
-
+.drawerItem2:focus, .drawerItem3:focus {
+  color: white;
+ }
 .drawerItem {
-  margin-bottom: 5vh;
   font-size: 5vw;
   letter-spacing: 0.1vw;
+  text-decoration: none;
+}
+.drawerItem1:focus {
+  color: black;
 }
 /* home~316 */
 .entryLeft {
