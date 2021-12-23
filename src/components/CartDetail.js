@@ -64,7 +64,14 @@ export default function CartDetail() {
     const { sm } = useBreakpoint();
     const cartMarkPaying = sm ? "cartMarkPaying" : "cartMarkPayingMobile";
     const cartFinishMarking = sm ? "cartFinishMarking" : "cartFinishMarkingMobile";
-    const [checkingBtn, setCheckingBtn] = useState(<div className={cartMarkPaying}>登記付款</div>);
+    const cartTitle = sm ? "cartTitle" : "cartTitleMobile";
+    const cartStoreName = sm ? "cartStoreName" : "cartStoreNameMobile";
+    const cartPhone = sm ? "cartPhone" : "cartPhoneMobile";
+    const cartStoreMoney = sm ? "cartStoreName" : "cartStoreMoneyMobile";
+    const cartFinish = sm ? "cartFinish" : "cartFinishMobile";
+    const cartBtnsBox = sm ? "cartBtnsBox" : "cartBtnsBoxMobile";
+    const modal = sm ? "modal" : "modalMobile";
+    const [checkingBtn, setCheckingBtn] = useState("登記付款");
 
     useEffect(() => {
         getCarts().then((response) => {
@@ -100,9 +107,9 @@ export default function CartDetail() {
             payload: !checkingVisible
         })
         if (checkingVisible === true){
-            setCheckingBtn(<div className={cartMarkPaying}>登記付款</div>)
+            setCheckingBtn("登記付款")
         } else {
-            setCheckingBtn(<div className={cartFinishMarking}>完成登記</div>)
+            setCheckingBtn("完成登記")
         }
     }
 
@@ -126,13 +133,7 @@ export default function CartDetail() {
         }, 10)
         console.log('Clicked cancel button');
     }
-    const cartTitle = sm ? "cartTitle" : "cartTitleMobile";
-    const cartStoreName = sm ? "cartStoreName" : "cartStoreNameMobile";
-    const cartPhone = sm ? "cartPhone" : "cartPhoneMobile";
-    const cartStoreMoney = sm ? "cartStoreName" : "cartStoreMoneyMobile";
-    const cartFinish = sm ? "cartFinish" : "cartFinishMobile";
-    const cartBtnsBox = sm ? "cartBtnsBox" : "cartBtnsBoxMobile";
-    const modal = sm ? "modal" : "modalMobile";
+
     return(
         <div className="cartBox">
             <div className={cartTitle}>Shopping Cart</div>
@@ -156,7 +157,7 @@ export default function CartDetail() {
                 : <Empty style={{marginTop: "10vh"}} />
             }
             <Row className={cartBtnsBox}>
-                <Col className="cartBtnBox" sm={{span:3, offset:18}} span={9} offset={6} onClick={onClickCheckingBtn}>{checkingBtn}</Col>
+                <Col className="cartBtnBox" sm={{span:3, offset:18}} span={9} offset={6} onClick={onClickCheckingBtn}><div className={cartMarkPaying}>{checkingBtn}</div></Col>
                 <Col className="cartBtnBox" sm={{span:3}} span={9} onClick={showModal}>
                     <div className={cartFinish}>完成訂單</div>
                     <Modal

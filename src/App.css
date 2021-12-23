@@ -1069,36 +1069,6 @@
   width: 90%;
   cursor: pointer;
 }
-.cartFinishMarking {
-  border: 0.2vw solid var(--mainDarkGreen);
-  background-color: var(--mainMediumGreen);
-  color: white;
-  font-size: 1.4vw;
-  font-weight: 500;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 0.5vw;
-  letter-spacing: 0.1vw;
-  height: 5.5vh;
-  width: 80%;
-  cursor: pointer;
-}
-.cartFinishMarkingMobile {
-  border: 0.55vw solid var(--mainDarkGreen);
-  background-color: var(--mainMediumGreen);
-  color: white;
-  font-size: 3.8vw;
-  font-weight: 500;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 2vw;
-  letter-spacing: 0.3vw;
-  height: 4.8vh;
-  width: 90%;
-  cursor: pointer;
-}
 .cartMarkPaying:hover, .cartFinish:hover, .cartMarkPayingMobile:hover {
   background-color: var(--mainMediumGreen);
   color: white;
