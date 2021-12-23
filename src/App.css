@@ -14,6 +14,7 @@
   --yesRed: #F75600;
   --noYellow: #EBC649;
 }
+/* general~31 */
 .container {
   width: 100%;
   display: flex;
@@ -28,7 +29,7 @@
 .ant-layout-content {
   background-color: var(--butterWhite);
 }
-/* homeheader~136 */
+/* homeheader~196 */
 .ant-layout-header {
   display: flex;
   background-color: transparent;
@@ -48,6 +49,7 @@
 .homeHeaderName {
   font-size: 1.8vw;
   color: var(--wordWhite);
+  margin-left: 4vw;
 }
 .homeHeaderName:hover {
   color: var(--wordWhite);
@@ -55,22 +57,34 @@
 .headerName {
   font-size: 1.8vw;
   color: var(--mainDarkGreen);
+  margin-left: 4vw;
 }
 .headerName:hover {
   color: var(--mainDarkGreen);
 }
 .homeMember {
   width: 2vw;
+  margin-left: 4vw;
+  padding-bottom: 10px;
 }
-.mgl-4 {
+/* .mgl-4 {
   margin-left: 4vw;
 }
 .pdb-10 {
   padding-bottom: 10px;
-}
+} */
 .homeBag {
   width: 2vw;
   cursor: pointer;
+  margin-left: 4vw;
+  padding-bottom: 10px;
+}
+.homeBagMobile {
+  width: 7vw;
+}
+.homeMemberMobile {
+  width: 6.8vw;
+  margin-left: 6vw;
 }
 .ant-drawer-body {
   background-color: var(--mainMediumGreen);
@@ -80,6 +94,19 @@
   color: white;
   font-size: 2vw;
   margin: 3vh 2vw;
+  font-weight: 500;
+}
+.drawerNameMobile {
+  color: white;
+  font-size: 5vw;
+  margin: 3vh 2vw;
+  font-weight: 500;
+}
+.drawerTitleMobile {
+  color: white;
+  font-size: 4vw;
+  display: flex;
+  justify-content: center;
   font-weight: 500;
 }
 .drawerTitle {
@@ -99,6 +126,16 @@
   margin-bottom: 2vw;
   letter-spacing: 0.1vw;
 }
+.drawerContentMobile {
+  color: white;
+  font-size: 3.5vw;
+  display: flex;
+  justify-content: center;
+  font-weight: 500;
+  margin-top: 5vw;
+  margin-bottom: 5vw;
+  letter-spacing: 0.1vw;
+}
 .drawerLine {
   width: 95%;
 }
@@ -112,6 +149,14 @@
   font-weight: 500;
   margin-top: 2vw;
   margin-bottom: 2vw;
+  letter-spacing: 0.1vw;
+}
+.drawerContentRightMobile {
+  color: white;
+  font-size: 3.5vw;
+  font-weight: 500;
+  margin-top: 5vw;
+  margin-bottom: 5vw;
   letter-spacing: 0.1vw;
 }
 .drawerBtnToCart {
@@ -129,20 +174,44 @@
   justify-content: center;
   align-items: center;
 }
+.drawerBtnToCartMobile {
+  color: white;
+  border-color: white;
+  border-radius: 1.4vw;
+  border-width: 0.6vw;
+  border-style: solid;
+  width: 32vw;
+  font-size: 3.5vw;
+  font-weight: 500;
+  letter-spacing: 0.1vw;
+  height: 11vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .drawerBtnBox {
   display: flex;
   justify-content: end;
   margin-right: 1vw;
 }
-/* home~203 */
+/* home~316 */
 .entryLeft {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 26vh;
 }
+.entryLeftMobile {
+  display: flex;
+  flex-direction: column;
+  margin-top: 13.5vh;
+  padding: 0 5.5vw;
+}
 .homeTitle {
   width: 24vw;
+}
+.homeTitleMobile {
+  width: 70vw;
 }
 .entryLeftImg {
   width: 22vw;
@@ -168,6 +237,10 @@
 .banner {
   height: 100vh;
 }
+.bannerMobile {
+  width: 100%;
+  margin-top: 3.5vh;
+}
 .searchBtnEntry {
   background-color: var(--hoverBlue);
   color: white;
@@ -176,6 +249,16 @@
   font-size: 1.4vw;
   height: 5.8vh;
   border-radius: 0.4vw;
+  cursor: pointer;
+}
+.searchBtnEntryMobile {
+  background-color: var(--hoverBlue);
+  color: white;
+  border: none;
+  width: 30%;
+  font-size: 4.5vw;
+  height: 80%;
+  border-radius: 1.6vw;
   cursor: pointer;
 }
 .entrySearchBgc {
@@ -193,6 +276,17 @@
   margin-top: 4.5vh;
   margin-bottom: 1.5vh;
 }
+.entrySearchBgcMobile {
+  border-radius: 0.6vw;
+  background-color: #EEEEEE;
+  box-shadow: 0 0.2vh 0.3vw 0.2vw rgba(114, 114, 114, 0.2);
+  display: flex;
+  align-items: center;
+  padding-left: 0.4vw;
+  padding-right: 0.4vw;
+  height: 6vh;
+  margin-top: 2.5vh;
+}
 .entrySearchInput {
   width: 68%;
   background-color: transparent;
@@ -201,7 +295,26 @@
   padding-left: 0.8vw;
   font-size: 1.4vw;
 }
-/* footer~217 */
+.entrySearchInputMobile {
+  width: 68%;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  padding-left: 3%;
+  font-size: 4vw;
+}
+.homeToLoginMobile {
+  margin-top: -20vh;
+  align-self: center;
+}
+.homeToImgMobile {
+  width: 56vw;
+}
+.homeToStoreMobile {
+  margin-top: 2vh;
+  align-self: center;
+}
+/* footer~330 */
 .layout-footer-home {
   background-color: var(--footerGreen);
   width: 100vw;
@@ -215,15 +328,26 @@
   font-weight: 400;
   font-size: 1.5vw;
 }
-/* StoreList~363 */
+/* StoreList~644 */
 .storeSlogan {
   color: var(--mainDarkGreen);
   font-weight: bold;
   font-size: 2.2vw;
   font-family: Helvetica, Arial, sans-serif;
 }
+.storeSloganMobile {
+  color: var(--mainDarkGreen);
+  font-weight: 600;
+  font-size: 5.8vw;
+  font-family: Helvetica, Arial, sans-serif;
+  letter-spacing: 0.2vw;
+}
 .storeBgc {
   margin-top: 15vh;
+  padding: 0 7vw;
+}
+.storeBgcMobile {
+  margin-top: 14vh;
   padding: 0 7vw;
 }
 .addMenuBtn {
@@ -240,6 +364,11 @@
   align-items: center;
   margin-left: 2vw;
 }
+.addStoreMobile {
+  width: 10vw;
+  margin-left: 3vw;
+  margin-top: 1vh;
+}
 .addMenuPlus {
   font-size: 2vw;
   padding-right: 4px;
@@ -253,12 +382,22 @@
   margin-top: 6vh;
   margin-bottom: 5vh;
 }
+.listBgcMobile {
+  margin-bottom: 5vh;
+  margin-top: 1vh;
+}
 .listBox {
   height: 68.5vh;
   padding: 0 1vw;
 }
+.tabBox {
+  width: 100%;
+}
 .storeDot {
   width: 1.1vw;
+}
+.storeDotMobile {
+  width: 2.6vw;
 }
 .listTitle {
   color: var(--wordDarkGreen);
@@ -285,14 +424,38 @@
   margin-top: 2vh;
   border-color: transparent;
 }
+.cardMobile {
+  background-color: rgba(221, 222, 167, 0.5);
+  width: 95%;
+  height: 12vh;
+  border-radius: 2.5vw;
+  padding: 1vh 0.5vw;
+  margin-top: 2vh;
+  border-color: transparent;
+}
 .storeLine {
   height: 16.8vh;
   margin-top: -7vh;
   width: 0.6vh;
 }
+.storeLineMobile {
+  height: 9vh;
+  margin-top: -10.5vh;
+  width: 0.45vh;
+}
 .ant-card-head {
   margin-left: 2.55vw;
   border-bottom: none;
+}
+.cardBoxMobile .ant-card-head {
+  margin-left: 7vw;
+  border-bottom: none;
+}
+.cardBoxMobile .ant-card-head-title {
+  color: var(--wordDarkGreen);
+  font-size: 3.8vw;
+  font-weight: 400;
+  letter-spacing: 0.1vw;
 }
 .ant-card-head-title {
   color: var(--wordDarkGreen);
@@ -308,6 +471,27 @@
 .informationDetail {
   margin-bottom: 0.8vh;
 }
+.informationDetailMobile {
+  margin-top: -6.5vh;
+  margin-left: 0.8vw;
+}
+.informationDetailMobile2 {
+  margin-left: 0.8vw;
+}
+.listBgcMobile .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: var(--mainDarkGreen);
+  font-size: 6vw;
+}
+.listBgcMobile .ant-tabs-tab-btn {
+  color: var(--lightGreen);
+  font-size: 6vw;
+}
+.listBgcMobile .ant-tabs-ink-bar {
+  background: var(--mainDarkGreen);
+}
+.listBgcMobile .ant-tabs-top > .ant-tabs-nav, .ant-tabs-bottom > .ant-tabs-nav, .ant-tabs-top > div > .ant-tabs-nav, .ant-tabs-bottom > div > .ant-tabs-nav {
+  margin-bottom: 0;
+}
 .storeToMenu {
   display: flex;
   justify-content: center;
@@ -317,10 +501,24 @@
   margin-bottom: 0.5vh;
   border-radius: 0.2vw;
 }
+.storeToMenuMobile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 4.8vh;
+  text-decoration: underline;
+  margin-bottom: 0.5vh;
+  border-radius: 0.2vw;
+}
 .storeToMenuWord {
   color: var(--wordDarkGreen);
   font-size: 1.2vw;
   font-weight: 500;
+}
+.storeToMenuWordMobile {
+  color: var(--wordDarkGreen);
+  font-size: 1.2vw;
+  font-weight: 400;
 }
 .storeToMenuWord:hover {
   color: var(--wordDarkGreen);
@@ -334,6 +532,18 @@
   padding-left: 0.4vw;
   padding-right: 0.4vw;
 }
+.addStoreBoxMobile {
+  margin-top: 2vh;
+}
+.storeSearchBgcMobile {
+  margin-top: 2vh;
+  border-radius: 2.6vw;
+  background-color: #EEEEEE;
+  box-shadow: 0 0 0.4vw 0.1vw rgba(114, 114, 114, 0.2);
+  display: flex;
+  align-items: center;
+  padding-left: 0.4vw;
+}
 .storeSearchInput {
   width: 60%;
   background-color: transparent;
@@ -341,6 +551,15 @@
   outline: none;
   padding-left: 0.8vw;
   font-size: 1.2vw;
+}
+.storeSearchInputMobile {
+  width: 57%;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  padding-left: 3vw;
+  font-size: 4vw;
+  height: 6.5vh;
 }
 .searchBtn {
   background-color: var(--mainDarkGreen);
@@ -352,8 +571,22 @@
   border-radius: 0.4vw;
   cursor: pointer;
 }
-.searchDelete {
+.searchBtnMobile {
+  background-color: var(--mainDarkGreen);
+  color: white;
+  border: none;
+  width: 33%;
+  font-size: 4.2vw;
+  height: 4.8vh;
+  border-radius: 1.5vw;
+  cursor: pointer;
+  margin-right: 1.8vw;
+}
+.searchDeleteClass {
   width: 0.8vw;
+}
+.searchDeleteClassMobile {
+  width: 3vw;
 }
 .searchDeleteBox {
   width: 10%;
@@ -363,6 +596,10 @@
 }
 .storeMore {
   width: 1.5vw;
+  margin-top: -2vh;
+}
+.storeMoreMobile {
+  width: 3vw;
   margin-top: -2vh;
 }
 .storeMoreBox {
@@ -386,6 +623,7 @@
   background-color: #505050;
   border-radius: 1vw;
   padding: 1vh 1vw;
+  width: 13vw;
 }
 .ant-popover-placement-bottomLeft .ant-popover-arrow-content {
   background-color: #505050;
@@ -403,15 +641,26 @@
 .storeConfirm .ant-popover {
   width: 23vw;
 }
-/* AddStore~513 */
+
+/* AddStore~942 */
 .addBgc {
   background-color: var(--mainLightGreen);
   width: 100%;
   height: 100vh;
   padding-top: 22vh;
 }
+.addBgcMobile {
+  background-color: var(--mainLightGreen);
+  width: 100%;
+  height: 100vh;
+  padding-top: 18vh;
+}
 .typeBtnBox {
   display: flex;
+}
+.typeBtnBoxMobile {
+  display: flex;
+  justify-content: center;
 }
 .activeFoodsBtn {
   height: 7.4vh;
@@ -422,6 +671,22 @@
   background-color: var(--mainMediumGreen);
   color: var(--butterWhite);
   font-size: 2vw;
+  letter-spacing: 0.1vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-right: 2.8vw;
+}
+.activeFoodsBtnMobile {
+  height: 5.5vh;
+  width: 34vw;
+  border-style: solid;
+  border-radius: 3.6vh;
+  border-color: var(--butterWhite);
+  background-color: var(--mainMediumGreen);
+  color: var(--butterWhite);
+  font-size: 5vw;
   letter-spacing: 0.1vw;
   display: flex;
   align-items: center;
@@ -448,6 +713,25 @@
   background-color: var(--mainMediumGreen);
   color: var(--butterWhite);
 }
+.typeBtnMobile {
+  height: 5.5vh;
+  width: 34vw;
+  border-style: solid;
+  border-radius: 3.6vh;
+  border-color: var(--butterWhite);
+  color: var(--wordDarkGreen);
+  font-size: 5vw;
+  letter-spacing: 0.1vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-right: 2.8vw;
+}
+.typeBtnMobile:hover {
+  background-color: var(--mainMediumGreen);
+  color: var(--butterWhite);
+}
 .activeDrinksBtn {
   height: 7.4vh;
   width: 12.2vw;
@@ -463,14 +747,39 @@
   justify-content: center;
   cursor: pointer;
 }
+.activeDrinksBtnMobile {
+  height: 5.5vh;
+  width: 34vw;
+  border-style: solid;
+  border-radius: 3.6vh;
+  border-color: var(--butterWhite);
+  background-color: var(--mainMediumGreen);
+  color: var(--butterWhite);
+  font-size: 5vw;
+  letter-spacing: 0.1vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
 .addForm {
   padding-left: 6vw;
   padding-right: 9vw;
+}
+.addFormMobile {
+  margin-top: 10vh;
+  padding: 0 5vw;
 }
 .formItem {
   margin-top: 5vh;
   border-bottom: var(--butterWhite) 0.4vw solid;
   height: 7.5vh;
+  padding-left: 0.4vw;
+}
+.formItemMobile {
+  margin-top: 4vh;
+  border-bottom: var(--butterWhite) 0.8vw solid;
+  height: 5vh;
   padding-left: 0.4vw;
 }
 .formItemTitle {
@@ -479,6 +788,15 @@
   font-weight: 400;
   letter-spacing: 0.1vw;
   height: 6vh;
+  display: flex;
+  align-items: center;
+  border-right: var(--butterWhite) 0.2vw solid;
+}
+.formItemTitleMobile {
+  color: var(--wordDarkGreen);
+  font-weight: 500;
+  letter-spacing: 0.1vw;
+  height: 4vh;
   display: flex;
   align-items: center;
   border-right: var(--butterWhite) 0.2vw solid;
@@ -495,9 +813,24 @@
   border-radius: 0.8vh;
   letter-spacing: 0.1vw;
 }
+.addCancelBtnMobile {
+  color: var(--mainDarkGreen);
+  background-color: var(--butterWhite);
+  width: 30vw;
+  height: 5.2vh;
+  font-size: 5vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.8vh;
+  letter-spacing: 0.1vw;
+}
 .addBtns {
   margin-top: 6vh;
   display: flex;
+}
+.addBtnsMobile {
+  margin-top: 5vh;
 }
 .addCreateBtn {
   color: var(--butterWhite);
@@ -512,7 +845,25 @@
   letter-spacing: 0.1vw;
   border-color: transparent;
 }
+.addCreateBtnMobile {
+  color: var(--butterWhite);
+  background-color: var(--lightGreen);
+  width: 30vw;
+  height: 5.2vh;
+  font-size: 5vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.8vh;
+  letter-spacing: 0.1vw;
+  border-color: transparent;
+}
 .addCreateBtn:hover, .addCreateBtn:focus {
+  background-color: var(--lightGreen);
+  border-color: transparent;
+  color: var(--butterWhite);
+}
+.addCreateBtnMobile:hover, .addCreateBtnMobile:focus {
   background-color: var(--lightGreen);
   border-color: transparent;
   color: var(--butterWhite);
@@ -524,6 +875,14 @@
   border-style: none;
   outline: none;
   font-size: 1.3vw;
+  color: var(--wordDarkGreen);
+}
+.addInputsMobile {
+  background-color: transparent;
+  width: 120%;
+  border-style: none;
+  outline: none;
+  font-size: 4vw;
   color: var(--wordDarkGreen);
 }
 .ant-input[disabled] {
@@ -539,10 +898,18 @@
   background-color: transparent;
   border: none;
 }
-.ant-upload.ant-upload-drag {
+.uploadMenuBox .ant-upload.ant-upload-drag {
   height: 60%;
   width: 100%;
   border: 0.4vw dashed var(--mainDarkGreen);
+}
+.uploadMenuBoxMobile .ant-upload.ant-upload-drag {
+  height: 100%;
+  width: 100%;
+  border: 0.7vw dashed var(--mainDarkGreen);
+}
+.uploadMenuBoxMobile {
+  padding: 0 5vw;
 }
 .uploadMenuBox {
   padding: 0 5vw;
@@ -554,19 +921,41 @@
   letter-spacing: 0.1vw;
   font-weight: 400;
 }
+.uploadTitleMobile {
+  color: var(--wordDarkGreen);
+  font-size: 4.5vw;
+  margin-left: 1.5vw;
+  letter-spacing: 0.1vw;
+  font-weight: 500;
+}
 .dragger {
   margin-top: 3vh;
+}
+.draggerMobile {
+  margin-top: 1vh;
 }
 .uploadMenuBox .anticon svg {
   color: var(--mainDarkGreen);
 }
-/* Cart~679 */
+.uploadMenuBoxMobile .anticon svg {
+  color: var(--mainDarkGreen);
+}
+/* Cart~1206 */
 .cartTitle {
   font-size: 2.6vw;
   color: var(--mainDarkGreen);
   font-weight: bold;
   letter-spacing: 0.1vw;
   margin-bottom: 4vh;
+}
+.cartTitleMobile {
+  font-size: 6vw;
+  color: var(--mainDarkGreen);
+  font-weight: bold;
+  letter-spacing: 0.1vw;
+  margin-bottom: 1.4vh;
+  display: flex;
+  justify-content: center;
 }
 .cartBox {
   margin-top: 14vh;
@@ -578,8 +967,27 @@
   font-weight: bold;
   padding: 1.3vh 1vw;
 }
+.cartStoreNameMobile {
+  font-size: 5vw;
+  color: var(--wordDarkGreen);
+  font-weight: bold;
+  padding: 1.3vh 1vw;
+}
+.cartStoreMoneyMobile {
+  font-size: 4vw;
+  color: var(--wordDarkGreen);
+  font-weight: bold;
+  padding: 1.6vh 1vw;
+}
 .cartPhone {
   letter-spacing: 0;
+  color: var(--lightGray);
+  font-size: 1.5vw;
+  margin-left: 2vw;
+  font-weight: bold;
+}
+.cartPhoneMobile {
+  letter-spacing: -0.4vw;
   color: var(--lightGray);
   font-size: 1.5vw;
   margin-left: 2vw;
@@ -599,8 +1007,16 @@
   padding: 4vh 1.5vw;
   border-bottom: 0.15vw solid lightgray;
 }
+.cartBlockContentsMobile {
+  padding: 2vh 1.5vw;
+  border-bottom: 0.2vw solid lightgray;
+}
 .cartBlockContent {
   font-size: 1.8vw;
+  color: var(--wordDarkGreen);
+}
+.cartBlockContentMobile {
+  font-size: 4.8vw;
   color: var(--wordDarkGreen);
 }
 .cartDelete {
@@ -611,9 +1027,19 @@
   padding-left: 0.5vw;
   font-size: 1.5vw;
 }
+.cartBlockContent2Mobile {
+  padding-left: 0.5vw;
+  font-size: 3.5vw;
+  margin-top: 0.4vh;
+}
 .cartBlockContent3 {
   padding-left: 1vw;
   font-size: 1.5vw;
+}
+.cartBlockContent3Mobile {
+  font-size: 4vw;
+  display: flex;
+  align-items: center;
 }
 .cartMarkPaying {
   border: 0.2vw solid var(--mainDarkGreen);
@@ -627,6 +1053,20 @@
   letter-spacing: 0.1vw;
   height: 5.5vh;
   width: 80%;
+  cursor: pointer;
+}
+.cartMarkPayingMobile {
+  border: 0.55vw solid var(--mainDarkGreen);
+  color: var(--mainDarkGreen);
+  font-size: 3.8vw;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2vw;
+  letter-spacing: 0.3vw;
+  height: 4.8vh;
+  width: 90%;
   cursor: pointer;
 }
 .cartFinishMarking {
@@ -644,7 +1084,22 @@
   width: 80%;
   cursor: pointer;
 }
-.cartMarkPaying:hover, .cartFinish:hover {
+.cartFinishMarkingMobile {
+  border: 0.55vw solid var(--mainDarkGreen);
+  background-color: var(--mainMediumGreen);
+  color: white;
+  font-size: 3.8vw;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2vw;
+  letter-spacing: 0.3vw;
+  height: 4.8vh;
+  width: 90%;
+  cursor: pointer;
+}
+.cartMarkPaying:hover, .cartFinish:hover, .cartMarkPayingMobile:hover {
   background-color: var(--mainMediumGreen);
   color: white;
 }
@@ -662,12 +1117,30 @@
   width: 80%;
   cursor: pointer;
 }
+.cartFinishMobile {
+  border: 0.55vw solid var(--mainDarkGreen);
+  color: var(--mainDarkGreen);
+  font-size: 3.8vw;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2vw;
+  letter-spacing: 0.3vw;
+  height: 4.8vh;
+  width: 90%;
+  cursor: pointer;
+}
 .cartBtnBox {
   display: flex;
   justify-content: end;
 }
 .cartBtnsBox {
   margin-top: 4vh;
+  margin-bottom: 4vh;
+}
+.cartBtnsBoxMobile {
+  margin-top: 3vh;
   margin-bottom: 4vh;
 }
 .checkPay {
@@ -719,14 +1192,19 @@
   font-size: 1.2vw;
   font-weight: 400;
 }
-.ant-modal-content {
+.modal .ant-modal-content {
   width: 35vw;
   margin: auto;
 }
-.modal .ant-btn-primary {
+.modalMobile .ant-modal-content {
+  width: 80vw;
+  margin: auto;
+}
+.modal .ant-btn-primary, .modalMobile .ant-btn-primary {
   background-color: var(--hoverBlue);
 }
-/* Menu~775 */
+
+/* Menu~1302 */
 .menuImg {
   background-color: var(--mainLightGreen);
   height: 74vh;
@@ -822,3 +1300,39 @@
   background-color: var(--mainMediumGreen);
   border: none;
 }
+/* for useBreakpoint */
+.displayNone {
+  display: none;
+}
+.ant-layout-header {
+  padding-left: 5.5vw;
+  padding-right: 5.5vw;
+}
+.menuMobile {
+  width: 6vw;
+}
+.logoMobile {
+  width: 9vw;
+  margin-right: -8vw;
+}
+/* RWD Container */
+/* sm */
+/* @media (min-width: 576px) {
+  .container {
+    width: 540px;
+  }
+} */
+
+/* md */
+/* @media (min-width: 768px) {
+  .container {
+    width: 720px;
+  }
+} */
+
+/* lg */
+/* @media (min-width: 992px) {
+  .container {
+    width: 960px;
+  }
+} */

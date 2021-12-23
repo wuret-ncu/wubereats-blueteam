@@ -1,12 +1,14 @@
 import React from 'react';
 import { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { Drawer, Row, Col, Empty } from 'antd';
+import { Drawer, Row, Col, Empty, Grid } from 'antd';
 import logo from '../img/btn-Logo.png';
 import homeBag from '../img/btn-home-bag.png';
 import homeMember from '../img/btn-home-member.png';
 import bag from '../img/btn-bag.png';
 import member from '../img/btn-member.png';
+// import menuMobile from '../img/btn-header-menu-mobile.png';
+// import logoMobile from '../img/btn-header-logo-mobile.png';
 import { StoreContext } from '../store';
 import { SET_VISIBLE,
          SET_TOTAL_PRICE,
@@ -14,7 +16,7 @@ import { SET_VISIBLE,
 } from '../utils/constants';
 import drawerLine from '../img/img_drawer_line.png';
 import { getCarts } from '../api';
-
+// const { useBreakpoint } = Grid;
 function JustOrdered(props) {
     return(
         <>
@@ -36,7 +38,9 @@ export default function HomeHeader() {
     const [bagColor, setBagColor] = useState(homeBag)
     const [memberColor, setMemberColor] = useState(homeMember)
     var lodash = require('lodash');
-    
+    // const { sm } = useBreakpoint();
+    // const displayNone = sm ? "displayNone" : "";
+    // const displayWeb = sm ? "" : "displayNone";
     useEffect(() => {
         getCarts().then((response) => {
             dispatch({
@@ -79,6 +83,8 @@ export default function HomeHeader() {
 
     return(
         <header className="headerBgc">
+            {/* <div className={displayNone}><img className="menuMobile" src={menuMobile} alt="" /></div>
+            <div className={displayNone}><img src={logoMobile} alt="" /></div> */}
             <div>
                 <Link to="/">
                     <img className="logo" src={logo} alt="" />

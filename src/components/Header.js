@@ -1,10 +1,12 @@
 import React from 'react';
 import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Drawer, Row, Col, Empty } from 'antd';
+import { Drawer, Row, Col, Empty, Grid } from 'antd';
 import logo from '../img/btn-Logo.png';
 import bag from '../img/btn-bag.png';
 import member from '../img/btn-member.png';
+import menuMobile from '../img/btn-header-menu-mobile.png';
+import logoMobile from '../img/btn-header-logo-mobile.png';
 import { StoreContext } from '../store';
 import { SET_VISIBLE,
          SET_TOTAL_PRICE,
@@ -12,14 +14,17 @@ import { SET_VISIBLE,
 } from '../utils/constants';
 import drawerLine from '../img/img_drawer_line.png';
 import { getCarts } from '../api';
-
+const { useBreakpoint } = Grid;
 function JustOrdered(props) {
+    const { sm } = useBreakpoint();
+    const drawerContent = sm ? "drawerContent" : "drawerContentMobile";
+
     return(
         <>
             <Row>
-                <Col className="drawerContent" span={10}></Col>
-                <Col className="drawerContent" span={8}>{props.item}</Col>
-                <Col className="drawerContent" span={6}>{props.sum}</Col>
+                <Col className={drawerContent} span={10}></Col>
+                <Col className={drawerContent} span={8}>{props.item}</Col>
+                <Col className={drawerContent} span={6}>{props.sum}</Col>
             </Row>
             <div className="drawerLineBox">
             <img className="drawerLine" src={drawerLine} alt="" /> 
@@ -31,7 +36,17 @@ function JustOrdered(props) {
 export default function Header() {
     const { state: { visible, total, cartsData }, dispatch} = useContext(StoreContext);
     var lodash = require('lodash');
-
+    const { sm } = useBreakpoint();
+    const displayWeb = sm ? "" : "displayNone";
+    const homeBagMobile = sm ? "homeBag" : "homeBagMobile";
+    const homeMemberMobile = sm ? "homeMember" : "homeMemberMobile";
+    const drawerName = sm ? "drawerName" : "drawerNameMobile";
+    const drawerTitle = sm ? "drawerTitle" : "drawerTitleMobile";
+    const drawerContent = sm ? "drawerContent" : "drawerContentMobile";
+    const drawerContentRight = sm ? "drawerContentRight" : "drawerContentRightMobile";
+    const drawerBtnToCart = sm ? "drawerBtnToCart" : "drawerBtnToCartMobile";
+    const drawerWidth = sm ? '30vw' : '70vw';
+    
     useEffect(() => {
         getCarts().then((response) => {
             dispatch({
@@ -61,33 +76,44 @@ export default function Header() {
             payload: false
         })
     }
+
     return(
         <header className="headerBgc">
+            {sm ? "" : <>
+            <div><img className="menuMobile" src={menuMobile} alt="" /></div>
             <div>
+                <Link to="/">
+                    <img className="logoMobile" src={logoMobile} alt="" />
+                </Link>
+            </div>
+            </>}
+            <div className={displayWeb}>
                 <Link to="/">
                     <img className="logo" src={logo} alt="" />
                 </Link> 
             </div>
             <div style={{display:'flex'}}>
-                <Link to="/" className="headerName mgl-4">
-                    Home
-                </Link>
-                <Link to="/stores" className="headerName mgl-4">
-                    Stores
-                </Link>
+                {sm ? <>
+                    <Link to="/" className="headerName mgl-4">
+                        Home
+                    </Link>
+                    <Link to="/stores" className="headerName mgl-4">
+                        Stores
+                    </Link>
+                </> : ""}
                 <div onClick={showDrawer}>
-                    <img className="homeBag mgl-4 pdb-10" src={bag} alt="" />
+                    <img className={homeBagMobile} src={bag} alt="" />
                 </div>
                 <Link to="/" >
-                    <img className="homeMember mgl-4 pdb-10" src={member} alt="" />
+                    <img className={homeMemberMobile} src={member} alt="" />
                 </Link>
             </div>
-            <Drawer placement="right" onClose={onClose} visible={visible} width={'30vw'}>
-                <div className="drawerName">餐點資料</div>
+            <Drawer placement="right" onClose={onClose} visible={visible} width={drawerWidth}>
+                <div className={drawerName}>餐點資料</div>
                 <Row>
-                    <Col className="drawerTitle" span={10}>店家</Col>
-                    <Col className="drawerTitle" span={8}>品項</Col>
-                    <Col className="drawerTitle" span={6}>價格</Col>
+                    <Col className={drawerTitle} span={10}>店家</Col>
+                    <Col className={drawerTitle} span={8}>品項</Col>
+                    <Col className={drawerTitle} span={6}>價格</Col>
                 </Row>
                 {
                     cartsData ? cartsData.map(data =>
@@ -95,11 +121,11 @@ export default function Header() {
                     : <Empty style={{margin:"8vh auto"}}/>
                 }
                 <Row>
-                    <Col className="drawerContentRight" span={3} offset={15}>總價</Col>
-                    <Col className="drawerContent" span={6}>{total}</Col>
+                    <Col className={drawerContentRight} span={3} offset={15}>總價</Col>
+                    <Col className={drawerContent} span={6}>{total}</Col>
                 </Row>
                 <Link className="drawerBtnBox" to="/cart" onClick={onClose}>
-                    <div className="drawerBtnToCart">前往購物車 {'>>'}</div>
+                    <div className={drawerBtnToCart}>前往購物車 {'>>'}</div>
                 </Link>    
             </Drawer> 
         </header>

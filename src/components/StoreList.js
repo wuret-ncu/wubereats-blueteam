@@ -1,20 +1,23 @@
 import React from 'react';
 import { useState, useEffect, useContext } from 'react';
-import { Row, Col, Card, Empty, Popover, Divider, Popconfirm, message } from 'antd';
+import { Row, Col, Card, Empty, Popover, Divider, Popconfirm, message, Grid, Tabs } from 'antd';
 import { Link } from 'react-router-dom';
 import storeDot from '../img/img-store-dot.png';
 import line from '../img/img-store-line.png';
 import searchDelete from '../img/btn_cart_delete.png';
 import storeMore from '../img/btn-store-more.png';
+import addStoreMobile from '../img/btn-store-add-mobile.png';
 import { getDrinksStores, getFoodsStores, deleteAStore } from '../api/index';
 import { StoreContext } from '../store';
 import { SET_SEARCH_VALUE,
          SET_ENTRY_SEARCH_BTN,
          SET_DELETE_STORE
 } from '../utils/constants';
-
+const { useBreakpoint } = Grid;
+const { TabPane } = Tabs;
 function Cards(props) {
     const { state: { deleteStore } , dispatch } = useContext(StoreContext);
+    const { sm } = useBreakpoint();
     const content=(
         <div className="storeCard">
             <Link to={`/edit/${props.id}`} className="popOverText">
@@ -44,6 +47,13 @@ function Cards(props) {
             </Popconfirm>
         </div>
     );
+    const card = sm ? "card" : "cardMobile";
+    const storeLine = sm ? "storeLine" : "storeLineMobile";
+    const informationDetail = sm ? "informationDetail" : "informationDetailMobile";
+    const informationDetail2 = sm ? "informationDetail" : "informationDetailMobile2";
+    const storeMoreClass = sm ? "storeMore" : "storeMoreMobile"
+    const storeToMenu = sm ? "storeToMenu" : "storeToMenuMobile";
+    const storeToMenuWord = sm ? "storeToMenuWord" : "storeToMenuWordMobile";
     return(
         <Card 
             size="small" 
@@ -51,18 +61,18 @@ function Cards(props) {
             title={props.name} 
             extra={
             <Popover content={content} placement="bottomLeft" trigger="click" className="storeMoreBox" overlayStyle={{width: "8.5vw"}}>
-                <img className="storeMore" src={storeMore} alt="" />
+                <img className={storeMoreClass} src={storeMore} alt="" />
             </Popover>} 
-            className="card"
+            className={card}
         >
             <Row align="bottom">
-                <Col span={2}><img className="storeLine" src={line} alt="" /></Col>
+                <Col span={2}><img className={storeLine} src={line} alt="" /></Col>
                 <Col span={12} className="storeInformation">
-                    <div className="informationDetail">電話： {props.phone}</div>
-                    <div className="informationDetail">公休日： {props.restDay}</div>
+                    <div className={informationDetail}>電話： {props.phone}</div>
+                    <div className={informationDetail2}>公休日： {props.restDay}</div>
                 </Col>
-                <Col span={7} offset={3} className="storeToMenu">
-                    <Link to={`/menu/${props.id}`} className="storeToMenuWord">前往點餐 {'>>'}</Link>
+                <Col span={7} offset={3} className={storeToMenu}>
+                    <Link to={`/menu/${props.id}`} className={storeToMenuWord}>前往點餐 {'>>'}</Link>
                 </Col>
             </Row>                        
         </Card>
@@ -73,7 +83,8 @@ export default function StoreList() {
     const { state: { search, entrySearchBtn, deleteStore }, dispatch } = useContext(StoreContext);
     const [foodDatas, setFoodData] = useState(null);
     const [drinkDatas, setDrinkData] = useState(null);
-    
+    const { sm } = useBreakpoint();
+
     useEffect(() => {
         getFoodsStores().then((response) => {
             const foodResult = response.data.filter(data => data.StoreName.includes(search));
@@ -134,14 +145,24 @@ export default function StoreList() {
             payload: ``
         })
     }
-
+    const storeBgc = sm ? "storeBgc" : "storeBgcMobile"
+    const storeSearchBgc = sm ? "storeSearchBgc" : "storeSearchBgcMobile";
+    const storeSearchInput = sm ? "storeSearchInput" : "storeSearchInputMobile";
+    const searchDeleteClass = sm ? "searchDeleteClass" : "searchDeleteClassMobile";
+    const searchBtn = sm ? "searchBtn" : "searchBtnMobile";
+    const listBgc = sm ? "listBgc" : "listBgcMobile";
     return(
-        <div className="storeBgc">
+        <div className={storeBgc}>
             <Row>
-                <Col span={12} className="storeSlogan">
-                    Choose what you want to eat.
-                </Col>
-                <Col span={7} offset={1} className="storeSearchBgc">
+                {sm ? 
+                    <Col span={12} className="storeSlogan">
+                        Choose what you want to eat.
+                    </Col> : 
+                    <Col span={24} className="storeSloganMobile">
+                        Choose what to eat...
+                    </Col>
+                }
+                <Col sm={{span:7, offset:1}} span={21} className={storeSearchBgc}>
                     <input
                         name='searchBar'
                         type='text'
@@ -153,48 +174,76 @@ export default function StoreList() {
                         }}
                         placeholder='搜尋店家...'
                         value={search}
-                        className="storeSearchInput"
+                        className={storeSearchInput}
                         autoComplete='off'
                     /> 
                     <div 
                         className="searchDeleteBox"
                         onClick={onClickSearchDeleteBtn}
                     >
-                        <img src={searchDelete} className="searchDelete" alt="" />
+                        <img src={searchDelete} className={searchDeleteClass} alt="" />
                     </div>
-                    
                     <button
-                        className="searchBtn"
+                        className={searchBtn}
                         onClick={onClickSearch}
                     >
                         Search
                     </button>
                 </Col>
-                <Col span={4}>
-                    <Link to="/addStore" className="addMenuBtn"><span className="addMenuPlus">+</span> Add menu</Link> 
-                </Col>
+                {sm ? 
+                    <Col span={4}>
+                        <Link to="/addStore" className="addMenuBtn"><span className="addMenuPlus">+</span> Add menu</Link> 
+                    </Col> : 
+                    <Col span={3} className="addStoreBoxMobile">
+                        <Link to="/addStore"><img className="addStoreMobile" src={addStoreMobile} alt="" /></Link> 
+                    </Col>
+                }
             </Row>
-            <Row className="listBgc">
-                <Col span={11} className="listBox">
-                    <div className="listTitleAll"><img src={storeDot} className="storeDot" alt=""/><span className="listTitle">Foods</span></div>
-                    <div className="cardBox">
-                        {
-                            foodDatas ? foodDatas.map(store => 
-                            <Cards key={store._id} id={store._id} name={store.StoreName} phone={store.Phone} restDay={store.RestDate} type={store.StoreType} menuUrl={store.MenuUrl}/>)
-                             : <Empty style={{marginTop:'10vh'}} />
-                        }
-                    </div>
-                </Col>
-                <Col span={11} offset={2} className="listBox">
-                    <div className="listTitleAll"><img src={storeDot} className="storeDot" alt=""/><span className="listTitle">Drinks</span></div>
-                    <div className="cardBox">
-                        {
-                            drinkDatas ? drinkDatas.map(store => 
-                            <Cards key={store._id} id={store._id} name={store.StoreName} phone={store.Phone} restDay={store.RestDate} type={store.StoreType} menuUrl={store.MenuUrl}/>)
-                             : <Empty style={{marginTop:'10vh'}} />
-                        }
-                    </div>
-                </Col>
+            <Row className={listBgc}>
+                {sm ? 
+                    <>
+                        <Col span={11} className="listBox">
+                            <div className="listTitleAll"><img src={storeDot} className="storeDot" alt=""/><span className="listTitle">Foods</span></div>
+                            <div className="cardBox">
+                                {
+                                    foodDatas ? foodDatas.map(store => 
+                                    <Cards key={store._id} id={store._id} name={store.StoreName} phone={store.Phone} restDay={store.RestDate} type={store.StoreType} menuUrl={store.MenuUrl}/>)
+                                     : <Empty style={{marginTop:'10vh'}} />
+                                }
+                            </div>
+                        </Col>
+                        <Col span={11} offset={2} className="listBox">
+                            <div className="listTitleAll"><img src={storeDot} className="storeDot" alt=""/><span className="listTitle">Drinks</span></div>
+                            <div className="cardBox">
+                                {
+                                    drinkDatas ? drinkDatas.map(store => 
+                                    <Cards key={store._id} id={store._id} name={store.StoreName} phone={store.Phone} restDay={store.RestDate} type={store.StoreType} menuUrl={store.MenuUrl}/>)
+                                     : <Empty style={{marginTop:'10vh'}} />
+                                }
+                            </div>
+                        </Col>
+                    </> : 
+                    <Tabs defaultActiveKey="1" centered className="tabBox" tabBarStyle={{borderBottom:'0.1vh solid #A0B9B6'}}>
+                        <TabPane tab="Foods" key="1" className="listBox">
+                            <div className="cardBoxMobile">
+                                {
+                                    foodDatas ? foodDatas.map(store => 
+                                    <Cards key={store._id} id={store._id} name={store.StoreName} phone={store.Phone} restDay={store.RestDate} type={store.StoreType} menuUrl={store.MenuUrl}/>)
+                                     : <Empty style={{marginTop:'10vh'}} />
+                                }
+                            </div>
+                        </TabPane>
+                        <TabPane tab="Drinks" key="2" className="listBox">
+                            <div className="cardBoxMobile">
+                                {
+                                    drinkDatas ? drinkDatas.map(store => 
+                                    <Cards key={store._id} id={store._id} name={store.StoreName} phone={store.Phone} restDay={store.RestDate} type={store.StoreType} menuUrl={store.MenuUrl}/>)
+                                     : <Empty style={{marginTop:'10vh'}} />
+                                }
+                            </div>
+                        </TabPane>
+                    </Tabs>
+                }
             </Row>
         </div>
     );
