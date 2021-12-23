@@ -1,12 +1,16 @@
 import React from 'react';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Drawer, Row, Col, Empty, Grid } from 'antd';
+import { Drawer, Row, Col, Empty, Grid, Divider } from 'antd';
 import logo from '../img/btn-Logo.png';
 import bag from '../img/btn-bag.png';
 import member from '../img/btn-member.png';
 import menuMobile from '../img/btn-header-menu-mobile.png';
 import logoMobile from '../img/btn-header-logo-mobile.png';
+import memuDrawerBg from '../img/img-menu-bg.png';
+import drawerHome from '../img/icon-drawer-home.png';
+import drawerStore from '../img/icon-drawer-store.png';
+import drawerLogin from '../img/icon-drawer-login.png';
 import { StoreContext } from '../store';
 import { SET_VISIBLE,
          SET_TOTAL_PRICE,
@@ -35,6 +39,7 @@ function JustOrdered(props) {
 
 export default function Header() {
     const { state: { visible, total, cartsData }, dispatch} = useContext(StoreContext);
+    const [menuVisible, setMenuVisible] = useState(false);
     var lodash = require('lodash');
     const { sm } = useBreakpoint();
     const displayWeb = sm ? "" : "displayNone";
@@ -76,11 +81,29 @@ export default function Header() {
             payload: false
         })
     }
+    const onClickMenu = () => {
+        setMenuVisible(true);
+    }
+    const onCloseMenu = () => {
+        setMenuVisible(false);
+    }
 
     return(
         <header className="headerBgc">
             {sm ? "" : <>
-            <div><img className="menuMobile" src={menuMobile} alt="" /></div>
+            <div onClick={onClickMenu}><img className="menuMobile" src={menuMobile} alt="" /></div>
+            <Drawer
+                placement={'left'}
+                width={'68vw'}
+                onClose={onCloseMenu}
+                visible={menuVisible}
+                className="menuDrawer"
+            >
+                <div className="drawerItem drawerItem1"><span><img className="drawerIcon1" src={drawerHome} alt="" /></span>Home</div>
+                <div className="drawerItem drawerItem2"><span><img className="drawerIcon2" src={drawerStore} alt="" /></span>Stores</div>
+                <Divider className="drawerDivider"/>
+                <div className="drawerItem drawerItem3"><span><img className="drawerIcon3" src={drawerLogin} alt="" /></span>Login</div>
+            </Drawer>
             <div>
                 <Link to="/">
                     <img className="logoMobile" src={logoMobile} alt="" />

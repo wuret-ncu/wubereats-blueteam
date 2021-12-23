@@ -1,12 +1,13 @@
 import React from 'react';
 import { useState, useEffect, useContext } from 'react';
-import { Row, Col, Card, Empty, Popover, Divider, Popconfirm, message, Grid, Tabs } from 'antd';
+import { Row, Col, Card, Empty, Popover, Divider, Popconfirm, message, Grid, Tabs, Modal } from 'antd';
 import { Link } from 'react-router-dom';
 import storeDot from '../img/img-store-dot.png';
 import line from '../img/img-store-line.png';
 import searchDelete from '../img/btn_cart_delete.png';
 import storeMore from '../img/btn-store-more.png';
 import addStoreMobile from '../img/btn-store-add-mobile.png';
+import draw from '../img/btn-draw.png';
 import { getDrinksStores, getFoodsStores, deleteAStore } from '../api/index';
 import { StoreContext } from '../store';
 import { SET_SEARCH_VALUE,
@@ -83,7 +84,14 @@ export default function StoreList() {
     const { state: { search, entrySearchBtn, deleteStore }, dispatch } = useContext(StoreContext);
     const [foodDatas, setFoodData] = useState(null);
     const [drinkDatas, setDrinkData] = useState(null);
+    const [drawVisible, setDrawVisible] = useState(false);
     const { sm } = useBreakpoint();
+    const storeBgc = sm ? "storeBgc" : "storeBgcMobile"
+    const storeSearchBgc = sm ? "storeSearchBgc" : "storeSearchBgcMobile";
+    const storeSearchInput = sm ? "storeSearchInput" : "storeSearchInputMobile";
+    const searchDeleteClass = sm ? "searchDeleteClass" : "searchDeleteClassMobile";
+    const searchBtn = sm ? "searchBtn" : "searchBtnMobile";
+    const listBgc = sm ? "listBgc" : "listBgcMobile";
 
     useEffect(() => {
         getFoodsStores().then((response) => {
@@ -145,15 +153,37 @@ export default function StoreList() {
             payload: ``
         })
     }
-    const storeBgc = sm ? "storeBgc" : "storeBgcMobile"
-    const storeSearchBgc = sm ? "storeSearchBgc" : "storeSearchBgcMobile";
-    const storeSearchInput = sm ? "storeSearchInput" : "storeSearchInputMobile";
-    const searchDeleteClass = sm ? "searchDeleteClass" : "searchDeleteClassMobile";
-    const searchBtn = sm ? "searchBtn" : "searchBtnMobile";
-    const listBgc = sm ? "listBgc" : "listBgcMobile";
+    const onClickDraw = () => {
+        setDrawVisible(true);
+    }
+    const handleCancel = () => {
+        setDrawVisible(false);
+    }
+
     return(
         <div className={storeBgc}>
             <Row>
+            <div onClick={onClickDraw}><img src={draw} alt="" className="draw" /></div>
+            <Modal 
+                title="Click to start the draw" 
+                visible={drawVisible} 
+                className="drawModalBox"
+                width={'50vw'}
+                footer={null}
+                onCancel={handleCancel}
+            >
+                <Row>
+                    <Col span={12} className="drawCol">
+                        <div className="drawTitle">吃什麼</div>
+                        <div className="drawResult">負面能量</div>
+                    </Col>
+                    <Col span={12} className="drawCol">
+                        <div className="drawTitle">誰訂餐</div>
+                        <div className="drawResult"></div>
+                    </Col>
+                </Row>
+                
+            </Modal>
                 {sm ? 
                     <Col span={12} className="storeSlogan">
                         Choose what you want to eat.

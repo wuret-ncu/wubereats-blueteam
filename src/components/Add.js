@@ -64,7 +64,6 @@ export default function Add() {
     }
 
     useEffect(() => {
-        // console.log(storeObj);
         const num = allStores.findIndex(store => store.StoreName === storeObj.StoreName)
             if(num === -1 && storeObj !== null) {
                 postStore(storeObj).then((response) => {
@@ -90,16 +89,6 @@ export default function Add() {
             setMenu(fileList);
         }
     };
-    // const onClickUpload = async () => {
-    //     let formData = new FormData();
-    //     formData.append('image', menu[0].originFileObj);
-    //     await postMenu(formData).then(res => {
-    //         console.log(res);
-    //     }).catch(
-    //         input => {console.log(input.res)}
-    //     )
-    //     console.log(menu[0].originFileObj);
-    // }
     
     return(
         <Row className={addBgc}>
@@ -111,8 +100,7 @@ export default function Add() {
                     <p className="ant-upload-drag-icon">
                         <InboxOutlined />
                     </p>
-                </Dragger>                                    
-                {/* <Button style={{marginTop:'10vh'}} onClick={onClickUpload}>a</Button> */}
+                </Dragger>
             </Col>
             <Col sm={{span:12}} span={24} className={addForm}>
                 <div className={typeBtnBox}>

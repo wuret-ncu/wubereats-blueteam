@@ -194,6 +194,33 @@
   justify-content: end;
   margin-right: 1vw;
 }
+.drawerIcon1 { 
+  width: 8vw;
+  margin: 0 5vw;
+}
+.drawerIcon2 { 
+  width: 7vw;
+  margin: 0 5vw;
+}
+.drawerIcon3 { 
+  width: 7vw;
+  margin: 0 5vw;
+}
+.drawerDivider {
+  border-top: 0.1vw solid white;
+}
+.drawerItem1 {
+  margin-top: 10vh;
+}
+.drawerItem2, .drawerItem3 {
+ color: white;
+}
+
+.drawerItem {
+  margin-bottom: 5vh;
+  font-size: 5vw;
+  letter-spacing: 0.1vw;
+}
 /* home~316 */
 .entryLeft {
   display: flex;
@@ -641,7 +668,57 @@
 .storeConfirm .ant-popover {
   width: 23vw;
 }
-
+.draw {
+  position: fixed;
+  bottom: 0;
+  left: 1.5vw;
+  z-index: 10;
+  width: 8vw;
+  cursor: pointer;
+}
+.drawCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.drawTitle {
+  width: 12vw;
+  height: 9vh;
+  border: 0.3vw solid var(--noYellow);
+  border-radius: 1.3vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.4vw;
+  font-weight: 400;
+  cursor: pointer;
+  margin-top: 2vh;
+}
+.drawResult {
+  width: 12vw;
+  height: 5.7vh;
+  border: 0.2vw solid var(--lightGray);
+  border-radius: 0.6vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2vw;
+  font-weight: 400;
+  cursor: pointer;
+  color: var(--lightGray);
+  margin-top: 5vh;
+  margin-bottom: 8vh;
+}
+.drawModalBox .ant-modal-title {
+  font-size: 2vw;
+  font-weight: 400;
+  margin-top: 3vh;
+  margin-left: 2vw;
+  letter-spacing: 0.1vw;
+}
+.drawModalBox .ant-modal-content, .drawModalBox .ant-modal-header {
+  border-radius: 2vw;
+}
 /* AddStore~942 */
 .addBgc {
   background-color: var(--mainLightGreen);
