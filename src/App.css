@@ -696,7 +696,7 @@
   align-items: center;
 }
 .drawTitle {
-  width: 12vw;
+  width: 14vw;
   height: 9vh;
   border: 0.3vw solid var(--noYellow);
   border-radius: 1.3vw;
@@ -709,8 +709,8 @@
   margin-top: 2vh;
 }
 .drawResult {
-  width: 12vw;
-  height: 5.7vh;
+  width: 14vw;
+  height: 6vh;
   border: 0.2vw solid var(--lightGray);
   border-radius: 0.6vw;
   display: flex;
@@ -722,6 +722,7 @@
   color: var(--lightGray);
   margin-top: 5vh;
   margin-bottom: 8vh;
+  padding: 4vh 0.6vw;
 }
 .drawModalBox .ant-modal-title {
   font-size: 2vw;

@@ -9,7 +9,7 @@ import { SET_CHECKING_VISIBLE,
          GET_CARTS_DATA
 } from '../utils/constants';
 import { StoreContext } from '../store';
-import { getCarts } from '../api';
+import { getCarts, getStores } from '../api';
 const { useBreakpoint } = Grid;
 function CartItemList(props) {
     const { state: { checkingVisible } } = useContext(StoreContext);
@@ -143,12 +143,14 @@ export default function CartDetail() {
     const handleCancel = () => {
         setDrawVisible(false);
     }
-    const onClickDrawStores = async () => {
-        let i = 0;
-        foodDatas.map(() => {
-            i = i + 1;
+    const onClickDrawStores = () => {
+        getStores().then((response) => {
+            let i = 0;
+            response.data.map(() => {
+                i = i + 1;
+            })
+            setDrawStoreResult(response.data[Math.floor(Math.random()*i)].StoreName);
         })
-        setDrawStoreResult(foodDatas[Math.floor(Math.random()*i)].StoreName);
     }
 
     return(

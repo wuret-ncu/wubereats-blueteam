@@ -8,7 +8,7 @@ import searchDelete from '../img/btn_cart_delete.png';
 import storeMore from '../img/btn-store-more.png';
 import addStoreMobile from '../img/btn-store-add-mobile.png';
 import draw from '../img/btn-draw.png';
-import { getDrinksStores, getFoodsStores, deleteAStore } from '../api/index';
+import { getDrinksStores, getFoodsStores, deleteAStore, getStores } from '../api/index';
 import { StoreContext } from '../store';
 import { SET_SEARCH_VALUE,
          SET_ENTRY_SEARCH_BTN,
@@ -160,12 +160,14 @@ export default function StoreList() {
     const handleCancel = () => {
         setDrawVisible(false);
     }
-    const onClickDrawStores = async () => {
-        let i = 0;
-        foodDatas.map(() => {
-            i = i + 1;
+    const onClickDrawStores = () => {
+        getStores().then((response) => {
+            let i = 0;
+            response.data.map(() => {
+                i = i + 1;
+            })
+            setDrawStoreResult(response.data[Math.floor(Math.random()*i)].StoreName);
         })
-        setDrawStoreResult(foodDatas[Math.floor(Math.random()*i)].StoreName);
     }
 
     return(
