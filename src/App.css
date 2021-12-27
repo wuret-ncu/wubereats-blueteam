@@ -684,7 +684,7 @@
 }
 .draw {
   position: fixed;
-  bottom: 0;
+  bottom: 1vh;
   left: 1.5vw;
   z-index: 10;
   width: 8vw;

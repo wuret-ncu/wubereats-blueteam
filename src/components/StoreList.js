@@ -85,6 +85,7 @@ export default function StoreList() {
     const [foodDatas, setFoodData] = useState(null);
     const [drinkDatas, setDrinkData] = useState(null);
     const [drawVisible, setDrawVisible] = useState(false);
+    const [drawStoreResult, setDrawStoreResult] = useState("");
     const { sm } = useBreakpoint();
     const storeBgc = sm ? "storeBgc" : "storeBgcMobile"
     const storeSearchBgc = sm ? "storeSearchBgc" : "storeSearchBgcMobile";
@@ -159,6 +160,13 @@ export default function StoreList() {
     const handleCancel = () => {
         setDrawVisible(false);
     }
+    const onClickDrawStores = async () => {
+        let i = 0;
+        foodDatas.map(() => {
+            i = i + 1;
+        })
+        setDrawStoreResult(foodDatas[Math.floor(Math.random()*i)].StoreName);
+    }
 
     return(
         <div className={storeBgc}>
@@ -174,8 +182,8 @@ export default function StoreList() {
             >
                 <Row>
                     <Col span={12} className="drawCol">
-                        <div className="drawTitle">吃什麼</div>
-                        <div className="drawResult">負面能量</div>
+                        <div className="drawTitle" onClick={onClickDrawStores}>吃什麼</div>
+                        <div className="drawResult">{drawStoreResult}</div>
                     </Col>
                     <Col span={12} className="drawCol">
                         <div className="drawTitle">誰訂餐</div>

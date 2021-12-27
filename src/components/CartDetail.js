@@ -3,6 +3,7 @@ import { useState, useContext, useEffect } from 'react';
 import { Row, Col, Checkbox, Popconfirm, message, Modal, Empty, Grid } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import cartDelete from '../img/btn_cart_delete.png';
+import draw from '../img/btn-draw.png';
 import { SET_CHECKING_VISIBLE,
          SET_TOTAL_PRICE,
          GET_CARTS_DATA
@@ -23,6 +24,7 @@ function CartItemList(props) {
         message.success('Click on Yes');
         // 還需添加remove item事件
     }
+
     return(
         <Row className={cartBlockContents}>
             {
@@ -59,7 +61,8 @@ export default function CartDetail() {
     const { state: { checkingVisible, total, cartsData }, dispatch } = useContext(StoreContext);
     const [modalVisible, setModalVisible] = useState(false);
     const [modalLoading, setModalLoading] = useState(false);
-    const [modalText, setModalText] = useState('已確認完成這筆訂單嗎？')
+    const [modalText, setModalText] = useState('已確認完成這筆訂單嗎？');
+    const [drawStoreResult, setDrawStoreResult] = useState("");
     var lodash = require('lodash');
     const { sm } = useBreakpoint();
     const cartMarkPaying = sm ? "cartMarkPaying" : "cartMarkPayingMobile";
@@ -72,6 +75,7 @@ export default function CartDetail() {
     const cartBtnsBox = sm ? "cartBtnsBox" : "cartBtnsBoxMobile";
     const modal = sm ? "modal" : "modalMobile";
     const [checkingBtn, setCheckingBtn] = useState("登記付款");
+    const [drawVisible, setDrawVisible] = useState(false);
 
     useEffect(() => {
         getCarts().then((response) => {
@@ -133,9 +137,43 @@ export default function CartDetail() {
         }, 10)
         console.log('Clicked cancel button');
     }
+    const onClickDraw = () => {
+        setDrawVisible(true);
+    }
+    const handleCancel = () => {
+        setDrawVisible(false);
+    }
+    const onClickDrawStores = async () => {
+        let i = 0;
+        foodDatas.map(() => {
+            i = i + 1;
+        })
+        setDrawStoreResult(foodDatas[Math.floor(Math.random()*i)].StoreName);
+    }
 
     return(
         <div className="cartBox">
+            <div onClick={onClickDraw}><img src={draw} alt="" className="draw" /></div>
+            <Modal 
+                title="Click to start the draw" 
+                visible={drawVisible} 
+                className="drawModalBox"
+                width={'50vw'}
+                footer={null}
+                onCancel={handleCancel}
+                >
+                <Row>
+                    <Col span={12} className="drawCol">
+                        <div className="drawTitle" onClick={onClickDrawStores}>吃什麼</div>
+                        <div className="drawResult">負面能量</div>
+                    </Col>
+                    <Col span={12} className="drawCol">
+                        <div className="drawTitle">誰訂餐</div>
+                        <div className="drawResult"></div>
+                    </Col>
+                </Row>
+                
+            </Modal>
             <div className={cartTitle}>Shopping Cart</div>
             <div style={{display: "flex", justifyContent: "space-between", borderBottom: "0.2vw solid lightgray"}}>
                 <div className={cartStoreName}>大嗑蔬菜蛋餅<span className={cartPhone}>(03)5777557</span></div>
