@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Drawer, Row, Col, Empty, Grid } from 'antd';
+import { nanoid } from 'nanoid';
 import logo from '../img/btn-Logo.png';
 import homeBag from '../img/btn-home-bag.png';
 import homeMember from '../img/btn-home-member.png';
@@ -11,7 +12,6 @@ import member from '../img/btn-member.png';
 // import logoMobile from '../img/btn-header-logo-mobile.png';
 import { StoreContext } from '../store';
 import { SET_VISIBLE,
-         SET_TOTAL_PRICE,
          GET_CARTS_DATA
 } from '../utils/constants';
 import drawerLine from '../img/img_drawer_line.png';
@@ -21,7 +21,7 @@ function JustOrdered(props) {
     return(
         <>
             <Row>
-                <Col className="drawerContent" span={10}></Col>
+                <Col className="drawerContent" span={10}>{props.store}</Col>
                 <Col className="drawerContent" span={8}>{props.item}</Col>
                 <Col className="drawerContent" span={6}>{props.sum}</Col>
             </Row>
@@ -33,7 +33,7 @@ function JustOrdered(props) {
 }
 
 export default function HomeHeader() {
-    const { state: { visible, total, cartsData }, dispatch} = useContext(StoreContext);
+    const { state: { visible, cartsData }, dispatch} = useContext(StoreContext);
     const [headerNameColor, setHeaderNameColor] = useState("#FFF")
     const [bagColor, setBagColor] = useState(homeBag)
     const [memberColor, setMemberColor] = useState(homeMember)
@@ -41,20 +41,22 @@ export default function HomeHeader() {
     // const { sm } = useBreakpoint();
     // const displayNone = sm ? "displayNone" : "";
     // const displayWeb = sm ? "" : "displayNone";
+
     useEffect(() => {
         getCarts().then((response) => {
-            dispatch({
-                type: GET_CARTS_DATA,
-                payload: response.data
-            })
-        })
-        let b = [];
-        let a = cartsData ? cartsData.map(s => {
-            b.push(s.Price);
-        }) : ""
-        dispatch({
-            type: SET_TOTAL_PRICE,
-            payload: lodash.sum(b)
+            if(response.data !== ""){
+                dispatch({
+                    type: GET_CARTS_DATA,
+                    payload: response.data
+                })
+                console.log(response.data[0])
+                console.log(response.data[0].Total)
+                console.log(response.data[0].List)
+                console.log(response.data[0].List[0])
+                console.log(response.data[0].List[0].Store)
+                console.log(response.data[0].List[0].Store.StoreName)
+            }
+            
         })
     }, [visible]);
 
@@ -104,7 +106,7 @@ export default function HomeHeader() {
                     <img className="homeMember mgl-4 pdb-10" src={memberColor} alt="" />
                 </Link>
             </div>
-            <Drawer placement="right" onClose={onClose} visible={visible} width={'30vw'}>
+            <Drawer placement="right" onClose={onClose} visible={visible} width={'35vw'}>
                 <div className="drawerName">餐點資料</div>
                 <Row>
                     <Col className="drawerTitle" span={10}>店家</Col>
@@ -112,13 +114,16 @@ export default function HomeHeader() {
                     <Col className="drawerTitle" span={6}>價格</Col>
                 </Row>
                 {
-                    cartsData ? cartsData.map(data =>
-                    <JustOrdered key={data._id} item={data.Meals} sum={data.Price} />)
+                    cartsData ? cartsData[0].List.map(data =>
+                    <JustOrdered key={nanoid()} store={data.Store.StoreName} item={data.Order.Meals} sum={data.Order.Price} />)
                     : <Empty style={{margin:"8vh auto"}}/>
                 }
                 <Row>
-                    <Col className="drawerContentRight" span={3} offset={15}>總價</Col>
-                    <Col className="drawerContent" span={6}>{total}</Col>
+                    <Col className="drawerContentRight" span={5} offset={13}>總價</Col>
+                    {
+                        cartsData ? <Col className="drawerContent" span={6}>{cartsData[0].Total}</Col> :
+                        <Col className="drawerContent" span={6}></Col>
+                    }
                 </Row>
                 <Link className="drawerBtnBox" to="/cart" onClick={onClose}>
                     <div className="drawerBtnToCart">前往購物車 {'>>'}</div>

@@ -2,6 +2,7 @@ import React from 'react';
 import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Drawer, Row, Col, Empty, Grid, Divider } from 'antd';
+import { nanoid } from 'nanoid';
 import logo from '../img/btn-Logo.png';
 import bag from '../img/btn-bag.png';
 import member from '../img/btn-member.png';
@@ -13,7 +14,6 @@ import drawerStore from '../img/icon-drawer-store.png';
 import drawerLogin from '../img/icon-drawer-login.png';
 import { StoreContext } from '../store';
 import { SET_VISIBLE,
-         SET_TOTAL_PRICE,
          GET_CARTS_DATA
 } from '../utils/constants';
 import drawerLine from '../img/img_drawer_line.png';
@@ -26,7 +26,7 @@ function JustOrdered(props) {
     return(
         <>
             <Row>
-                <Col className={drawerContent} span={10}></Col>
+                <Col className={drawerContent} span={10}>{props.store}</Col>
                 <Col className={drawerContent} span={8}>{props.item}</Col>
                 <Col className={drawerContent} span={6}>{props.sum}</Col>
             </Row>
@@ -38,7 +38,7 @@ function JustOrdered(props) {
 }
 
 export default function Header() {
-    const { state: { visible, total, cartsData }, dispatch} = useContext(StoreContext);
+    const { state: { visible, cartsData }, dispatch} = useContext(StoreContext);
     const [menuVisible, setMenuVisible] = useState(false);
     var lodash = require('lodash');
     const { sm } = useBreakpoint();
@@ -50,22 +50,23 @@ export default function Header() {
     const drawerContent = sm ? "drawerContent" : "drawerContentMobile";
     const drawerContentRight = sm ? "drawerContentRight" : "drawerContentRightMobile";
     const drawerBtnToCart = sm ? "drawerBtnToCart" : "drawerBtnToCartMobile";
-    const drawerWidth = sm ? '30vw' : '70vw';
-    
+    const drawerWidth = sm ? '35vw' : '70vw';
+
     useEffect(() => {
         getCarts().then((response) => {
-            dispatch({
-                type: GET_CARTS_DATA,
-                payload: response.data
-            })
-        })
-        let b = [];
-        let a = cartsData ? cartsData.map(s => {
-            b.push(s.Price);
-        }) : ""
-        dispatch({
-            type: SET_TOTAL_PRICE,
-            payload: lodash.sum(b)
+            if(response.data !== "") {
+                dispatch({
+                    type: GET_CARTS_DATA,
+                    payload: response.data
+                })
+                console.log(response.data[0])
+                console.log(response.data[0].Total)
+                console.log(response.data[0].List)
+                console.log(response.data[0].List[0])
+                console.log(response.data[0].List[0].Store)
+                console.log(response.data[0].List[0].Store.StoreName)
+            }
+            
         })
     }, [visible]);
 
@@ -139,13 +140,16 @@ export default function Header() {
                     <Col className={drawerTitle} span={6}>價格</Col>
                 </Row>
                 {
-                    cartsData ? cartsData.map(data =>
-                    <JustOrdered key={data._id} item={data.Meals} sum={data.Price} />)
+                    cartsData ? cartsData[0].List.map(data =>
+                    <JustOrdered key={nanoid()} store={data.Store.StoreName} item={data.Order.Meals} sum={data.Order.Price} />)
                     : <Empty style={{margin:"8vh auto"}}/>
                 }
                 <Row>
-                    <Col className={drawerContentRight} span={3} offset={15}>總價</Col>
-                    <Col className={drawerContent} span={6}>{total}</Col>
+                    <Col className={drawerContentRight} span={5} offset={13}>總價</Col>
+                    {
+                        cartsData ? <Col className={drawerContent} span={6}>{cartsData[0].Total}</Col> :
+                        <Col className={drawerContent} span={6}></Col>
+                    }
                 </Row>
                 <Link className="drawerBtnBox" to="/cart" onClick={onClose}>
                     <div className={drawerBtnToCart}>前往購物車 {'>>'}</div>

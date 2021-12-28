@@ -93,7 +93,7 @@
 .drawerName {
   color: white;
   font-size: 2vw;
-  margin: 3vh 2vw;
+  margin: 3vh 1vw;
   font-weight: 500;
 }
 .drawerNameMobile {
@@ -1367,8 +1367,8 @@
   display: none;
 }
 .ant-layout-header {
-  padding-left: 5.5vw;
-  padding-right: 5.5vw;
+  padding-left: 4.2vw;
+  padding-right: 4.2vw;
 }
 .menuMobile {
   width: 6vw;

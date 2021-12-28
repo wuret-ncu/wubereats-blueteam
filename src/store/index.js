@@ -2,7 +2,6 @@ import React from 'react';
 import { createContext } from 'react';
 import useReducerWithThunk from 'use-reducer-thunk';
 import { SET_VISIBLE,
-         SET_TOTAL_PRICE,
          SET_CHECKING_VISIBLE,
          GET_CARTS_DATA,
          SET_SEARCH_VALUE,
@@ -14,7 +13,6 @@ export const StoreContext = createContext();
 
 const initialState = {
     visible: false,
-    total: 0,
     checkingVisible: false,
     cartsData: null,
     search:``,
@@ -28,11 +26,6 @@ function reducer(state, action) {
             return{
                 ...state,
                 visible: action.payload
-            }
-        case SET_TOTAL_PRICE:
-            return{
-                ...state,
-                total: action.payload
             }
         case SET_CHECKING_VISIBLE:
             return{

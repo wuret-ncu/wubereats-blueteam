@@ -8,7 +8,7 @@ import searchDelete from '../img/btn_cart_delete.png';
 import storeMore from '../img/btn-store-more.png';
 import addStoreMobile from '../img/btn-store-add-mobile.png';
 import draw from '../img/btn-draw.png';
-import { getDrinksStores, getFoodsStores, deleteAStore, getStores } from '../api/index';
+import { getDrinksStores, getFoodsStores, deleteAStore, getUsingUser } from '../api/index';
 import { StoreContext } from '../store';
 import { SET_SEARCH_VALUE,
          SET_ENTRY_SEARCH_BTN,
@@ -85,7 +85,9 @@ export default function StoreList() {
     const [foodDatas, setFoodData] = useState(null);
     const [drinkDatas, setDrinkData] = useState(null);
     const [drawVisible, setDrawVisible] = useState(false);
-    const [drawStoreResult, setDrawStoreResult] = useState("");
+    const [drawFoodResult, setDrawFoodResult] = useState("");
+    const [drawDrinkResult, setDrawDrinkResult] = useState("");
+    const [drawUserResult, setDrawUserResult] = useState("");
     const { sm } = useBreakpoint();
     const storeBgc = sm ? "storeBgc" : "storeBgcMobile"
     const storeSearchBgc = sm ? "storeSearchBgc" : "storeSearchBgcMobile";
@@ -160,13 +162,27 @@ export default function StoreList() {
     const handleCancel = () => {
         setDrawVisible(false);
     }
-    const onClickDrawStores = () => {
-        getStores().then((response) => {
+    const onClickDrawFood = () => {
+        let i = 0;
+        foodDatas.map(() => {
+            i = i + 1
+        })
+        setDrawFoodResult(foodDatas[Math.floor(Math.random()*i)].StoreName);
+    }
+    const onClickDrawDrink = () => {
+        let i = 0;
+        drinkDatas.map(() => {
+            i = i + 1
+        })
+        setDrawDrinkResult(drinkDatas[Math.floor(Math.random()*i)].StoreName);
+    }
+    const onClickDrawUser = () => {
+        getUsingUser().then((response) => {
             let i = 0;
             response.data.map(() => {
                 i = i + 1;
             })
-            setDrawStoreResult(response.data[Math.floor(Math.random()*i)].StoreName);
+            setDrawUserResult(response.data[0].User_info[Math.floor(Math.random()*i)].UserName);
         })
     }
 
@@ -178,18 +194,22 @@ export default function StoreList() {
                 title="Click to start the draw" 
                 visible={drawVisible} 
                 className="drawModalBox"
-                width={'50vw'}
+                width={'60vw'}
                 footer={null}
                 onCancel={handleCancel}
             >
                 <Row>
-                    <Col span={12} className="drawCol">
-                        <div className="drawTitle" onClick={onClickDrawStores}>吃什麼</div>
-                        <div className="drawResult">{drawStoreResult}</div>
+                    <Col span={8} className="drawCol">
+                        <div className="drawTitle" onClick={onClickDrawFood}>吃什麼</div>
+                        <div className="drawResult">{drawFoodResult}</div>
                     </Col>
-                    <Col span={12} className="drawCol">
-                        <div className="drawTitle">誰訂餐</div>
-                        <div className="drawResult"></div>
+                    <Col span={8} className="drawCol">
+                        <div className="drawTitle" onClick={onClickDrawDrink}>喝什麼</div>
+                        <div className="drawResult">{drawDrinkResult}</div>
+                    </Col>
+                    <Col span={8} className="drawCol">
+                        <div className="drawTitle" onClick={onClickDrawUser}>誰訂餐</div>
+                        <div className="drawResult">{drawUserResult}</div>
                     </Col>
                 </Row>
                 

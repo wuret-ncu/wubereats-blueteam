@@ -5,11 +5,10 @@ import { ExclamationCircleOutlined } from '@ant-design/icons';
 import cartDelete from '../img/btn_cart_delete.png';
 import draw from '../img/btn-draw.png';
 import { SET_CHECKING_VISIBLE,
-         SET_TOTAL_PRICE,
          GET_CARTS_DATA
 } from '../utils/constants';
 import { StoreContext } from '../store';
-import { getCarts, getStores } from '../api';
+import { getCarts, getDrinksStores, getFoodsStores, getUsingUser } from '../api';
 const { useBreakpoint } = Grid;
 function CartItemList(props) {
     const { state: { checkingVisible } } = useContext(StoreContext);
@@ -58,12 +57,14 @@ function CartItemList(props) {
 }
 
 export default function CartDetail() {
-    const { state: { checkingVisible, total, cartsData }, dispatch } = useContext(StoreContext);
+    const { state: { checkingVisible, cartsData }, dispatch } = useContext(StoreContext);
     const [modalVisible, setModalVisible] = useState(false);
     const [modalLoading, setModalLoading] = useState(false);
     const [modalText, setModalText] = useState('已確認完成這筆訂單嗎？');
-    const [drawStoreResult, setDrawStoreResult] = useState("");
-    var lodash = require('lodash');
+    const [drawFoodResult, setDrawFoodResult] = useState("");
+    const [drawDrinkResult, setDrawDrinkResult] = useState("");
+    const [drawUserResult, setDrawUserResult] = useState("");
+    // var lodash = require('lodash');
     const { sm } = useBreakpoint();
     const cartMarkPaying = sm ? "cartMarkPaying" : "cartMarkPayingMobile";
     const cartFinishMarking = sm ? "cartFinishMarking" : "cartFinishMarkingMobile";
@@ -84,26 +85,26 @@ export default function CartDetail() {
                 payload: response.data
             })
         })
-        let b = [];
-        let a = cartsData ? cartsData.map(s => {
-            b.push(s.Price);
-        }) : ""
-        dispatch({
-            type: SET_TOTAL_PRICE,
-            payload: lodash.sum(b)
-        })
+        // let b = [];
+        // let a = cartsData ? cartsData.map(s => {
+        //     b.push(s.Price);
+        // }) : ""
+        // dispatch({
+        //     type: SET_TOTAL_PRICE,
+        //     payload: lodash.sum(b)
+        // })
     }, []);
 
-    useEffect(() => {
-        let b = [];
-        let a = cartsData ? cartsData.map(s => {
-            b.push(s.Price);
-        }) : ""
-        dispatch({
-            type: SET_TOTAL_PRICE,
-            payload: lodash.sum(b)
-        })
-    }, [cartsData]);
+    // useEffect(() => {
+    //     let b = [];
+    //     let a = cartsData ? cartsData.map(s => {
+    //         b.push(s.Price);
+    //     }) : ""
+    //     dispatch({
+    //         type: SET_TOTAL_PRICE,
+    //         payload: lodash.sum(b)
+    //     })
+    // }, [cartsData]);
 
     const onClickCheckingBtn = () => {
         dispatch({
@@ -143,13 +144,31 @@ export default function CartDetail() {
     const handleCancel = () => {
         setDrawVisible(false);
     }
-    const onClickDrawStores = () => {
-        getStores().then((response) => {
+    const onClickDrawFood = () => {
+        getFoodsStores().then((response) => {
             let i = 0;
             response.data.map(() => {
                 i = i + 1;
             })
-            setDrawStoreResult(response.data[Math.floor(Math.random()*i)].StoreName);
+            setDrawFoodResult(response.data[Math.floor(Math.random()*i)].StoreName);
+        })
+    }
+    const onClickDrawDrink = () => {
+        getDrinksStores().then((response) => {
+            let i = 0;
+            response.data.map(() => {
+                i = i + 1;
+            })
+            setDrawDrinkResult(response.data[Math.floor(Math.random()*i)].StoreName);
+        })
+    }
+    const onClickDrawUser = () => {
+        getUsingUser().then((response) => {
+            let i = 0;
+            response.data.map(() => {
+                i = i + 1;
+            })
+            setDrawUserResult(response.data[0].User_info[Math.floor(Math.random()*i)].UserName);
         })
     }
 
@@ -160,18 +179,22 @@ export default function CartDetail() {
                 title="Click to start the draw" 
                 visible={drawVisible} 
                 className="drawModalBox"
-                width={'50vw'}
+                width={'60vw'}
                 footer={null}
                 onCancel={handleCancel}
                 >
                 <Row>
-                    <Col span={12} className="drawCol">
-                        <div className="drawTitle" onClick={onClickDrawStores}>吃什麼</div>
-                        <div className="drawResult">負面能量</div>
+                    <Col span={8} className="drawCol">
+                        <div className="drawTitle" onClick={onClickDrawFood}>吃什麼</div>
+                        <div className="drawResult">{drawFoodResult}</div>
                     </Col>
-                    <Col span={12} className="drawCol">
-                        <div className="drawTitle">誰訂餐</div>
-                        <div className="drawResult"></div>
+                    <Col span={8} className="drawCol">
+                        <div className="drawTitle" onClick={onClickDrawDrink}>喝什麼</div>
+                        <div className="drawResult">{drawDrinkResult}</div>
+                    </Col>
+                    <Col span={8} className="drawCol">
+                        <div className="drawTitle" onClick={onClickDrawUser}>誰訂餐</div>
+                        <div className="drawResult">{drawUserResult}</div>
                     </Col>
                 </Row>
                 
@@ -179,7 +202,7 @@ export default function CartDetail() {
             <div className={cartTitle}>Shopping Cart</div>
             <div style={{display: "flex", justifyContent: "space-between", borderBottom: "0.2vw solid lightgray"}}>
                 <div className={cartStoreName}>大嗑蔬菜蛋餅<span className={cartPhone}>(03)5777557</span></div>
-                <div className={cartStoreMoney}>Total: {total} 元</div>
+                {/* <div className={cartStoreMoney}>Total: {total} 元</div> */}
             </div>
             {
                 sm ? 
