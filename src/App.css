@@ -29,7 +29,7 @@
 .ant-layout-content {
   background-color: var(--butterWhite);
 }
-/* homeheader~196 */
+/* homeheader~231 */
 .ant-layout-header {
   display: flex;
   background-color: transparent;
@@ -67,12 +67,6 @@
   margin-left: 4vw;
   padding-bottom: 10px;
 }
-/* .mgl-4 {
-  margin-left: 4vw;
-}
-.pdb-10 {
-  padding-bottom: 10px;
-} */
 .homeBag {
   width: 2vw;
   cursor: pointer;
@@ -235,7 +229,7 @@
 .drawerItem1:focus {
   color: black;
 }
-/* home~316 */
+/* home~351 */
 .entryLeft {
   display: flex;
   flex-direction: column;
@@ -355,7 +349,7 @@
   margin-top: 2vh;
   align-self: center;
 }
-/* footer~330 */
+/* footer~365 */
 .layout-footer-home {
   background-color: var(--footerGreen);
   width: 100vw;
@@ -369,7 +363,7 @@
   font-weight: 400;
   font-size: 1.5vw;
 }
-/* StoreList~644 */
+/* StoreList~730 */
 .storeSlogan {
   color: var(--mainDarkGreen);
   font-weight: bold;
@@ -734,7 +728,7 @@
 .drawModalBox .ant-modal-content, .drawModalBox .ant-modal-header {
   border-radius: 2vw;
 }
-/* AddStore~942 */
+/* AddStore~1028 */
 .addBgc {
   background-color: var(--mainLightGreen);
   width: 100%;
@@ -1032,7 +1026,7 @@
 .uploadMenuBoxMobile .anticon svg {
   color: var(--mainDarkGreen);
 }
-/* Cart~1206 */
+/* Cart~1262 */
 .cartTitle {
   font-size: 2.6vw;
   color: var(--mainDarkGreen);
@@ -1266,7 +1260,7 @@
   background-color: var(--hoverBlue);
 }
 
-/* Menu~1302 */
+/* Menu~1358 */
 .menuImg {
   background-color: var(--mainLightGreen);
   height: 74vh;
@@ -1362,6 +1356,77 @@
   background-color: var(--mainMediumGreen);
   border: none;
 }
+/* Signin */
+.signinForm {
+  width: 70%;
+}
+.signinTitle {
+  margin-top: 20vh;
+  font-size: 2vw;
+  font-weight: 700;
+  letter-spacing: 0.1vw;
+}
+.signinLabel {
+  font-size: 1.2vw;
+  letter-spacing: 0.1vw;
+  font-weight: 500;
+  margin-top: 4vh;
+}
+.signinLeftBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.signinInput {
+  border: none;
+  outline: none;
+  background-color: #E2EAE9;
+  height: 7vh;
+  border-radius: 0.2vw;
+}
+.signinLeftBox .ant-form-item-has-error :not(.ant-input-disabled):not(.ant-input-borderless).ant-input, .ant-form-item-has-error :not(.ant-input-affix-wrapper-disabled):not(.ant-input-affix-wrapper-borderless).ant-input-affix-wrapper, .ant-form-item-has-error :not(.ant-input-disabled):not(.ant-input-borderless).ant-input:hover, .ant-form-item-has-error :not(.ant-input-affix-wrapper-disabled):not(.ant-input-affix-wrapper-borderless).ant-input-affix-wrapper:hover {
+  border: none;
+  outline: none;
+  background-color: #E2EAE9;
+  height: 7vh;
+  border-radius: 0.2vw;
+}
+.passwordForm .ant-input {
+  background-color: transparent;
+}
+.signinSigninButtonBox {
+  width: 100%;
+}
+.signinSigninBtn {
+  background-color: var(--hoverBlue);
+  color: white;
+  font-weight: 600;
+  border: none;
+  width: 8vw;
+  height: 6.3vh;
+  border-radius: 0.4vw;
+  font-size: 1.3vw;
+  float: right;
+}
+input#signin_password.ant-input {
+  margin-top: -0.5vh;
+}
+.signinSigninBtn:hover, .signinSigninBtn:focus {
+  background-color: var(--hoverBlue);
+  color: white;
+  font-weight: 600;
+  border: none;
+  width: 8vw;
+  height: 6.3vh;
+  border-radius: 0.4vw;
+}
+.signinTosignup {
+  position: absolute;
+  margin-top: -40vh;
+  width: 20vw;
+  margin-left: 15vw;
+}
+
 /* for useBreakpoint */
 .displayNone {
   display: none;

@@ -105,7 +105,7 @@ export default function StoreList() {
             const drinkResult = response.data.filter(data => data.StoreName.includes(search));
             setDrinkData(drinkResult);
         })   
-    }, [deleteStore])
+    }, [deleteStore, search])
 
     useEffect(() => {
         if(entrySearchBtn === null) {
@@ -127,7 +127,7 @@ export default function StoreList() {
                 payload: null
             })    
         }  
-    }, [])
+    }, [entrySearchBtn, dispatch, search])
 
     useEffect(() => {
         if(search === ``) {
@@ -165,14 +165,14 @@ export default function StoreList() {
     const onClickDrawFood = () => {
         let i = 0;
         foodDatas.map(() => {
-            i = i + 1
+            return(i = i + 1)
         })
         setDrawFoodResult(foodDatas[Math.floor(Math.random()*i)].StoreName);
     }
     const onClickDrawDrink = () => {
         let i = 0;
         drinkDatas.map(() => {
-            i = i + 1
+            return(i = i + 1)
         })
         setDrawDrinkResult(drinkDatas[Math.floor(Math.random()*i)].StoreName);
     }
@@ -180,7 +180,7 @@ export default function StoreList() {
         getUsingUser().then((response) => {
             let i = 0;
             response.data.map(() => {
-                i = i + 1;
+                return(i = i + 1)
             })
             setDrawUserResult(response.data[0].User_info[Math.floor(Math.random()*i)].UserName);
         })

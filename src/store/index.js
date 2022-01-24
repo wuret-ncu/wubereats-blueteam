@@ -1,5 +1,5 @@
 import React from 'react';
-import { createContext } from 'react';
+import { createContext, useReducer } from 'react';
 import useReducerWithThunk from 'use-reducer-thunk';
 import { SET_VISIBLE,
          SET_CHECKING_VISIBLE,
@@ -58,11 +58,14 @@ function reducer(state, action) {
 }
 
 export function StoreProvider(props) {
-    const [state, dispatch] = useReducerWithThunk(
+    const [state, dispatch] = useReducer(
         reducer,
-        initialState,
-        "example"
-    )
+        initialState);
+    // const [state, dispatch] = useReducerWithThunk(
+    //     reducer,
+    //     initialState,
+    //     "example"
+    // )
     const value = { state, dispatch };
     return(
         <StoreContext.Provider value={value}>

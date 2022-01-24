@@ -43,21 +43,21 @@ export default function HomeHeader() {
     // const displayWeb = sm ? "" : "displayNone";
 
     useEffect(() => {
-        getCarts().then((response) => {
-            if(response.data !== ""){
-                dispatch({
-                    type: GET_CARTS_DATA,
-                    payload: response.data
-                })
-                console.log(response.data[0])
-                console.log(response.data[0].Total)
-                console.log(response.data[0].List)
-                console.log(response.data[0].List[0])
-                console.log(response.data[0].List[0].Store)
-                console.log(response.data[0].List[0].Store.StoreName)
-            }
+        // getCarts().then((response) => {
+        //     if(response.data !== ""){
+        //         dispatch({
+        //             type: GET_CARTS_DATA,
+        //             payload: response.data
+        //         })
+        //         console.log(response.data[0])
+        //         console.log(response.data[0].Total)
+        //         console.log(response.data[0].List)
+        //         console.log(response.data[0].List[0])
+        //         console.log(response.data[0].List[0].Store)
+        //         console.log(response.data[0].List[0].Store.StoreName)
+        //     }
             
-        })
+        // })
     }, [visible]);
 
     const showDrawer = () => {

@@ -63,7 +63,7 @@ export default function Entry() {
                 {sm ? "" : <div><img className="bannerMobile" src={homeBannerMobile} /></div>}
                 {sm ? 
                     <>
-                    <Link to="/" className="entryLeftImg toLogin">
+                    <Link to="/signin" className="entryLeftImg toLogin">
                         <img src={homeToLogin} alt=""/>
                     </Link>    
                     <Link to="/stores" className="entryLeftImg toStores">

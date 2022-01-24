@@ -24,6 +24,7 @@ export default function EditDetail(appProps) {
     const Dragger = Upload.Dragger;
 
     useEffect(() => {
+        let trytry = true;
         console.log(appProps.storeId);
         (async  () => {
             getAStore(appProps.storeId).then(
@@ -39,7 +40,8 @@ export default function EditDetail(appProps) {
                 console.log(error);
             });
         })();
-    }, [])
+        return () => (trytry = false)
+    }, [appProps.storeId])
     
     useEffect(() => {
         if(storeObj !== null) {
@@ -50,7 +52,7 @@ export default function EditDetail(appProps) {
                 console.log(err)
             })
         }
-    }, [storeObj])
+    }, [storeObj, appProps.storeId, history])
 
     const onClickConfirm = () => {
         setStoreObj({
