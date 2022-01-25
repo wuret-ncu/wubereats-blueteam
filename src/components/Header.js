@@ -128,7 +128,7 @@ export default function Header() {
                 <div onClick={showDrawer}>
                     <img className={homeBagMobile} src={bag} alt="" />
                 </div>
-                <Link to="/" >
+                <Link to="/signin" >
                     <img className={homeMemberMobile} src={member} alt="" />
                 </Link>
             </div>

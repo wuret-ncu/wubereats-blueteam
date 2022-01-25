@@ -1372,6 +1372,12 @@
   font-weight: 500;
   margin-top: 4vh;
 }
+.signupLabel {
+  font-size: 1.2vw;
+  letter-spacing: 0.1vw;
+  font-weight: 500;
+  margin-top: 3vh;
+}
 .signinLeftBox {
   display: flex;
   flex-direction: column;
@@ -1408,6 +1414,9 @@
   font-size: 1.3vw;
   float: right;
 }
+.signupSignupBtn {
+  margin-top: 1.5vh;
+}
 input#signin_password.ant-input {
   margin-top: -0.5vh;
 }
@@ -1422,9 +1431,33 @@ input#signin_password.ant-input {
 }
 .signinTosignup {
   position: absolute;
-  margin-top: -40vh;
+  bottom: 38vh;
   width: 20vw;
-  margin-left: 15vw;
+  height: 6vh;
+  left: 15vw;
+  background: url('https://raw.githubusercontent.com/wuret-ncu/wubereats-blueteam/huoh/src/img/btn-signin-toSignup.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.signinTosignup:hover  {
+  background: url('https://raw.githubusercontent.com/wuret-ncu/wubereats-blueteam/huoh/src/img/btn-signin-toSignupHover.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.signupToSignin {
+  position: absolute;
+  bottom: 38vh;
+  width: 20vw;
+  height: 6vh;
+  left: 15vw;
+  background: url('https://raw.githubusercontent.com/wuret-ncu/wubereats-blueteam/huoh/src/img/btn-signup-toSignin.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.signupToSignin:hover  {
+  background: url('https://raw.githubusercontent.com/wuret-ncu/wubereats-blueteam/huoh/src/img/btn-signup-toSigninHover.png');
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 /* for useBreakpoint */

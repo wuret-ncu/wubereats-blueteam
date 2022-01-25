@@ -41,7 +41,7 @@ export default function EditDetail(appProps) {
             });
         })();
         return () => (trytry = false)
-    }, [appProps.storeId])
+    }, [])
     
     useEffect(() => {
         if(storeObj !== null) {
@@ -52,7 +52,7 @@ export default function EditDetail(appProps) {
                 console.log(err)
             })
         }
-    }, [storeObj, appProps.storeId, history])
+    }, [storeObj])
 
     const onClickConfirm = () => {
         setStoreObj({

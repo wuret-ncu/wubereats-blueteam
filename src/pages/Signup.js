@@ -4,12 +4,12 @@ import { Layout, Grid } from 'antd';
 import HomeHeader from '../components/HomeHeader';
 import AllHeader from '../components/Header';
 import AllFooter from '../components/Footer';
-import SigninDetail from '../components/SigninDetail';
+import SignupDetail from '../components/SignupDetail';
 
 const {Header, Content, Footer } = Layout;
 const { useBreakpoint } = Grid;
 
-export default function Signin() {
+export default function Signup() {
     const [layoutHomeHeader, setlayoutHomeHeader] = useState("transparent")
     const { sm } = useBreakpoint();
     const layoutFooterHome = sm ? "layout-footer-home" : "displayNone"
@@ -34,7 +34,7 @@ export default function Signin() {
                     </Header>
                 }
                 <Content>
-                    <SigninDetail />
+                    <SignupDetail />
                 </Content>
                 <Footer className={layoutFooterHome}>
                     <AllFooter />

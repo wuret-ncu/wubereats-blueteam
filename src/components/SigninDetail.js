@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { Row, Col, Form, Button, Input, Grid } from 'antd';
 import { Link } from 'react-router-dom';
 import signBanner from '../img/img-signin-banner.png';
-import signinToSignup from '../img/btn-signin-toSignup.png';
 // const { useBreakpoint } = Grid;
 export default function SigninDetail() {
     const [username, setUsername] = useState('');
@@ -18,9 +17,9 @@ export default function SigninDetail() {
                     name="signin"
                     className="signinForm"
                 >
-                    <div className="signinLabel">Username</div>
+                    <div className="signinLabel">Username / Nickname</div>
                     <Form.Item
-                        name="username"
+                        name="name"
                         rules={[
                             {
                                 required: true,
@@ -66,7 +65,7 @@ export default function SigninDetail() {
             </Col>
             <Col span={14}>
                 <img className="banner signinBanner" alt="" src={signBanner} />
-                <Link to="/"><img class="signinTosignup" alt="" src={signinToSignup} /></Link>
+                <Link to="/signup"><div className="signinTosignup"></div></Link>
             </Col>
         </Row>
     );

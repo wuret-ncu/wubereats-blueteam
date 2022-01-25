@@ -105,7 +105,7 @@ export default function StoreList() {
             const drinkResult = response.data.filter(data => data.StoreName.includes(search));
             setDrinkData(drinkResult);
         })   
-    }, [deleteStore, search])
+    }, [])
 
     useEffect(() => {
         if(entrySearchBtn === null) {
@@ -127,7 +127,7 @@ export default function StoreList() {
                 payload: null
             })    
         }  
-    }, [entrySearchBtn, dispatch, search])
+    }, [entrySearchBtn])
 
     useEffect(() => {
         if(search === ``) {

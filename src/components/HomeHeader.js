@@ -81,7 +81,7 @@ export default function HomeHeader() {
     }
     useEffect(() => {
         window.addEventListener("scroll", listenScrollEvent)
-    })
+    }, [])
 
     return(
         <header className="headerBgc">
@@ -102,7 +102,7 @@ export default function HomeHeader() {
                 <div onClick={showDrawer}>
                     <img className="homeBag mgl-4 pdb-10" src={bagColor} alt="" />
                 </div>
-                <Link to="/" >
+                <Link to="/signin" >
                     <img className="homeMember mgl-4 pdb-10" src={memberColor} alt="" />
                 </Link>
             </div>

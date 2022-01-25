@@ -35,7 +35,7 @@ export default function MenuDetail() {
                 input => {console.log(input.response)}
             ) 
         }
-    }, [addToCart, dispatch])
+    }, [addToCart])
 
     return(
         <Row className="menuBox">
