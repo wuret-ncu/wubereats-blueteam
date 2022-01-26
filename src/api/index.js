@@ -1,4 +1,12 @@
 import axios from 'axios';
+import { Modal } from 'antd';
+
+function confirmWarning(warningTitle, warningContent) {
+    Modal.warning({
+        title: warningTitle,
+        content: warningContent
+    })
+}
 
 const instance = axios.create({
     baseURL:'http://localhost:8080/',
@@ -72,8 +80,51 @@ userInstance.interceptors.response.use(
                 case 500:
                     console.log('程式發生問題')
                     break
+                
                 default:
                     console.log('other error')
+            }
+            switch (error.response.data.status) {
+                case 1:
+                    console.log('Some fields are empty.')
+                    break
+                case 2:
+                    console.log('Password do not match.')
+                    confirmWarning(
+                        'Confirm Password 輸入錯誤',
+                        'Confirm Password 欄位內容需要與 Password 欄位相同'
+                    );
+                    break
+                case 3:
+                    console.log('The nickname already exists.')
+                    confirmWarning(
+                        '此 Nickname 已被使用過',
+                        '換一個 Nickname 吧！'
+                    );
+                    break
+                case 4:
+                    console.log('The username already exists.')
+                    confirmWarning(
+                        '此 Username 已被使用過',
+                        '換一個 username 吧！'
+                    );
+                    break
+                case 5:
+                    console.log("The username/nickname is not available.")
+                    confirmWarning(
+                        '未註冊過此帳號',
+                        '前往 Signup 頁面進行註冊吧'
+                    );
+                    break
+                case 6:
+                    console.log("Wrong password.")
+                    confirmWarning(
+                        '密碼錯誤',
+                        '此帳號的密碼不是這一個'
+                    );
+                    break
+                default:
+                    console.log('other status error')
             }
         }
         return Promise.reject(error);
