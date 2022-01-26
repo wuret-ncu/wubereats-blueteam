@@ -43,16 +43,18 @@ export default function Add() {
     }, [])
 
     const onClickCreate = async () => {
-        let formData = new FormData();
-        for(let i = 0; i < menu.length; i++) {
-            formData.append('image', menu[i].originFileObj);
+        if (menu !== null) {
+            let formData = new FormData();
+            for(let i = 0; i < menu.length; i++) {
+                formData.append('image', menu[i].originFileObj);
+            }
+            await postMenu(formData).then(res => {
+                console.log(res);
+            }).catch(
+                input => {console.log(input.res)}
+            )
         }
-        await postMenu(formData).then(res => {
-            console.log(res);
-        }).catch(
-            input => {console.log(input.res)}
-        )
-        console.log(menu[0].originFileObj);
+        // console.log(menu[0].originFileObj);
         setStoreObj({
             StoreType: type,
             StoreName: name,

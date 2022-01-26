@@ -167,14 +167,19 @@ export default function StoreList() {
         foodDatas.map(() => {
             return(i = i + 1)
         })
-        setDrawFoodResult(foodDatas[Math.floor(Math.random()*i)].StoreName);
+        if(foodDatas.length !== 0) {
+            setDrawFoodResult(foodDatas[Math.floor(Math.random()*i)].StoreName);
+        }
+        
     }
     const onClickDrawDrink = () => {
         let i = 0;
         drinkDatas.map(() => {
             return(i = i + 1)
         })
-        setDrawDrinkResult(drinkDatas[Math.floor(Math.random()*i)].StoreName);
+        if (drinkDatas.length !== 0){
+            setDrawDrinkResult(drinkDatas[Math.floor(Math.random()*i)].StoreName);
+        } 
     }
     const onClickDrawUser = () => {
         getUsingUser().then((response) => {

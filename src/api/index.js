@@ -143,6 +143,7 @@ export const postEditedStore = (data, id) => instance.post(`/store/${id}`, data)
 export const deleteAStore = (id, data) => instance.delete(`/store/${id}`, data);
 export const getUsingUser = data => instance.get('/bill/user', data);
 export const postRegister = data => userInstance.post('/register', data);
+export const postLogin = data => userInstance.post('/login', data);
 // export const postMenu = (data, id) => {
 //     return instance.post(`/images/${id}`, data);
 // }

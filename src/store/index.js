@@ -1,3 +1,4 @@
+import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { createContext, useReducer } from 'react';
 import useReducerWithThunk from 'use-reducer-thunk';
@@ -17,7 +18,7 @@ const initialState = {
     cartsData: null,
     search:``,
     entrySearchBtn: null,
-    deleteStore: false
+    deleteStore: false,
 }
 
 function reducer(state, action) {

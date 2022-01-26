@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Row, Col, Form, Button, Input, Grid } from 'antd';
-import { Link } from 'react-router-dom';
+import { Row, Col, Form, Button, Input, Grid, message } from 'antd';
+import { Link, useHistory } from 'react-router-dom';
 import JSEncrypt from 'jsencrypt';
 import { postRegister } from '../api';
 import signupBanner from '../img/img-signup-banner.png';
@@ -51,6 +51,7 @@ export default function SignupDetail() {
     const [userAccount, setUserAccount] = useState('');
     const [ifEncrypt, setIfEncrypt] = useState(false);
     const [form] = Form.useForm();
+    const history = useHistory();
     // useEffect(() => {
     //     let a = encrypt('123');
     //     let b = encrypt('123');
@@ -68,6 +69,8 @@ export default function SignupDetail() {
             postRegister(userAccount).then((response) => {
                 console.log(response)
                 form.resetFields();
+                history.push('/stores');
+                message.success("Successfully registered !")
                 // setIfEncrypt(false);
             }).catch(
                 input => {console.log(input.response)}
