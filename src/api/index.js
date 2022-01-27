@@ -1,6 +1,14 @@
 import axios from 'axios';
 import { Modal } from 'antd';
 
+export const setAuthToken = (token) => {
+    return localStorage.setItem("token", token)
+}
+
+export const getAuthToken = () => {
+    return localStorage.getItem("token");
+}
+
 function confirmWarning(warningTitle, warningContent) {
     Modal.warning({
         title: warningTitle,
@@ -13,7 +21,8 @@ const instance = axios.create({
     headers:{
         'X-Powered-By':'Express',
         'Content-Type':'application/json',
-        'Access-Control-Allow-Origin':'*'
+        'Access-Control-Allow-Origin':'*',
+        'set-cookie': getAuthToken()
     },
     timeout:20000,
 })
@@ -22,7 +31,8 @@ const imgInstance = axios.create({
     headers: {
         'X-Powered-By':'Express',
         'Content-Type': 'multipart/form-data',
-        'Access-Control-Allow-Origin':'*'
+        'Access-Control-Allow-Origin':'*',
+        'set-cookie': getAuthToken()
     },
     timeout:20000,
 })

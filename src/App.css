@@ -229,6 +229,16 @@
 .drawerItem1:focus {
   color: black;
 }
+.toLogoutModal {
+  font-size: 1.4vw;
+  padding: 5vw;
+}
+.toLogoutModal .ant-btn-primary {
+  background-color: var(--mainDarkGreen);
+  background: var(--mainDarkGreen);
+  border: none;
+  outline: none;
+}
 /* home~351 */
 .entryLeft {
   display: flex;
@@ -363,7 +373,7 @@
   font-weight: 400;
   font-size: 1.5vw;
 }
-/* StoreList~730 */
+/* StoreList~836 */
 .storeSlogan {
   color: var(--mainDarkGreen);
   font-weight: bold;
@@ -549,11 +559,13 @@
   color: var(--wordDarkGreen);
   font-size: 1.2vw;
   font-weight: 500;
+  cursor: pointer;
 }
 .storeToMenuWordMobile {
   color: var(--wordDarkGreen);
   font-size: 1.2vw;
   font-weight: 400;
+  cursor: pointer;
 }
 .storeToMenuWord:hover {
   color: var(--wordDarkGreen);
@@ -834,7 +846,7 @@
   letter-spacing: 0.1vw;
   margin-top: 9vh;
 }
-/* AddStore~1028 */
+/* AddStore~1134 */
 .addBgc {
   background-color: var(--mainLightGreen);
   width: 100%;
@@ -1132,7 +1144,7 @@
 .uploadMenuBoxMobile .anticon svg {
   color: var(--mainDarkGreen);
 }
-/* Cart~1262 */
+/* Cart~1368 */
 .cartTitle {
   font-size: 2.6vw;
   color: var(--mainDarkGreen);
@@ -1366,7 +1378,7 @@
   background-color: var(--hoverBlue);
 }
 
-/* Menu~1358 */
+/* Menu~1464 */
 .menuImg {
   background-color: var(--mainLightGreen);
   height: 74vh;
@@ -1462,7 +1474,7 @@
   background-color: var(--mainMediumGreen);
   border: none;
 }
-/* Signin */
+/* Signin~1567 */
 .signinForm {
   width: 70%;
 }

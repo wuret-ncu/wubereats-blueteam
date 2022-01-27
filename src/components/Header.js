@@ -1,7 +1,7 @@
 import React from 'react';
 import { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Drawer, Row, Col, Empty, Grid, Divider } from 'antd';
+import { Link, useHistory } from 'react-router-dom';
+import { Drawer, Row, Col, Empty, Grid, Divider, Modal, message } from 'antd';
 import { nanoid } from 'nanoid';
 import logo from '../img/btn-Logo.png';
 import bag from '../img/btn-bag.png';
@@ -17,7 +17,7 @@ import { SET_VISIBLE,
          GET_CARTS_DATA
 } from '../utils/constants';
 import drawerLine from '../img/img_drawer_line.png';
-import { getCarts } from '../api';
+import { getAuthToken, setAuthToken } from '../api';
 const { useBreakpoint } = Grid;
 function JustOrdered(props) {
     const { sm } = useBreakpoint();
@@ -40,8 +40,10 @@ function JustOrdered(props) {
 export default function Header() {
     const { state: { visible, cartsData }, dispatch} = useContext(StoreContext);
     const [menuVisible, setMenuVisible] = useState(false);
+    const [toLogoutVisible, setToLogoutVisible] = useState(false);
     var lodash = require('lodash');
     const { sm } = useBreakpoint();
+    const history = useHistory();
     const displayWeb = sm ? "" : "displayNone";
     const homeBagMobile = sm ? "homeBag" : "homeBagMobile";
     const homeMemberMobile = sm ? "homeMember" : "homeMemberMobile";
@@ -88,7 +90,14 @@ export default function Header() {
     const onCloseMenu = () => {
         setMenuVisible(false);
     }
-
+    const onClickToLogout = () => {
+        setToLogoutVisible(true);
+    }
+    const handleLogout = () => {
+        history.push('/')
+        setAuthToken(null);
+        message.success("Successfully Logout!")
+    }
     return(
         <header className="headerBgc">
             {sm ? "" : <>
@@ -128,9 +137,24 @@ export default function Header() {
                 <div onClick={showDrawer}>
                     <img className={homeBagMobile} src={bag} alt="" />
                 </div>
-                <Link to="/signin" >
-                    <img className={homeMemberMobile} src={member} alt="" />
-                </Link>
+                {
+                    getAuthToken() === 'null' ?
+                    <Link to="/signin" >
+                        <img className={homeMemberMobile} src={member} alt="" />
+                    </Link> : 
+                    <div style={{cursor:'pointer'}} onClick={onClickToLogout}>
+                        <img className={homeMemberMobile} src={member} alt="" />
+                    </div>
+                }
+                <Modal
+                    visible={toLogoutVisible}
+                    onOk={handleLogout}
+                    className="toLogoutModal"
+                    width={'40vw'}
+                    onCancel={()=>setToLogoutVisible(false)}
+                >
+                    Are you sure to logout?
+                </Modal>
             </div>
             <Drawer placement="right" onClose={onClose} visible={visible} width={drawerWidth}>
                 <div className={drawerName}>餐點資料</div>

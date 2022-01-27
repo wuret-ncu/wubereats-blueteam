@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Row, Col, Form, Button, Input, Grid, message } from 'antd';
 import { Link, useHistory } from 'react-router-dom';
 import signBanner from '../img/img-signin-banner.png';
-import { postLogin } from '../api';
+import { postLogin, setAuthToken } from '../api';
 // const { useBreakpoint } = Grid;
 export default function SigninDetail() {
     const [username, setUsername] = useState('');
@@ -12,10 +12,21 @@ export default function SigninDetail() {
     const [form] = Form.useForm();
     const history = useHistory();
 
+    // useEffect(() => {
+    //     setAuthToken(null)
+    // }, [])
+
     useEffect(() => {
         if(userAccount !== '') {
             postLogin(userAccount).then((response) => {
                 console.log(response);
+                setAuthToken(response.data.token);
+                // localStorage.setItem("token", response.data.token);
+                // dispatch({
+                //     type: SET_TOKEN,
+                //     paload: response.data.token
+                // })
+                console.log(response.data.token);
                 form.resetFields();
                 history.push('/stores');
                 message.success("Successfully logined!");

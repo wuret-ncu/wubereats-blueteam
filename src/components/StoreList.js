@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect, useContext } from 'react';
 import { Row, Col, Card, Empty, Popover, Divider, Popconfirm, message, Grid, Tabs, Modal } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import storeDot from '../img/img-store-dot.png';
 import line from '../img/img-store-line.png';
 import searchDelete from '../img/btn_cart_delete.png';
@@ -12,7 +12,7 @@ import groupOrderBtn from '../img/btn-store-groupOrder.png';
 import groupOrderHover from '../img/img-store-groupCodeHover.png';
 import groupOrderModalOrLine from '../img/img-store-groupOrderModalOrLine.png';
 import getCodeBtn from '../img/btn-store-getCode.png';
-import { getDrinksStores, getFoodsStores, deleteAStore, getUsingUser } from '../api/index';
+import { getDrinksStores, getFoodsStores, deleteAStore, getUsingUser, getAuthToken, setAuthToken } from '../api/index';
 import { StoreContext } from '../store';
 import { SET_SEARCH_VALUE,
          SET_ENTRY_SEARCH_BTN,
@@ -23,6 +23,15 @@ const { TabPane } = Tabs;
 function Cards(props) {
     const { state: { deleteStore } , dispatch } = useContext(StoreContext);
     const { sm } = useBreakpoint();
+    const card = sm ? "card" : "cardMobile";
+    const storeLine = sm ? "storeLine" : "storeLineMobile";
+    const informationDetail = sm ? "informationDetail" : "informationDetailMobile";
+    const informationDetail2 = sm ? "informationDetail" : "informationDetailMobile2";
+    const storeMoreClass = sm ? "storeMore" : "storeMoreMobile"
+    const storeToMenu = sm ? "storeToMenu" : "storeToMenuMobile";
+    const storeToMenuWord = sm ? "storeToMenuWord" : "storeToMenuWordMobile";
+    const history = useHistory();
+
     const content=(
         <div className="storeCard">
             <Link to={`/edit/${props.id}`} className="popOverText">
@@ -52,13 +61,12 @@ function Cards(props) {
             </Popconfirm>
         </div>
     );
-    const card = sm ? "card" : "cardMobile";
-    const storeLine = sm ? "storeLine" : "storeLineMobile";
-    const informationDetail = sm ? "informationDetail" : "informationDetailMobile";
-    const informationDetail2 = sm ? "informationDetail" : "informationDetailMobile2";
-    const storeMoreClass = sm ? "storeMore" : "storeMoreMobile"
-    const storeToMenu = sm ? "storeToMenu" : "storeToMenuMobile";
-    const storeToMenuWord = sm ? "storeToMenuWord" : "storeToMenuWordMobile";
+
+    const onClickToSigninAlert = () => {
+        message.success("請先登入即可開始點餐！")
+        history.push('/signin');
+    }
+
     return(
         <Card 
             size="small" 
@@ -77,7 +85,10 @@ function Cards(props) {
                     <div className={informationDetail2}>公休日： {props.restDay}</div>
                 </Col>
                 <Col span={7} offset={3} className={storeToMenu}>
-                    <Link to={`/menu/${props.id}`} className={storeToMenuWord}>前往點餐 {'>>'}</Link>
+                    {getAuthToken() !== 'null' ? 
+                        <Link to={`/menu/${props.id}`} className={storeToMenuWord}>前往點餐 {'>>'}</Link> :
+                        <div className={storeToMenuWord} onClick={onClickToSigninAlert}>前往點餐 {'>>'}</div>
+                    }
                 </Col>
             </Row>                        
         </Card>
@@ -113,7 +124,7 @@ export default function StoreList() {
             if(drinkResult.length !== 0) {
                 setDrinkData(drinkResult);
             }
-        })   
+        })
     }, [])
 
     useEffect(() => {
