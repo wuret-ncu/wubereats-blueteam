@@ -728,6 +728,112 @@
 .drawModalBox .ant-modal-content, .drawModalBox .ant-modal-header {
   border-radius: 2vw;
 }
+.groupOrderBtn {
+  width: 70%;
+  margin-left: 5vw;
+  cursor: pointer;
+}
+.groupOrderHover {
+  position: absolute;
+  right: 7vw;
+  width: 120%;
+  top: 5vh;
+  display: none;
+}
+.groupOrderBtnBox:hover .groupOrderHover {
+  display: block;
+}
+.groupOrderModalBox .ant-modal-content, .groupOrderModalBox .ant-modal-header {
+  border-radius: 1.8vw;
+}
+.groupOrderModalOrLine {
+  height: 88%;
+}
+.groupOrderModalOrLineBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 62vh;
+}
+.groupOrderModalInnerBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.getCodeBtn {
+  width: 16vw;
+  cursor: pointer;
+}
+.getCodeText {
+  font-size: 1.8vw;
+  font-weight: 700;
+  letter-spacing: 0.08vw;
+  margin-top: 3vh;
+  color: var(--wordDarkGreen);
+}
+.code {
+  border: 0.29vw solid var(--mainDarkGreen);
+  width: 15.4vw;
+  height: 9.2vh;
+  border-radius: 0.6vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3.2vh;
+  color: var(--noYellow);
+  font-size: 2vw;
+  font-weight: 700;
+  letter-spacing: -0.1vw;
+}
+.shareCodeText {
+  font-size: 1.6vw;
+  margin-top: 5.2vh;
+  width: 70%;
+  color: var(--wordDarkGreen);
+}
+.inputCodeText {
+  font-size: 2vw;
+  font-weight: 700;
+  color: var(--wordDarkGreen);
+  width: 90%;
+  margin-top: 2vh;
+}
+.inputCodeText1 {
+  margin-top: 0.5vh;
+}
+.inputCodeBox {
+  border: 0.29vw solid var(--mainDarkGreen);
+  width: 15.4vw;
+  height: 9.2vh;
+  border-radius: 0.6vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 8.5vh;
+}
+.inputCode {
+  color: var(--noYellow);
+  font-size: 2vw;
+  font-weight: 700;
+  letter-spacing: -0.1vw;
+  border: none;
+  outline: none;
+  width: 80%;
+}
+.confirmCode {
+  background-color: var(--lightGreen);
+  width: 10vw;
+  height: 7vh;
+  border-radius: 0.6vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--butterWhite);
+  font-size: 1.9vw;
+  letter-spacing: 0.1vw;
+  margin-top: 9vh;
+}
 /* AddStore~1028 */
 .addBgc {
   background-color: var(--mainLightGreen);

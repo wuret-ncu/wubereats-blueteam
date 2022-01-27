@@ -8,6 +8,10 @@ import searchDelete from '../img/btn_cart_delete.png';
 import storeMore from '../img/btn-store-more.png';
 import addStoreMobile from '../img/btn-store-add-mobile.png';
 import draw from '../img/btn-draw.png';
+import groupOrderBtn from '../img/btn-store-groupOrder.png';
+import groupOrderHover from '../img/img-store-groupCodeHover.png';
+import groupOrderModalOrLine from '../img/img-store-groupOrderModalOrLine.png';
+import getCodeBtn from '../img/btn-store-getCode.png';
 import { getDrinksStores, getFoodsStores, deleteAStore, getUsingUser } from '../api/index';
 import { StoreContext } from '../store';
 import { SET_SEARCH_VALUE,
@@ -88,6 +92,7 @@ export default function StoreList() {
     const [drawFoodResult, setDrawFoodResult] = useState("");
     const [drawDrinkResult, setDrawDrinkResult] = useState("");
     const [drawUserResult, setDrawUserResult] = useState("");
+    const [groupOrderVisible, setGroupOrderVisible] = useState(false);
     const { sm } = useBreakpoint();
     const storeBgc = sm ? "storeBgc" : "storeBgcMobile"
     const storeSearchBgc = sm ? "storeSearchBgc" : "storeSearchBgcMobile";
@@ -99,11 +104,15 @@ export default function StoreList() {
     useEffect(() => {
         getFoodsStores().then((response) => {
             const foodResult = response.data.filter(data => data.StoreName.includes(search));
-            setFoodData(foodResult);
+            if(foodResult.length !== 0){
+                setFoodData(foodResult);
+            }
         })
         getDrinksStores().then((response) => {
             const drinkResult = response.data.filter(data => data.StoreName.includes(search));
-            setDrinkData(drinkResult);
+            if(drinkResult.length !== 0) {
+                setDrinkData(drinkResult);
+            }
         })   
     }, [])
 
@@ -116,11 +125,17 @@ export default function StoreList() {
         } else {
             getFoodsStores().then((response) => {
                 const foodResult = response.data.filter(data => data.StoreName.includes(search));
-                setFoodData(foodResult);
+                if(foodResult.length !== 0){
+                    setFoodData(foodResult);
+                }
+                
             })
             getDrinksStores().then((response) => {
                 const drinkResult = response.data.filter(data => data.StoreName.includes(search));
-                setDrinkData(drinkResult);
+                if(drinkResult.length !== 0) {
+                    setDrinkData(drinkResult);
+                }
+                
             })   
             dispatch({
                 type: SET_ENTRY_SEARCH_BTN,
@@ -132,10 +147,14 @@ export default function StoreList() {
     useEffect(() => {
         if(search === ``) {
             getFoodsStores().then((response) => {
-                setFoodData(response.data);
+                if(response.data.length !== 0){
+                    setFoodData(response.data);
+                }
             })
             getDrinksStores().then((response) => {
-                setDrinkData(response.data);
+                if(response.data.length !== 0) {
+                    setDrinkData(response.data);
+                }
             })
         }
     }, [search])
@@ -161,6 +180,7 @@ export default function StoreList() {
     }
     const handleCancel = () => {
         setDrawVisible(false);
+        setGroupOrderVisible(false);
     }
     const onClickDrawFood = () => {
         let i = 0;
@@ -190,7 +210,9 @@ export default function StoreList() {
             setDrawUserResult(response.data[0].User_info[Math.floor(Math.random()*i)].UserName);
         })
     }
-
+    const onClickGroupOrderBtn = () => {
+        setGroupOrderVisible(true);
+    }
     return(
         <div className={storeBgc}>
             <Row>
@@ -219,15 +241,15 @@ export default function StoreList() {
                 </Row>
                 
             </Modal>
-                {sm ? 
+                {/* {sm ? 
                     <Col span={12} className="storeSlogan">
                         Choose what you want to eat.
                     </Col> : 
                     <Col span={24} className="storeSloganMobile">
                         Choose what to eat...
                     </Col>
-                }
-                <Col sm={{span:7, offset:1}} span={21} className={storeSearchBgc}>
+                } */}
+                <Col sm={{span:7}} span={21} className={storeSearchBgc}>
                     <input
                         name='searchBar'
                         type='text'
@@ -255,6 +277,33 @@ export default function StoreList() {
                         Search
                     </button>
                 </Col>
+                <Col sm={{span:5, offset:8}} className="groupOrderBtnBox" onClick={onClickGroupOrderBtn}>
+                        <img alt="" src={groupOrderBtn} className="groupOrderBtn" />
+                        <img alt="" src={groupOrderHover} className="groupOrderHover" />
+                </Col>
+                <Modal
+                    visible={groupOrderVisible}
+                    className="groupOrderModalBox"
+                    width={'70vw'}
+                    footer={null}
+                    onCancel={handleCancel}
+                >
+                    <Row>
+                        <Col span={11} className="groupOrderModalInnerBox">
+                            <div><img alt="" src={getCodeBtn} className="getCodeBtn" /></div>
+                            <div className="getCodeText">Your group order code:</div>
+                            <div className="code">01274700</div>
+                            <div className="shareCodeText">Please share the code with your members.</div>
+                        </Col>
+                        <Col span={2} className="groupOrderModalOrLineBox"><img alt="" src={groupOrderModalOrLine} className="groupOrderModalOrLine" /></Col>
+                        <Col span={11} className="groupOrderModalInnerBox">
+                            <div className="inputCodeText inputCodeText1">Join other's group order.</div>
+                            <div className="inputCodeText">Please enter the code below.</div>
+                            <div className="inputCodeBox"><input className="inputCode" /></div>
+                            <div className="confirmCode">Join</div>
+                        </Col>
+                    </Row>
+                </Modal>
                 {sm ? 
                     <Col span={4}>
                         <Link to="/addStore" className="addMenuBtn"><span className="addMenuPlus">+</span> Add menu</Link> 

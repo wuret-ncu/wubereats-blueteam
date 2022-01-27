@@ -69,7 +69,7 @@ export default function SignupDetail() {
             postRegister(userAccount).then((response) => {
                 console.log(response)
                 form.resetFields();
-                history.push('/stores');
+                history.push('/signin');
                 message.success("Successfully registered !")
                 // setIfEncrypt(false);
             }).catch(
