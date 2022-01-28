@@ -84,6 +84,13 @@ export default function Header() {
             payload: false
         })
     }
+    const onClose2 = () => {
+        dispatch({
+            type: SET_VISIBLE,
+            payload: false
+        })
+        message.warning("登入開始新增餐點吧！")
+    }
     const onClickMenu = () => {
         setMenuVisible(true);
     }
@@ -97,6 +104,7 @@ export default function Header() {
         history.push('/')
         setAuthToken(null);
         message.success("Successfully Logout!")
+        setToLogoutVisible(false)
     }
     return(
         <header className="headerBgc">
@@ -175,9 +183,15 @@ export default function Header() {
                         <Col className={drawerContent} span={6}></Col>
                     }
                 </Row>
-                <Link className="drawerBtnBox" to="/cart" onClick={onClose}>
-                    <div className={drawerBtnToCart}>前往購物車 {'>>'}</div>
-                </Link>    
+                {
+                    getAuthToken() !== 'null' ?
+                    <Link className="drawerBtnBox" to="/cart" onClick={onClose}>
+                        <div className={drawerBtnToCart}>前往購物車 {'>>'}</div>
+                    </Link> :
+                    <Link className="drawerBtnBox" to="/signin" onClick={onClose2}>
+                        <div className={drawerBtnToCart}>前往購物車 {'>>'}</div>
+                    </Link>
+                }
             </Drawer> 
         </header>
     );

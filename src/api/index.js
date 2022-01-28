@@ -6,7 +6,7 @@ export const setAuthToken = (token) => {
 }
 
 export const getAuthToken = () => {
-    return localStorage.getItem("token");
+    return String(localStorage.getItem("token"));
 }
 
 function confirmWarning(warningTitle, warningContent) {
@@ -22,7 +22,6 @@ const instance = axios.create({
         'X-Powered-By':'Express',
         'Content-Type':'application/json',
         'Access-Control-Allow-Origin':'*',
-        'set-cookie': getAuthToken()
     },
     timeout:20000,
 })
@@ -32,7 +31,6 @@ const imgInstance = axios.create({
         'X-Powered-By':'Express',
         'Content-Type': 'multipart/form-data',
         'Access-Control-Allow-Origin':'*',
-        'set-cookie': getAuthToken()
     },
     timeout:20000,
 })

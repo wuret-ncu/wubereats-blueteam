@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { Drawer, Row, Col, Empty, Grid } from 'antd';
+import { Drawer, Row, Col, Empty, Grid, message, Modal } from 'antd';
 import { nanoid } from 'nanoid';
 import logo from '../img/btn-Logo.png';
 import homeBag from '../img/btn-home-bag.png';
@@ -15,7 +15,7 @@ import { SET_VISIBLE,
          GET_CARTS_DATA
 } from '../utils/constants';
 import drawerLine from '../img/img_drawer_line.png';
-import { getCarts } from '../api';
+import { getAuthToken, setAuthToken } from '../api';
 // const { useBreakpoint } = Grid;
 function JustOrdered(props) {
     return(
@@ -37,6 +37,7 @@ export default function HomeHeader() {
     const [headerNameColor, setHeaderNameColor] = useState("#FFF")
     const [bagColor, setBagColor] = useState(homeBag)
     const [memberColor, setMemberColor] = useState(homeMember)
+    const [toLogoutVisible, setToLogoutVisible] = useState(false);
     var lodash = require('lodash');
     // const { sm } = useBreakpoint();
     // const displayNone = sm ? "displayNone" : "";
@@ -72,7 +73,13 @@ export default function HomeHeader() {
             payload: false
         })
     }
-
+    const onClose2 = () => {
+        dispatch({
+            type: SET_VISIBLE,
+            payload: false
+        })
+        message.warning("登入開始新增餐點吧！")
+    }
     // 監聽滾動，改變header樣貌
     const listenScrollEvent = () => {
         window.scrollY > 100 ? setHeaderNameColor("#496030") : setHeaderNameColor("#FFF")
@@ -82,6 +89,16 @@ export default function HomeHeader() {
     useEffect(() => {
         window.addEventListener("scroll", listenScrollEvent)
     }, [])
+
+    const onClickToLogout = () => {
+        setToLogoutVisible(true);
+    }
+
+    const handleLogout = () => {
+        setAuthToken(null);
+        message.success("Successfully Logout!")
+        setToLogoutVisible(false)
+    }
 
     return(
         <header className="headerBgc">
@@ -102,9 +119,24 @@ export default function HomeHeader() {
                 <div onClick={showDrawer}>
                     <img className="homeBag mgl-4 pdb-10" src={bagColor} alt="" />
                 </div>
-                <Link to="/signin" >
-                    <img className="homeMember mgl-4 pdb-10" src={memberColor} alt="" />
-                </Link>
+                {
+                    getAuthToken() === 'null' ?
+                    <Link to="/signin" >
+                        <img className="homeMember mgl-4 pdb-10" src={memberColor} alt="" />
+                    </Link> : 
+                    <div style={{cursor:'pointer'}} onClick={onClickToLogout}>
+                        <img className="homeMember mgl-4 pdb-10" src={memberColor} alt="" />
+                    </div>
+                }
+                <Modal
+                    visible={toLogoutVisible}
+                    onOk={handleLogout}
+                    className="toLogoutModal"
+                    width={'40vw'}
+                    onCancel={()=>setToLogoutVisible(false)}
+                >
+                    Are you sure to logout?
+                </Modal>
             </div>
             <Drawer placement="right" onClose={onClose} visible={visible} width={'35vw'}>
                 <div className="drawerName">餐點資料</div>
@@ -125,9 +157,15 @@ export default function HomeHeader() {
                         <Col className="drawerContent" span={6}></Col>
                     }
                 </Row>
-                <Link className="drawerBtnBox" to="/cart" onClick={onClose}>
-                    <div className="drawerBtnToCart">前往購物車 {'>>'}</div>
-                </Link>    
+                {
+                    getAuthToken() !== 'null' ?
+                    <Link className="drawerBtnBox" to="/cart" onClick={onClose}>
+                        <div className='drawerBtnToCart'>前往購物車 {'>>'}</div>
+                    </Link> :
+                    <Link className="drawerBtnBox" to="/signin" onClick={onClose2}>
+                        <div className='drawerBtnToCart'>前往購物車 {'>>'}</div>
+                    </Link>
+                }   
             </Drawer> 
         </header>
     );

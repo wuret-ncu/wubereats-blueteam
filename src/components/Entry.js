@@ -1,6 +1,6 @@
 import React from 'react';
 import { useContext } from 'react';
-import { Row, Col, Grid } from 'antd';
+import { Row, Col, Grid, message } from 'antd';
 import { Link, useHistory } from 'react-router-dom';
 import homeTitle from '../img/img-home-title.png';
 import banner from '../img/img-home-banner.png';
@@ -14,6 +14,7 @@ import { StoreContext } from '../store';
 import { SET_SEARCH_VALUE,
          SET_ENTRY_SEARCH_BTN
 } from '../utils/constants';
+import { getAuthToken } from '../api';
 const { useBreakpoint } = Grid;
 export default function Entry() {
     const { state: { search }, dispatch } = useContext(StoreContext);
@@ -31,6 +32,10 @@ export default function Entry() {
         if(search !== ``) {
             history.push('/Stores')  
         }
+    }
+
+    const onClickToLogin = () => {
+        message.error('You are already logged in.');
     }
 
     return(
@@ -63,17 +68,30 @@ export default function Entry() {
                 {sm ? "" : <div><img className="bannerMobile" src={homeBannerMobile} /></div>}
                 {sm ? 
                     <>
-                    <Link to="/signin" className="entryLeftImg toLogin">
-                        <img src={homeToLogin} alt=""/>
-                    </Link>    
+                    {
+                        getAuthToken() === 'null' ? 
+                        <Link to="/signin" className="entryLeftImg toLogin">
+                            <img src={homeToLogin} alt=""/>
+                        </Link> :
+                        <div style={{cursor:'pointer'}} className="entryLeftImg toLogin" onClick={onClickToLogin}>
+                            <img src={homeToLogin} alt=""/>
+                        </div>
+                    }
+                    {console.log(getAuthToken())}
                     <Link to="/stores" className="entryLeftImg toStores">
                         <img src={homeToStore} alt=""/>
                     </Link>
                     </> :
                     <>
-                    <Link to="/" className="homeToLoginMobile">
-                        <img className="homeToImgMobile" src={homeToLoginMobile} alt=""/>
-                    </Link>    
+                    {
+                        getAuthToken() === 'null' ? 
+                        <Link to="/" className="homeToLoginMobile">
+                            <img className="homeToImgMobile" src={homeToLoginMobile} alt=""/>
+                        </Link>  :
+                        <div style={{cursor:'pointer'}} className="homeToLoginMobile" onClick={onClickToLogin}>
+                            <img src={homeToLoginMobile} alt=""/>
+                        </div>
+                    }    
                     <Link to="/stores" className="homeToStoreMobile">
                         <img className="homeToImgMobile" src={homeToStoreMobile} alt=""/>
                     </Link>

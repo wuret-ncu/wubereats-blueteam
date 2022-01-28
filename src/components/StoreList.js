@@ -32,38 +32,53 @@ function Cards(props) {
     const storeToMenuWord = sm ? "storeToMenuWord" : "storeToMenuWordMobile";
     const history = useHistory();
 
+    const onClickToSigninAlert3 = () => {
+        message.warning("請先登入才可操作哦")
+        history.push('/signin');
+    }
+
     const content=(
         <div className="storeCard">
-            <Link to={`/edit/${props.id}`} className="popOverText">
-                Edit
-            </Link>
+            {
+                getAuthToken() !== 'null' ?
+                <Link to={`/edit/${props.id}`} className="popOverText">
+                    Edit
+                </Link> :
+                <Link to={`/signin`} className="popOverText" onClick={onClickToSigninAlert3}>
+                    Edit
+                </Link>
+            }
             <Divider className="storeDivider" />
-            <Popconfirm
-                placement="bottomLeft"
-                title={"Are you sure to delete this store?"}
-                onConfirm={() => {
-                    deleteAStore(props.id).then((response) => {
-                        console.log(response);
-                        dispatch({
-                            type: SET_DELETE_STORE,
-                            payload: !deleteStore
-                        })
-                        message.success("Successfully deleted !")
-                    }).catch(
-                        input => {console.log(input.response)}
-                    )
-                }}
-                okText="Yes"
-                cancelText="No"
-                overlayClassName="storeConfirm"
-            >
-                <div className="popOverText">Delete</div>
-            </Popconfirm>
+            {
+                getAuthToken() !== 'null' ?
+                <Popconfirm
+                    placement="bottomLeft"
+                    title={"Are you sure to delete this store?"}
+                    onConfirm={() => {
+                        deleteAStore(props.id).then((response) => {
+                            console.log(response);
+                            dispatch({
+                                type: SET_DELETE_STORE,
+                                payload: !deleteStore
+                            })
+                            message.success("Successfully deleted !")
+                        }).catch(
+                            input => {console.log(input.response)}
+                        )
+                    }}
+                    okText="Yes"
+                    cancelText="No"
+                    overlayClassName="storeConfirm"
+                >
+                    <div className="popOverText">Delete</div>
+                </Popconfirm> :
+                 <div className="popOverText" onClick={onClickToSigninAlert3}>Delete</div>
+            }
         </div>
     );
 
     const onClickToSigninAlert = () => {
-        message.success("請先登入即可開始點餐！")
+        message.warning("請先登入即可開始點餐！")
         history.push('/signin');
     }
 
@@ -105,6 +120,7 @@ export default function StoreList() {
     const [drawUserResult, setDrawUserResult] = useState("");
     const [groupOrderVisible, setGroupOrderVisible] = useState(false);
     const { sm } = useBreakpoint();
+    const history = useHistory();
     const storeBgc = sm ? "storeBgc" : "storeBgcMobile"
     const storeSearchBgc = sm ? "storeSearchBgc" : "storeSearchBgcMobile";
     const storeSearchInput = sm ? "storeSearchInput" : "storeSearchInputMobile";
@@ -224,6 +240,13 @@ export default function StoreList() {
     const onClickGroupOrderBtn = () => {
         setGroupOrderVisible(true);
     }
+    const onClickToSigninAlert = () => {
+        message.warning("請先登入即可開始團購")
+        history.push('/signin');
+    }
+    const onClickToSigninAlert2 = () => {
+        message.warning("請先登入即可開始新增店家")
+    }
     return(
         <div className={storeBgc}>
             <Row>
@@ -288,10 +311,18 @@ export default function StoreList() {
                         Search
                     </button>
                 </Col>
-                <Col sm={{span:5, offset:8}} className="groupOrderBtnBox" onClick={onClickGroupOrderBtn}>
+                {
+                    getAuthToken() !== 'null' ?
+                    <Col sm={{span:5, offset:8}} className="groupOrderBtnBox" onClick={onClickGroupOrderBtn}>
                         <img alt="" src={groupOrderBtn} className="groupOrderBtn" />
                         <img alt="" src={groupOrderHover} className="groupOrderHover" />
-                </Col>
+                    </Col> : 
+                    <Col sm={{span:5, offset:8}} className="groupOrderBtnBox" onClick={onClickToSigninAlert}>
+                        <img alt="" src={groupOrderBtn} className="groupOrderBtn" />
+                        <img alt="" src={groupOrderHover} className="groupOrderHover" />
+                    </Col>
+                }
+                
                 <Modal
                     visible={groupOrderVisible}
                     className="groupOrderModalBox"
@@ -316,12 +347,28 @@ export default function StoreList() {
                     </Row>
                 </Modal>
                 {sm ? 
-                    <Col span={4}>
-                        <Link to="/addStore" className="addMenuBtn"><span className="addMenuPlus">+</span> Add menu</Link> 
-                    </Col> : 
-                    <Col span={3} className="addStoreBoxMobile">
-                        <Link to="/addStore"><img className="addStoreMobile" src={addStoreMobile} alt="" /></Link> 
-                    </Col>
+                    <>
+                    {
+                        getAuthToken() !== 'null' ?
+                        <Col span={4}>
+                            <Link to="/addStore" className="addMenuBtn"><span className="addMenuPlus">+</span> Add menu</Link> 
+                        </Col> :
+                        <Col span={4}>
+                            <Link to="/signin" className="addMenuBtn" onClick={onClickToSigninAlert2}><span className="addMenuPlus">+</span> Add menu</Link> 
+                        </Col>
+                    } 
+                    </> : 
+                    <>
+                    {
+                        getAuthToken() !== 'null' ?
+                        <Col span={3} className="addStoreBoxMobile">
+                            <Link to="/addStore"><img className="addStoreMobile" src={addStoreMobile} alt="" /></Link> 
+                        </Col> :
+                        <Col span={4} className="addStoreBoxMobile">
+                            <Link to="/signin" onClick={onClickToSigninAlert2}><img className="addStoreMobile" src={addStoreMobile} alt="" /></Link> 
+                        </Col>
+                    } 
+                    </>
                 }
             </Row>
             <Row className={listBgc}>
