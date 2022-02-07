@@ -7,7 +7,8 @@ import { SET_VISIBLE,
          GET_CARTS_DATA,
          SET_SEARCH_VALUE,
          SET_ENTRY_SEARCH_BTN,
-         SET_DELETE_STORE
+         SET_DELETE_STORE,
+         SET_IMG
     } from '../utils/constants';
 
 export const StoreContext = createContext();
@@ -19,6 +20,7 @@ const initialState = {
     search:``,
     entrySearchBtn: null,
     deleteStore: false,
+    formDataa: null,
 }
 
 function reducer(state, action) {
@@ -52,6 +54,11 @@ function reducer(state, action) {
             return{
                 ...state,
                 deleteStore: action.payload
+            }
+        case SET_IMG:
+            return{
+                ...state,
+                formDataa: action.payload
             }
         default: 
             return state;

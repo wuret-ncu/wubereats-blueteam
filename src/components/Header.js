@@ -40,7 +40,7 @@ function JustOrdered(props) {
 export default function Header() {
     const { state: { visible, cartsData }, dispatch} = useContext(StoreContext);
     const [menuVisible, setMenuVisible] = useState(false);
-    const [toLogoutVisible, setToLogoutVisible] = useState(false);
+    // const [toLogoutVisible, setToLogoutVisible] = useState(false);
     var lodash = require('lodash');
     const { sm } = useBreakpoint();
     const history = useHistory();
@@ -97,15 +97,15 @@ export default function Header() {
     const onCloseMenu = () => {
         setMenuVisible(false);
     }
-    const onClickToLogout = () => {
-        setToLogoutVisible(true);
-    }
-    const handleLogout = () => {
-        history.push('/')
-        setAuthToken(null);
-        message.success("Successfully Logout!")
-        setToLogoutVisible(false)
-    }
+    // const onClickToLogout = () => {
+    //     setToLogoutVisible(true);
+    // }
+    // const handleLogout = () => {
+    //     history.push('/')
+    //     setAuthToken(null);
+    //     message.success("Successfully Logout!")
+    //     setToLogoutVisible(false)
+    // }
     return(
         <header className="headerBgc">
             {sm ? "" : <>
@@ -146,23 +146,14 @@ export default function Header() {
                     <img className={homeBagMobile} src={bag} alt="" />
                 </div>
                 {
-                    getAuthToken() === 'null' ?
+                    getAuthToken() === 'undefined' ?
                     <Link to="/signin" >
                         <img className={homeMemberMobile} src={member} alt="" />
                     </Link> : 
-                    <div style={{cursor:'pointer'}} onClick={onClickToLogout}>
+                    <Link to="/profile" >
                         <img className={homeMemberMobile} src={member} alt="" />
-                    </div>
+                    </Link>
                 }
-                <Modal
-                    visible={toLogoutVisible}
-                    onOk={handleLogout}
-                    className="toLogoutModal"
-                    width={'40vw'}
-                    onCancel={()=>setToLogoutVisible(false)}
-                >
-                    Are you sure to logout?
-                </Modal>
             </div>
             <Drawer placement="right" onClose={onClose} visible={visible} width={drawerWidth}>
                 <div className={drawerName}>餐點資料</div>
@@ -184,7 +175,7 @@ export default function Header() {
                     }
                 </Row>
                 {
-                    getAuthToken() !== 'null' ?
+                    getAuthToken() !== 'undefined' ?
                     <Link className="drawerBtnBox" to="/cart" onClick={onClose}>
                         <div className={drawerBtnToCart}>前往購物車 {'>>'}</div>
                     </Link> :

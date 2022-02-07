@@ -43,7 +43,25 @@ const userInstance = axios.create({
     },
     timeout:20000,
 })
+const a=axios.create({
 
+    baseURL:'http://localhost:8080',
+    // baseURL:'http://192.168.123.127:3000',
+
+    //配置请求超时时间
+    timeout: 5000
+})
+export function reqUploadImg(file) {
+    return a({
+      url: '/stores',
+      method: 'POST',
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      data: file,
+    //   params: {<!-- --> user_id }
+    })
+  }
 instance.interceptors.request.use(
     function(config){
 
@@ -142,10 +160,10 @@ userInstance.interceptors.response.use(
 export const getStores = data => instance.get('/stores', data);
 export const getFoodsStores = data => instance.get('/stores/Foods', data);
 export const getDrinksStores = data => instance.get('/stores/Drinks', data);
-export const postStore = data => instance.post('/stores', data);
+export const postStore = data => imgInstance.post('/stores', data);
 export const postCart = data => instance.post('/carts', data);
 export const getCarts = data => instance.get('/carts/drawer', data);
-export const postMenu = data => imgInstance.post('/images', data);
+// export const postMenu = data => imgInstance.post('/images', data);
 export const getAStore = (id, data) => instance.get(`/store/${id}`, data);
 export const postEditedStore = (data, id) => instance.post(`/store/${id}`, data);
 export const deleteAStore = (id, data) => instance.delete(`/store/${id}`, data);

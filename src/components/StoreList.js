@@ -141,7 +141,7 @@ export default function StoreList() {
                 setDrinkData(drinkResult);
             }
         })
-    }, [])
+    }, [deleteStore])
 
     useEffect(() => {
         if(entrySearchBtn === null) {
@@ -312,7 +312,7 @@ export default function StoreList() {
                     </button>
                 </Col>
                 {
-                    getAuthToken() !== 'null' ?
+                    getAuthToken() !== 'undefined' ?
                     <Col sm={{span:5, offset:8}} className="groupOrderBtnBox" onClick={onClickGroupOrderBtn}>
                         <img alt="" src={groupOrderBtn} className="groupOrderBtn" />
                         <img alt="" src={groupOrderHover} className="groupOrderHover" />
@@ -349,9 +349,9 @@ export default function StoreList() {
                 {sm ? 
                     <>
                     {
-                        getAuthToken() !== 'null' ?
+                        getAuthToken() !== '' ?
                         <Col span={4}>
-                            <Link to="/addStore" className="addMenuBtn"><span className="addMenuPlus">+</span> Add menu</Link> 
+                            <Link to="/addStore" className="addMenuBtn"><span className="addMenuPlus">+</span> Add a store</Link> 
                         </Col> :
                         <Col span={4}>
                             <Link to="/signin" className="addMenuBtn" onClick={onClickToSigninAlert2}><span className="addMenuPlus">+</span> Add menu</Link> 
@@ -360,7 +360,7 @@ export default function StoreList() {
                     </> : 
                     <>
                     {
-                        getAuthToken() !== 'null' ?
+                        getAuthToken() !== 'undefined' ?
                         <Col span={3} className="addStoreBoxMobile">
                             <Link to="/addStore"><img className="addStoreMobile" src={addStoreMobile} alt="" /></Link> 
                         </Col> :

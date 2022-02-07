@@ -1577,6 +1577,80 @@ input#signin_password.ant-input {
   background-size: contain;
   background-repeat: no-repeat;
 }
+/* profile */
+.profileEditIcon {
+  width: 2vw;
+  margin: 0 1vw;
+}
+.profileBgc {
+  margin-top: 15vh;
+  padding: 0 4vw;
+}
+.profileTitle {
+  color: var(--lightGray);
+  font-weight: 700;
+  letter-spacing: 0.1vw;
+  font-size: 1.8vw;
+}
+.profileLabel {
+  color: var(--lightGray);
+  font-weight: 700;
+  letter-spacing: 0.1vw;
+  font-size: 1.6vw;
+}
+.editProfileFormBgc {
+  padding: 0 4vw;
+}
+.editProfileRow {
+  margin-top: 5vh;
+}
+.straightLine {
+  margin-left: 2vw;
+  height: 6.5vh;
+}
+.resetPasswordBtn {
+  cursor: pointer;
+  color: #525252;
+  font-weight: 700;
+  font-size: 1.4vw;
+  margin-left: 2vw;
+  text-shadow: 0.1em 0.1em 0.3em #C1C1C1;
+}
+.editProfileBtns {
+  display: flex;
+  justify-content: flex-end;
+}
+.profileLogoutIcon {
+  width: 1.6vw;
+  margin-right: 0.5vw;
+}
+.saveChangesBtn {
+  background-color: var(--mainDarkGreen);
+  color: white;
+  font-size: 1.4vw;
+  padding: 0 1.5vw;
+  letter-spacing: 0.1vw;
+  border-radius: 0.6vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 5.5vh;
+  cursor: pointer;
+}
+.profileLogoutBtn {
+  color: var(--mainDarkGreen);
+  border: 0.2vw solid var(--mainDarkGreen);
+  font-size: 1.4vw;
+  padding: 0 1.5vw;
+  letter-spacing: 0.1vw;
+  border-radius: 0.6vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 5.5vh;
+  margin-left: 2vw;
+  cursor: pointer;
+}
 
 /* for useBreakpoint */
 .displayNone {

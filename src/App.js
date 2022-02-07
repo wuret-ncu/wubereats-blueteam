@@ -8,6 +8,7 @@ import Cart from './pages/Cart';
 import Edit from './pages/Edit';
 import Signin from './pages/Signin';
 import Signup from './pages/Signup';
+import Profile from './pages/Profile';
 import { Switch, Route, BrowserRouter, useParams } from 'react-router-dom';
 import { StoreProvider } from './store';
 
@@ -24,6 +25,7 @@ export default function App() {
         <Route exact path="/edit/:storeId" component={Edit} children={<Child />} />
         <Route exact path="/signin" component={Signin} />
         <Route exact path="/signup" component={Signup} />
+        <Route exact path="/profile" component={Profile} />
       </Switch>
     </BrowserRouter>
     </StoreProvider>

@@ -1,12 +1,15 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Row, Col, Form, Button, Input, Upload, Grid } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
 import { Link, useHistory } from 'react-router-dom';
-import { postStore, getStores, postMenu } from '../api';
+import { postStore, getStores, postMenu, reqUploadImg } from '../api';
+import { SET_IMG } from '../utils/constants';
+import { StoreContext } from '../store';
 import storeDot from '../img/img-store-dot.png';
 const { useBreakpoint } = Grid;
 export default function Add() {
+    const { state : { formDataa } , dispatch } = useContext(StoreContext);
     const [type, setType] = useState('Foods');
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
@@ -35,59 +38,71 @@ export default function Add() {
     const addCreateBtn = sm ? "addCreateBtn" : "addCreateBtnMobile";
     const addBtns = sm ? "addBtns" : "addBtnsMobile"; 
     const addInputs = sm ? "addInputs" : "addInputsMobile";
-
+   
     useEffect(() => {
         getStores().then((response) => {
             setAllStores(response.data);
         })
     }, [])
-
+    
     const onClickCreate = async () => {
-        if (menu !== null) {
-            let formData = new FormData();
-            for(let i = 0; i < menu.length; i++) {
-                formData.append('image', menu[i].originFileObj);
-            }
-            await postMenu(formData).then(res => {
-                console.log(res);
-            }).catch(
-                input => {console.log(input.res)}
-            )
-        }
-        // console.log(menu[0].originFileObj);
-        setStoreObj({
-            StoreType: type,
-            StoreName: name,
-            Phone: phone,
-            RestDate: restDay,
-            MuneUrl: menuURL
+        let formData = new FormData();
+        formData.append('StoreType', type);
+        formData.append('StoreName', name);
+        formData.append('Phone', phone);
+        formData.append('RestDate', restDay);
+        formData.append('MenuUrl', menuURL)
+        formData.append('image', menu[0].originFileObj);
+        await dispatch({
+            type: SET_IMG,
+            payload: formData
         })
+        console.log(menu[0].originFileObj);
         form.resetFields();
     }
+    
+    useEffect(() => {
+        if(formDataa !== null) {
+            setStoreObj({
+                StoreType: type,
+                StoreName: name
+            })
+        }
+    }, [formDataa])
 
     useEffect(() => {
-        const num = allStores.findIndex(store => store.StoreName === storeObj.StoreName)
-            if(num === -1 && storeObj !== null) {
-                postStore(storeObj).then((response) => {
-                    console.log(response);
-                    history.push('/stores')
-                }).catch(
-                    input => {console.log(input.response)}
-                )
-            }
-            else if(num !== -1 && storeObj !==null) {
-                alert('此店家已存在。')
-            }
-        setName('');
-        setPhone('');
-        setRestDay('');
-        setMenuURL('');
+        if(storeObj !== null) {
+            console.log(storeObj);
+            const num = allStores.findIndex(store => store.StoreName === storeObj.StoreName)
+                if(num === -1 && storeObj !== null) {
+                    postStore(formDataa).then((response) => {
+                        console.log(response);
+                        history.push('/stores')
+                    }).catch(
+                        input => {console.log(input.response)}
+                    )
+                }
+                else if(num !== -1 && storeObj !==null) {
+                    alert('此店家已存在。')
+                }
+            dispatch({
+                type: SET_IMG,
+                payload: null
+            })
+            setMenu(null);
+            setName('');
+            setPhone('');
+            setRestDay('');
+            setMenuURL('');
+        }
     }, [storeObj])
+    
     const props = {
         name: 'image',
         beforeUpload: ()=>false,
         onChange:({fileList}) => {
-            // console.log(fileList.length);
+            console.log(fileList.length);
+            console.log(fileList)
             setMenu(fileList);
         }
     };
