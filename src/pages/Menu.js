@@ -5,7 +5,7 @@ import MenuDetail from '../components/MenuDetail';
 
 const {Header, Content } = Layout;
 
-export default function Menu() {
+export default function Menu(pageMenuProps) {
     return(
         <Layout className="container main-layout">
             <Layout>
@@ -13,7 +13,7 @@ export default function Menu() {
                     <AllHeader />
                 </Header>
                 <Content>
-                    <MenuDetail />
+                    <MenuDetail storeId={pageMenuProps.storeId} />
                 </Content>
             </Layout>         
         </Layout>

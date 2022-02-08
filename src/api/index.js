@@ -150,7 +150,7 @@ export const postStore = data => imgInstance.post('/stores', data);
 export const postCart = data => instance.post('/carts', data);
 export const getCarts = data => instance.get('/carts/drawer', data);
 // export const postMenu = data => imgInstance.post('/images', data);
-export const getAStore = (id, data) => instance.get(`/store/${id}`, data);
+export const getAStore = (id, data) => imgInstance.get(`/store/${id}`, data);
 export const postEditedStore = (data, id) => instance.post(`/store/${id}`, data);
 export const deleteAStore = (id, data) => instance.delete(`/store/${id}`, data);
 export const getUsingUser = data => instance.get('/bill/user', data);

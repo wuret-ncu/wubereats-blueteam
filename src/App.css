@@ -1421,10 +1421,56 @@
   padding-left: 3vw;
   border-bottom: 0.2vw solid var(--mainDarkGreen);
 }
+.rateBox {
+  padding-left: 3vw;
+  margin-top: 2vh;
+  display: flex;
+  flex-direction: column;
+}
 .orderTitle {
   color: var(--mainDarkGreen);
-  font-size: 1.5vw;
+  font-size: 1.8vw;
   font-weight: 500;
+  letter-spacing: 0.05vw;
+}
+.commentsBox {
+  border: 0.05vw solid #989898;
+  border-radius: 0.4vw;
+  padding: 1vh 1vw;
+  margin-top: 1vh;
+  height: 25vh;
+  overflow: auto;
+}
+.commentName {
+  color: var(--mainDarkGreen);
+  font-size: 1.5vw;
+  font-weight: 600;
+  letter-spacing: 0.04vw;
+}
+.commentsAndTime {
+  display: flex;
+  justify-content: space-between;
+}
+.comments {
+  color: var(--mainDarkGreen);
+  font-size: 1.3vw;
+  font-weight: 500;
+  letter-spacing: 0.05vw;
+}
+.commentTime {
+  color: var(--mainDarkGreen);
+  font-size: 1vw;
+  font-weight: 400;
+}
+.aComment {
+  margin-bottom: 1.6vh;
+}
+.rateNickname {
+  margin-top: 2vh;
+  color: var(--mainDarkGreen);
+  font-size: 1.5vw;
+  font-weight: 600;
+  letter-spacing: 0.04vw;
 }
 .inputOrder {
   border: 0.2vw solid var(--mainMediumGreen);

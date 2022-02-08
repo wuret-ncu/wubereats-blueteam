@@ -2,13 +2,13 @@ import React from 'react';
 import { useState, useEffect, useContext } from 'react';
 import { Row, Col, Form, Button, Input } from 'antd';
 import { Link } from 'react-router-dom';
-import { postCart } from '../api';
+import { postCart, getAStore } from '../api';
 import { SET_VISIBLE } from '../utils/constants';
 import { StoreContext } from '../store';
 
-export default function MenuDetail() {
+export default function MenuDetail(menuDetailProps) {
     const { dispatch } = useContext(StoreContext);
-    const [imgUrl, setImgUrl] = useState("/")
+    const [imgUrl, setImgUrl] = useState("/");
     const [orderItem, setOrderItem] = useState('');
     const [orderSum, setOrderSum] = useState('');
     const [addToCart, setAddToCart] = useState(null);
@@ -89,7 +89,41 @@ export default function MenuDetail() {
                         </div>
                     </Form>
                 </div>
-                <Row></Row>
+                <Row className="rateBox">
+                    <div className="orderTitle">評論區</div>
+                    <div className="commentsBox">
+                        <div className="aComment">
+                            <div className="commentName">Jenny</div>
+                            <div className="commentsAndTime">
+                                <div className="comments">這家炒飯好吃!</div>
+                                <div className="commentTime">2021/09/06 14:44</div>
+                            </div>
+                        </div>
+                        {/* <div className="aComment">
+                            <div className="commentName">Jenny</div>
+                            <div className="commentsAndTime">
+                                <div className="comments">這家炒飯好吃</div>
+                                <div className="commentTime">2021/09/06 14:44</div>
+                            </div>
+                        </div>
+                        <div className="aComment">
+                            <div className="commentName">Jenny</div>
+                            <div className="commentsAndTime">
+                                <div className="comments">這家炒飯好吃</div>
+                                <div className="commentTime">2021/09/06 14:44</div>
+                            </div>
+                        </div>
+                        <div className="aComment">
+                            <div className="commentName">Jenny</div>
+                            <div className="commentsAndTime">
+                                <div className="comments">這家炒飯好吃</div>
+                                <div className="commentTime">2021/09/06 14:44</div>
+                            </div>
+                        </div> */}
+                    </div>
+                    <div className="rateNickname">{localStorage.getItem("nickname")}</div>
+                    
+                </Row>
             </Col>
         </Row>
     );

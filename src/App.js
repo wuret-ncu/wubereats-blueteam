@@ -20,7 +20,7 @@ export default function App() {
         <Route exact path="/" component={Home} />
         <Route exact path="/stores" component={Stores} />
         <Route exact path="/addStore" component={AddStore} />
-        <Route exact path="/menu/:storeId" component={Menu} />
+        <Route exact path="/menu/:storeId" component={Menu} children={<Child2 />} />
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/edit/:storeId" component={Edit} children={<Child />} />
         <Route exact path="/signin" component={Signin} />
@@ -35,6 +35,12 @@ export default function App() {
     let{ storeId } = useParams();
     return (
       <Edit storeId={storeId} />
+    );
+  }
+  function Child2() {
+    let{ storeId } = useParams();
+    return (
+      <Menu storeId={storeId} />
     );
   }
 }
