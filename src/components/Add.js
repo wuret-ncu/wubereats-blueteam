@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from 'react';
 import { Row, Col, Form, Button, Input, Upload, Grid } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
 import { Link, useHistory } from 'react-router-dom';
-import { postStore, getStores, postMenu, reqUploadImg } from '../api';
+import { postStore, getStores } from '../api';
 import { SET_IMG } from '../utils/constants';
 import { StoreContext } from '../store';
 import storeDot from '../img/img-store-dot.png';
@@ -72,7 +72,6 @@ export default function Add() {
 
     useEffect(() => {
         if(storeObj !== null) {
-            console.log(storeObj);
             const num = allStores.findIndex(store => store.StoreName === storeObj.StoreName)
                 if(num === -1 && storeObj !== null) {
                     postStore(formDataa).then((response) => {
@@ -101,8 +100,6 @@ export default function Add() {
         name: 'image',
         beforeUpload: ()=>false,
         onChange:({fileList}) => {
-            console.log(fileList.length);
-            console.log(fileList)
             setMenu(fileList);
         }
     };

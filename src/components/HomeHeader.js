@@ -90,16 +90,6 @@ export default function HomeHeader() {
         window.addEventListener("scroll", listenScrollEvent)
     }, [])
 
-    const onClickToLogout = () => {
-        setToLogoutVisible(true);
-    }
-
-    const handleLogout = () => {
-        setAuthToken(null);
-        message.success("Successfully Logout!")
-        setToLogoutVisible(false)
-    }
-
     return(
         <header className="headerBgc">
             {/* <div className={displayNone}><img className="menuMobile" src={menuMobile} alt="" /></div>

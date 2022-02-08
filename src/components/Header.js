@@ -97,15 +97,7 @@ export default function Header() {
     const onCloseMenu = () => {
         setMenuVisible(false);
     }
-    // const onClickToLogout = () => {
-    //     setToLogoutVisible(true);
-    // }
-    // const handleLogout = () => {
-    //     history.push('/')
-    //     setAuthToken(null);
-    //     message.success("Successfully Logout!")
-    //     setToLogoutVisible(false)
-    // }
+    
     return(
         <header className="headerBgc">
             {sm ? "" : <>

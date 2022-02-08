@@ -20,12 +20,7 @@ export default function SigninDetail() {
         if(userAccount !== '') {
             postLogin(userAccount).then((response) => {
                 console.log(response);
-                setAuthToken(response.data.token);
-                // localStorage.setItem("token", response.data.token);
-                // dispatch({
-                //     type: SET_TOKEN,
-                //     paload: response.data.token
-                // })
+                setAuthToken(response.data.token, response.data.username, response.data.nickname, response.data.userId);
                 console.log(response.data.token);
                 form.resetFields();
                 history.push('/stores');

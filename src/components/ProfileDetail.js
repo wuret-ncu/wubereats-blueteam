@@ -7,6 +7,7 @@ import { setAuthToken } from '../api';
 import editIcon from '../img/icon-profile-edit.png';
 import straightLine from '../img/img-profile-straightLine.png';
 import profileLogout from '../img/icon-profile-logout.png';
+import profileOrderRecord from '../img/icon-profile-orderRecord.png';
 const { useBreakpoint } = Grid;
 
 export default function ProfileDetail() {
@@ -17,7 +18,7 @@ export default function ProfileDetail() {
     }
     const handleLogout = () => {
         history.push('/')
-        setAuthToken(null);
+        setAuthToken(undefined, undefined, undefined, undefined);
         message.success("Successfully Logout!")
         setToLogoutVisible(false)
     }
@@ -31,12 +32,12 @@ export default function ProfileDetail() {
                     <Col span={12} className="profileLabel">
                         Username
                         <span><img className="straightLine" src={straightLine} alt="" /></span>
-
+                        <span className="profileName">{localStorage.getItem("username")}</span>
                     </Col>
                     <Col span={12} className="profileLabel">
                         Nickname
                         <span><img className="straightLine" src={straightLine} alt="" /></span>
-
+                        <span className="profileName">{localStorage.getItem("nickname")}</span>
                     </Col>
                 </Row>
                 <Row className="editProfileRow">
@@ -60,8 +61,8 @@ export default function ProfileDetail() {
                     </Modal>
                 </Row>
             </div>
-            <div  style={{display: "flex", justifyContent: "space-between", borderBottom: "0.2vw solid lightgray", padding:"1vw 0", marginTop:"5vh"}}>
-                {/* <div className="profileTitle"><span><img className="profileEditIcon" src={editIcon} alt="" /></span>Edit Profile</div> */}
+            <div  style={{display: "flex", justifyContent: "space-between", borderBottom: "0.2vw solid lightgray", padding:"1vw 0", marginTop:"3vh"}}>
+                <div className="profileTitle"><span><img className="profileEditIcon" src={profileOrderRecord} alt="" /></span>Past Orders</div>
             </div>
         </div>
 

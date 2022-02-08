@@ -1,8 +1,12 @@
 import axios from 'axios';
 import { Modal } from 'antd';
 
-export const setAuthToken = (token) => {
-    return localStorage.setItem("token", token)
+export const setAuthToken = (token, username, nickname, userID) => {
+    localStorage.setItem("token", token);
+    localStorage.setItem("username", username);
+    localStorage.setItem("nickname", nickname);
+    localStorage.setItem("userID", userID);
+    // return localStorage.setItem("token", token)
 }
 
 export const getAuthToken = () => {
@@ -43,25 +47,7 @@ const userInstance = axios.create({
     },
     timeout:20000,
 })
-const a=axios.create({
 
-    baseURL:'http://localhost:8080',
-    // baseURL:'http://192.168.123.127:3000',
-
-    //配置请求超时时间
-    timeout: 5000
-})
-export function reqUploadImg(file) {
-    return a({
-      url: '/stores',
-      method: 'POST',
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-      data: file,
-    //   params: {<!-- --> user_id }
-    })
-  }
 instance.interceptors.request.use(
     function(config){
 

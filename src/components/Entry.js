@@ -69,7 +69,7 @@ export default function Entry() {
                 {sm ? 
                     <>
                     {
-                        getAuthToken() === 'null' ? 
+                        getAuthToken() === 'undefined' ? 
                         <Link to="/signin" className="entryLeftImg toLogin">
                             <img src={homeToLogin} alt=""/>
                         </Link> :
@@ -84,7 +84,7 @@ export default function Entry() {
                     </> :
                     <>
                     {
-                        getAuthToken() === 'null' ? 
+                        getAuthToken() === 'undefined' ? 
                         <Link to="/" className="homeToLoginMobile">
                             <img className="homeToImgMobile" src={homeToLoginMobile} alt=""/>
                         </Link>  :

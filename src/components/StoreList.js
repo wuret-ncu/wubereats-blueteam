@@ -100,7 +100,7 @@ function Cards(props) {
                     <div className={informationDetail2}>公休日： {props.restDay}</div>
                 </Col>
                 <Col span={7} offset={3} className={storeToMenu}>
-                    {getAuthToken() !== 'null' ? 
+                    {getAuthToken() !== 'undefined' ? 
                         <Link to={`/menu/${props.id}`} className={storeToMenuWord}>前往點餐 {'>>'}</Link> :
                         <div className={storeToMenuWord} onClick={onClickToSigninAlert}>前往點餐 {'>>'}</div>
                     }
@@ -349,7 +349,7 @@ export default function StoreList() {
                 {sm ? 
                     <>
                     {
-                        getAuthToken() !== '' ?
+                        getAuthToken() !== 'undefined' ?
                         <Col span={4}>
                             <Link to="/addStore" className="addMenuBtn"><span className="addMenuPlus">+</span> Add a store</Link> 
                         </Col> :

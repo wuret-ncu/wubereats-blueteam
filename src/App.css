@@ -1577,7 +1577,7 @@ input#signin_password.ant-input {
   background-size: contain;
   background-repeat: no-repeat;
 }
-/* profile */
+/* profile~1661 */
 .profileEditIcon {
   width: 2vw;
   margin: 0 1vw;
@@ -1590,13 +1590,13 @@ input#signin_password.ant-input {
   color: var(--lightGray);
   font-weight: 700;
   letter-spacing: 0.1vw;
-  font-size: 1.8vw;
+  font-size: 1.6vw;
 }
 .profileLabel {
   color: var(--lightGray);
   font-weight: 700;
   letter-spacing: 0.1vw;
-  font-size: 1.6vw;
+  font-size: 1.4vw;
 }
 .editProfileFormBgc {
   padding: 0 4vw;
@@ -1619,6 +1619,7 @@ input#signin_password.ant-input {
 .editProfileBtns {
   display: flex;
   justify-content: flex-end;
+  margin-top: 1vh;
 }
 .profileLogoutIcon {
   width: 1.6vw;
@@ -1650,6 +1651,13 @@ input#signin_password.ant-input {
   height: 5.5vh;
   margin-left: 2vw;
   cursor: pointer;
+}
+.profileName {
+  color: #525252;
+  font-weight: 600;
+  letter-spacing: 0.1vw;
+  font-size: 1.4vw;
+  margin-left: 2vw;
 }
 
 /* for useBreakpoint */
