@@ -64,6 +64,26 @@ export default function ProfileDetail() {
             <div  style={{display: "flex", justifyContent: "space-between", borderBottom: "0.2vw solid lightgray", padding:"1vw 0", marginTop:"3vh"}}>
                 <div className="profileTitle"><span><img className="profileEditIcon" src={profileOrderRecord} alt="" /></span>Past Orders</div>
             </div>
+            <div className="editProfileFormBgc">
+                <Row className="pastOrders">
+                    <Col span={7} className="pastOrderColTitle pastOrderBorder">店家</Col>
+                    <Col span={8} className="pastOrderColTitle pastOrderBorder">餐點內容</Col>
+                    <Col span={4} className="pastOrderColTitle pastOrderBorder">金額</Col>
+                    <Col span={5} className="pastOrderColTitle">訂購時間</Col>
+                </Row>
+                <Row className="pastOrderContentsRow">
+                    <Col span={7} className="pastOrderContent">大嗑蔬菜蛋餅</Col>
+                    <Col span={8} className="pastOrderContent">牛肉蔥捲餅、大溫紅</Col>
+                    <Col span={4} className="pastOrderContent">80</Col>
+                    <Col span={5} className="pastOrderContent">2022-02-08</Col>
+                </Row>
+                {/* <Row className="pastOrderContentsRow">
+                    <Col span={7} className="pastOrderContent">大嗑蔬菜蛋餅</Col>
+                    <Col span={8} className="pastOrderContent">牛肉蔥捲餅、大溫紅</Col>
+                    <Col span={4} className="pastOrderContent">80</Col>
+                    <Col span={5} className="pastOrderContent">2022-02-08</Col>
+                </Row> */}
+            </div>
         </div>
 
         

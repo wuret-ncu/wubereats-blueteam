@@ -1659,6 +1659,37 @@ input#signin_password.ant-input {
   font-size: 1.4vw;
   margin-left: 2vw;
 }
+.pastOrderColTitle {
+  background-color: #EEEEEE;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2.5vh 0;
+  color: #525252;
+  font-size: 1.2vw;
+  font-weight: 700;
+  letter-spacing: 0.1vw;
+}
+.pastOrders {
+  margin-top: 2vh;
+}
+.pastOrderBorder {
+  border-right: 0.2vw solid white;
+}
+.pastOrderContent {
+  display: flex;
+  justify-content: center;
+  padding: 2.5vh 1vw;
+  font-size: 1vw;
+  letter-spacing: 0.05vw;
+}
+.pastOrderContentsRow {
+  background-color: white;
+  border-bottom: 0.2vh solid #EEEEEE;
+}
+.pastOrderContentsRow:hover {
+  background-color: #FAFAFA;
+}
 
 /* for useBreakpoint */
 .displayNone {
