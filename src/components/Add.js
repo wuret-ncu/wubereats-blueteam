@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect, useContext } from 'react';
-import { Row, Col, Form, Button, Input, Upload, Grid } from 'antd';
+import { Row, Col, Form, Button, Input, Upload, Grid, message } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
 import { Link, useHistory } from 'react-router-dom';
 import { postStore, getStores } from '../api';
@@ -45,49 +45,46 @@ export default function Add() {
         })
     }, [])
     
-    const onClickCreate = async () => {
-        let formData = new FormData();
-        formData.append('StoreType', type);
-        formData.append('StoreName', name);
-        formData.append('Phone', phone);
-        formData.append('RestDate', restDay);
-        formData.append('MenuUrl', menuURL)
-        formData.append('image', menu[0].originFileObj);
-        await dispatch({
-            type: SET_IMG,
-            payload: formData
-        })
-        console.log(menu[0].originFileObj);
+    const onClickCreate = () => {
+        if(menu === null) {
+            message.warning('請記得上傳菜單圖片！');
+        } else {
+            setStoreObj(new Map([
+                ['StoreType', type],
+                ['StoreName', name],
+                ['Phone', phone],
+                ['RestDate', restDay],
+                ['MenuUrl', menuURL],
+                ['image', menu[0].originFileObj]
+            ]));
+        }
         form.resetFields();
     }
-    
-    useEffect(() => {
-        if(formDataa !== null) {
-            setStoreObj({
-                StoreType: type,
-                StoreName: name
-            })
-        }
-    }, [formDataa])
 
     useEffect(() => {
-        if(storeObj !== null) {
-            const num = allStores.findIndex(store => store.StoreName === storeObj.StoreName)
-                if(num === -1 && storeObj !== null) {
-                    postStore(formDataa).then((response) => {
-                        console.log(response);
-                        history.push('/stores')
-                    }).catch(
-                        input => {console.log(input.response)}
-                    )
+        if(String(storeObj) !== 'null') {
+            const num = allStores.findIndex(store => store.StoreName === storeObj.get('StoreName'))
+            if(num === -1) {
+                let formData = new FormData();
+                for(let [key, value] of storeObj) {
+                    formData.append(key, value)
                 }
-                else if(num !== -1 && storeObj !==null) {
-                    alert('此店家已存在。')
-                }
+                postStore(formData).then((response) => {
+                    console.log(response);
+                    history.push('/stores')
+                    setStoreObj(null);
+                }).catch(
+                    input => {console.log(input.response)}
+                )
+            }
+            else if(num !== -1 && storeObj !==null) {
+                alert('此店家已存在。')
+            }
             dispatch({
                 type: SET_IMG,
                 payload: null
             })
+            setType('Foods');
             setMenu(null);
             setName('');
             setPhone('');
