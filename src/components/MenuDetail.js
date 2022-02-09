@@ -5,6 +5,15 @@ import { Link } from 'react-router-dom';
 import { postCart, getAStore } from '../api';
 import { SET_VISIBLE } from '../utils/constants';
 import { StoreContext } from '../store';
+import starBtn from '../img/btn-menu-star.png';
+
+function Stars(){
+    let a = [];
+    for(let i = 1; i < 6; i = i + 1) {
+        a.push(<img className="starBtns" key={i} alt="" src={starBtn} />)
+    }
+    return a;
+}
 
 export default function MenuDetail(menuDetailProps) {
     const { dispatch } = useContext(StoreContext);
@@ -99,30 +108,11 @@ export default function MenuDetail(menuDetailProps) {
                                 <div className="commentTime">2021/09/06 14:44</div>
                             </div>
                         </div>
-                        {/* <div className="aComment">
-                            <div className="commentName">Jenny</div>
-                            <div className="commentsAndTime">
-                                <div className="comments">這家炒飯好吃</div>
-                                <div className="commentTime">2021/09/06 14:44</div>
-                            </div>
-                        </div>
-                        <div className="aComment">
-                            <div className="commentName">Jenny</div>
-                            <div className="commentsAndTime">
-                                <div className="comments">這家炒飯好吃</div>
-                                <div className="commentTime">2021/09/06 14:44</div>
-                            </div>
-                        </div>
-                        <div className="aComment">
-                            <div className="commentName">Jenny</div>
-                            <div className="commentsAndTime">
-                                <div className="comments">這家炒飯好吃</div>
-                                <div className="commentTime">2021/09/06 14:44</div>
-                            </div>
-                        </div> */}
                     </div>
-                    <div className="rateNickname">{localStorage.getItem("nickname")}</div>
-                    
+                    <div className="starRateRow">
+                        <div className="rateNickname">{localStorage.getItem("nickname")}</div>
+                        <div className="starBtnsBox"><Stars/></div>     
+                    </div>
                 </Row>
             </Col>
         </Row>

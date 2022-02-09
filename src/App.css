@@ -1472,6 +1472,18 @@
   font-weight: 600;
   letter-spacing: 0.04vw;
 }
+.starBtns {
+  margin-right: 0.2vw;
+  margin-top: 2vh;
+  width: 2vw;
+}
+.starBtnsBox {
+  display: flex;
+}
+.starRateRow {
+  display: flex;
+  justify-content: space-between;
+}
 .inputOrder {
   border: 0.2vw solid var(--mainMediumGreen);
   border-radius: 0.5vw;
