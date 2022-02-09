@@ -4,4 +4,4 @@ export const GET_CARTS_DATA = 'GET_CARTS_DATA';
 export const SET_SEARCH_VALUE = 'SET_SEARCH_VALUE';
 export const SET_ENTRY_SEARCH_BTN = 'SET_ENTRY_SEARCH_BTN';
 export const SET_DELETE_STORE = 'SET_DELETE_STORE';
-export const SET_IMG = 'SET_IMG';
+export const SET_STARS = 'SET_STARS';

@@ -4,12 +4,11 @@ import { Row, Col, Form, Button, Input, Upload, Grid, message } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
 import { Link, useHistory } from 'react-router-dom';
 import { postStore, getStores } from '../api';
-import { SET_IMG } from '../utils/constants';
 import { StoreContext } from '../store';
 import storeDot from '../img/img-store-dot.png';
 const { useBreakpoint } = Grid;
+
 export default function Add() {
-    const { state : { formDataa } , dispatch } = useContext(StoreContext);
     const [type, setType] = useState('Foods');
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
@@ -80,10 +79,6 @@ export default function Add() {
             else if(num !== -1 && storeObj !==null) {
                 alert('此店家已存在。')
             }
-            dispatch({
-                type: SET_IMG,
-                payload: null
-            })
             setType('Foods');
             setMenu(null);
             setName('');

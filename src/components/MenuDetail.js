@@ -5,22 +5,17 @@ import { Link } from 'react-router-dom';
 import { postCart, getAStore } from '../api';
 import { SET_VISIBLE } from '../utils/constants';
 import { StoreContext } from '../store';
+import { SET_STARS } from '../utils/constants';
+import { Rating } from 'react-simple-star-rating';
 import starBtn from '../img/btn-menu-star.png';
 
-function Stars(){
-    let a = [];
-    for(let i = 1; i < 6; i = i + 1) {
-        a.push(<img className="starBtns" key={i} alt="" src={starBtn} />)
-    }
-    return a;
-}
-
 export default function MenuDetail(menuDetailProps) {
-    const { dispatch } = useContext(StoreContext);
+    const { state : { stars } , dispatch } = useContext(StoreContext);
     const [imgUrl, setImgUrl] = useState("/");
     const [orderItem, setOrderItem] = useState('');
     const [orderSum, setOrderSum] = useState('');
     const [addToCart, setAddToCart] = useState(null);
+    const [rating, setRating] = useState(0);
     const [form] = Form.useForm();
     const { TextArea } = Input;
 
@@ -46,6 +41,11 @@ export default function MenuDetail(menuDetailProps) {
         }
     }, [addToCart])
 
+    const handleRating = (rate) => {
+        setRating(rate);
+        console.log(rate/20)
+    }
+
     return(
         <Row className="menuBox">
             <Col span={13} className="menuLeftBox">
@@ -60,7 +60,7 @@ export default function MenuDetail(menuDetailProps) {
                     <Form 
                         form={form}
                     >
-                        <div className="orderTitle">今天想吃點什麼？</div>
+                        <div className="orderTitle">今天想吃點什麼？{stars}</div>
                         <Form.Item
                             name="order"
                         >
@@ -111,7 +111,7 @@ export default function MenuDetail(menuDetailProps) {
                     </div>
                     <div className="starRateRow">
                         <div className="rateNickname">{localStorage.getItem("nickname")}</div>
-                        <div className="starBtnsBox"><Stars/></div>     
+                        <div className="starBtnsBox"><Rating onClick={handleRating} ratingValue={rating} /></div>     
                     </div>
                 </Row>
             </Col>

@@ -1472,13 +1472,9 @@
   font-weight: 600;
   letter-spacing: 0.04vw;
 }
-.starBtns {
-  margin-right: 0.2vw;
-  margin-top: 2vh;
-  width: 2vw;
-}
 .starBtnsBox {
   display: flex;
+  margin-top: 2vh;
 }
 .starRateRow {
   display: flex;
