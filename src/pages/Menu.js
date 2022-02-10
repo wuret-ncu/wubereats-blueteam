@@ -12,7 +12,7 @@ export default function Menu(pageMenuProps) {
                 <Header style={{position: 'fixed', zIndex: 1, backgroundColor: "rgba(249, 249, 249, 0.8)", boxShadow:"0 0.4vh 0.4vh 0.1vh rgba(114, 114, 114, 0.1)"}}>
                     <AllHeader />
                 </Header>
-                <Content>
+                <Content className="ant-layout-content">
                     <MenuDetail storeId={pageMenuProps.storeId} />
                 </Content>
             </Layout>         

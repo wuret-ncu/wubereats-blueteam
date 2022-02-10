@@ -156,6 +156,10 @@ export const deleteAStore = (id, data) => instance.delete(`/store/${id}`, data);
 export const getUsingUser = data => instance.get('/bill/user', data);
 export const postRegister = data => userInstance.post('/register', data);
 export const postLogin = data => userInstance.post('/login', data);
+export const postScores = data => instance.post('/scores', data);
+export const getScores = (id, data) => instance.get(`/stores/${id}/score`, data);
+export const postComments = data => instance.post('/comments', data);
+export const getComments = (id, data) => instance.get(`/stores/${id}/comment`, data);
 // export const postMenu = (data, id) => {
 //     return instance.post(`/images/${id}`, data);
 // }

@@ -8,11 +8,12 @@ import { SET_VISIBLE,
          SET_SEARCH_VALUE,
          SET_ENTRY_SEARCH_BTN,
          SET_DELETE_STORE,
-         SET_STARS
+         SET_COMMENTS
     } from '../utils/constants';
 
 export const StoreContext = createContext();
 
+let listItems = []
 const initialState = {
     visible: false,
     checkingVisible: false,
@@ -20,7 +21,9 @@ const initialState = {
     search:``,
     entrySearchBtn: null,
     deleteStore: false,
-    stars: '',
+    list: {
+        listItems
+    }
 }
 
 function reducer(state, action) {
@@ -55,10 +58,21 @@ function reducer(state, action) {
                 ...state,
                 deleteStore: action.payload
             }
-        case SET_STARS:
-            return{
-                ...state,
-                stars: action.payload
+        case SET_COMMENTS:
+            const newItem = action.payload;
+            const num = listItems.findIndex(lists => (lists.commentTime === newItem.commentTime) && (lists.commentName === newItem.commentName));
+            if(num === -1) {
+                listItems = [...state.list.listItems, newItem]
+                return{
+                    ...state,
+                    list: {...state.list, listItems}
+                }
+            } else {
+                listItems[num].commentScore = newItem.commentScore
+                return{
+                    ...state,
+                    list:{listItems}
+                }
             }
         default: 
             return state;

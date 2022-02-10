@@ -1443,7 +1443,7 @@
 }
 .commentName {
   color: var(--mainDarkGreen);
-  font-size: 1.5vw;
+  font-size: 1.6vw;
   font-weight: 600;
   letter-spacing: 0.04vw;
 }
@@ -1456,6 +1456,7 @@
   font-size: 1.3vw;
   font-weight: 500;
   letter-spacing: 0.05vw;
+  margin-top: 0.5vh;
 }
 .commentTime {
   color: var(--mainDarkGreen);
@@ -1463,10 +1464,10 @@
   font-weight: 400;
 }
 .aComment {
-  margin-bottom: 1.6vh;
+  margin-bottom: 1.2vh;
 }
 .rateNickname {
-  margin-top: 2vh;
+  margin-top: 2.6vh;
   color: var(--mainDarkGreen);
   font-size: 1.5vw;
   font-weight: 600;
@@ -1475,6 +1476,10 @@
 .starBtnsBox {
   display: flex;
   margin-top: 2vh;
+}
+.contentStars {
+  width: 1.7vw;
+  margin-right: 0.18vw;
 }
 .starRateRow {
   display: flex;
