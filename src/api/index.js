@@ -135,6 +135,20 @@ userInstance.interceptors.response.use(
                         '此帳號的密碼不是這一個'
                     );
                     break
+                case 7:
+                    console.log('The nickname already exists.')
+                    confirmWarning(
+                        '此 Nickname 已被使用過',
+                        '換一個 Nickname 吧！'
+                    );
+                    break
+                case 8:
+                    console.log('The username already exists.')
+                    confirmWarning(
+                        '此 Username 已被使用過',
+                        '換一個 username 吧！'
+                    );
+                    break
                 default:
                     console.log('other status error')
             }

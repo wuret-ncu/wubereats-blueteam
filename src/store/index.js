@@ -8,7 +8,8 @@ import { SET_VISIBLE,
          SET_SEARCH_VALUE,
          SET_ENTRY_SEARCH_BTN,
          SET_DELETE_STORE,
-         SET_COMMENTS
+         SET_COMMENTS,
+         CLEAN_COMMENTS
     } from '../utils/constants';
 
 export const StoreContext = createContext();
@@ -73,6 +74,12 @@ function reducer(state, action) {
                     ...state,
                     list:{listItems}
                 }
+            }
+        case CLEAN_COMMENTS:
+            listItems = action.payload;
+            return{
+                ...state,
+                list: {listItems}
             }
         default: 
             return state;

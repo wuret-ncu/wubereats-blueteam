@@ -227,7 +227,7 @@ export default function CartDetail() {
                         title={<div><ExclamationCircleOutlined className="modalIcon" /><span className="modalTitle">請確認</span></div>}
                         visible={modalVisible}
                         onOk={modalOk}
-                        confirmLoading={modalLoading}
+                        confirm={modalLoading}
                         onCancel={modalCancel}
                         className={modal}
                     >

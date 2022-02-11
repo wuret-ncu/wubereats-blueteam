@@ -1,10 +1,13 @@
 import React from 'react';
 import { useState, useEffect, useContext } from 'react';
-import { Row, Col, Form, Button, Input, message } from 'antd';
+import { Row, Col, Form, Button, Input, message, Spin } from 'antd';
 import { Link } from 'react-router-dom';
 import { nanoid } from 'nanoid';
 import { postCart, postScores, getScores, postComments, getComments } from '../api';
-import { SET_VISIBLE, SET_COMMENTS } from '../utils/constants';
+import { SET_VISIBLE,
+         SET_COMMENTS, 
+         CLEAN_COMMENTS
+        } from '../utils/constants';
 import { StoreContext } from '../store';
 import { Rating } from 'react-simple-star-rating';
 import star from '../img/img-menu-star.png';
@@ -25,7 +28,6 @@ function Comments(commentProps) {
         }
         return filled
     }
-    // console.log(commentProps.content)
     return(
         <div className="aComment">
             <div className="commentName">{commentProps.name}</div>
@@ -53,44 +55,44 @@ export default function MenuDetail(menuDetailProps) {
     const { TextArea } = Input;
 
     useEffect(() => {
-        let trytry = true;
-        (async() => {
-            getComments(menuDetailProps.storeId).then((response) => {
-                response.data.comment.map(b => {
-                    dispatch({
-                        type: SET_COMMENTS,
-                        payload: {
-                            id: nanoid(),
-                            commentName: b.User[0].NickName,
-                            commentContent: b.Comment,
-                            commentTime: b.date,
-                            commentScore:0
-                        }
-                    })
+        dispatch({
+            type: CLEAN_COMMENTS,
+            payload:[]
+        })
+        getComments(menuDetailProps.storeId).then((response) => {
+            response.data.comment.map(b => {
+                dispatch({
+                    type: SET_COMMENTS,
+                    payload: {
+                        id: nanoid(),
+                        commentName: b.User[0].NickName,
+                        commentContent: b.Comment,
+                        commentTime: b.date,
+                        commentScore:0
+                    }
                 })
-            }).catch(
-                input => {console.log(input.response)}
-            )
-            getScores(menuDetailProps.storeId).then((response) => {
-                response.data[0].score.map(a => {
-                    dispatch({
-                        type: SET_COMMENTS,
-                        payload: {
-                            id: nanoid(),
-                            commentName: a.User[0].NickName,
-                            commentContent:'',
-                            commentScore: a.Score,
-                            commentTime: a.date
-                        }
-                    })
+            })
+            
+        }).catch(
+            input => {console.log(input.response)}
+        )
+        getScores(menuDetailProps.storeId).then((response) => {
+            response.data[0].score.map(a => {
+                dispatch({
+                    type: SET_COMMENTS,
+                    payload: {
+                        id: nanoid(),
+                        commentName: a.User[0].NickName,
+                        commentContent:'',
+                        commentScore: a.Score,
+                        commentTime: a.date
+                    }
                 })
-                
-            }).catch(
-                input => {console.log(input.response)}
-            )
-        })();
-        return () => (trytry = false)
-    }, [])
+            })
+        }).catch(
+            input => {console.log(input.response)}
+        )
+    }, [sendComments, sendRate])
     
     const onClickAddToCart = async (e) => {
         setAddToCart({
@@ -141,7 +143,7 @@ export default function MenuDetail(menuDetailProps) {
                 console.log(response);
                 setRating(0);
                 setSendRate(null);
-                message.success("評論已送出！")
+                message.success("評分已送出！")
             }).catch(
                 input => {console.log(input.response)}
             )
@@ -154,6 +156,8 @@ export default function MenuDetail(menuDetailProps) {
                 console.log(response);
                 setComments(null);
                 setSendComments(null);
+                form.resetFields();
+                message.success("評論已送出！")
             })
         }
     }, [sendComments])
@@ -213,9 +217,11 @@ export default function MenuDetail(menuDetailProps) {
                 <Row className="rateBox">
                     <div className="orderTitle">評論區</div>
                     <div className="commentsBox">
-                        {listItems.length !== 0 ? listItems.map(element => 
+                        {
+                            listItems.length !== 0 ? listItems.map(element => 
                             <Comments key={element.id} name={element.commentName} score={element.commentScore} content={element.commentContent} time={element.commentTime} />
-                        ) : ""}
+                            ) : ""
+                        }
                     </div>
                     <div className="starRateRow">
                         <div className="rateNickname">{localStorage.getItem("nickname")}</div>
