@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import Home from './pages/Home';
 import Stores from './pages/Stores';
+import GroupStores from './pages/GroupStores';
 import AddStore from './pages/AddStore';
 import Menu from './pages/Menu';
 import Cart from './pages/Cart';
@@ -19,6 +20,7 @@ export default function App() {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/stores" component={Stores} />
+        <Route exact path="/groupStores" component={GroupStores} />
         <Route exact path="/addStore" component={AddStore} />
         <Route exact path="/menu/:storeId" component={Menu} children={<Child2 />} />
         <Route exact path="/cart" component={Cart} />

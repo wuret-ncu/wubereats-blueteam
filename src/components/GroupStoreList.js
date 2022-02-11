@@ -135,7 +135,7 @@ function Cards(props) {
     );
 }
 
-export default function StoreList() {
+export default function GroupStoreList() {
     const { state: { search, entrySearchBtn, deleteStore }, dispatch } = useContext(StoreContext);
     const [foodDatas, setFoodData] = useState(null);
     const [drinkDatas, setDrinkData] = useState(null);

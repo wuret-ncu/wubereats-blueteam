@@ -846,6 +846,11 @@
   letter-spacing: 0.1vw;
   margin-top: 9vh;
 }
+.storeListStar {
+  width: 1.5vw;
+  margin-left: 0.5vw;
+  margin-top: -0.6vh;
+}
 /* AddStore~1134 */
 .addBgc {
   background-color: var(--mainLightGreen);
