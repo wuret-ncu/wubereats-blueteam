@@ -50,16 +50,18 @@ function Cards(props) {
         history.push('/signin');
     }
     useEffect(() => {
+        let isMounted = true;
         setScore('無評分紀錄')
         getScores(props.id).then((response) => {
-            if(response.data.length !== 0) {
-                let score = response.data[0].avgScore.toFixed(1)
-                setScore(score);
+            if(response.data.length !== 0 && isMounted) {
+                let ss = response.data[0].avgScore.toFixed(1)
+                setScore(ss);
             }
         }).catch(
             input => {console.log(input.response)}
         )
-    }, [])
+        return () => {isMounted=false}
+    }, [score])
     const content=(
         <div className="storeCard">
             {
@@ -167,12 +169,6 @@ export default function GroupStoreList() {
     const listBgc = sm ? "listBgc" : "listBgcMobile";
 
     useEffect(() => {
-        if(code === 'get a code') {
-            dispatch({
-                type: SET_GROUP_ORDER_MODAL_VISIBLE,
-                payload: true
-            })
-        }
         setUserID({
             user: localStorage.getItem("userID")
         });
@@ -182,36 +178,59 @@ export default function GroupStoreList() {
                 payload: localStorage.getItem("groupCode")
             })
             setGroupCode(localStorage.getItem("groupCode"))
+        } else {
+            dispatch({
+                type: SET_GROUP_ORDER_CODE,
+                payload: 'get a code'
+            })
+            setJoinCode('')
         }
     }, [])
+    
+    useEffect(() => {
+        if(code === 'get a code') {
+            dispatch({
+                type: SET_GROUP_ORDER_MODAL_VISIBLE,
+                payload: true
+            })
+        }
+    }, [code])
 
     useEffect(() => {
+        let isMounted=true;
         if(String(postJoinCode) !== 'null') {
             postGroupCode(postJoinCode).then((response) => {
                 console.log(response.data);
-                localStorage.setItem("groupCode", joinCode)
+                if(isMounted) {
+                    localStorage.setItem("groupCode", joinCode)
+                }
+                
             }).catch(
                 input => {console.log(input.response)}
             )
         }
+        return () => {isMounted = false}
     }, [postJoinCode])
 
     useEffect(() => {
+        let isMounted=true;
         getFoodsStores().then((response) => {
             const foodResult = response.data.filter(data => data.StoreName.includes(search));
-            if(foodResult.length !== 0){
+            if(foodResult.length !== 0 && isMounted){
                 setFoodData(foodResult);
             }
         })
         getDrinksStores().then((response) => {
             const drinkResult = response.data.filter(data => data.StoreName.includes(search));
-            if(drinkResult.length !== 0) {
+            if(drinkResult.length !== 0 && isMounted) {
                 setDrinkData(drinkResult);
             }
         })
+        return () => {isMounted = false}
     }, [deleteStore])
 
     useEffect(() => {
+        let isMounted = true
         if(entrySearchBtn === null) {
             dispatch({
                 type: SET_SEARCH_VALUE,
@@ -220,38 +239,39 @@ export default function GroupStoreList() {
         } else {
             getFoodsStores().then((response) => {
                 const foodResult = response.data.filter(data => data.StoreName.includes(search));
-                if(foodResult.length !== 0){
+                if(foodResult.length !== 0 && isMounted){
                     setFoodData(foodResult);
                 }
-                
             })
             getDrinksStores().then((response) => {
                 const drinkResult = response.data.filter(data => data.StoreName.includes(search));
-                if(drinkResult.length !== 0) {
+                if(drinkResult.length !== 0 && isMounted) {
                     setDrinkData(drinkResult);
                 }
-                
             })   
             dispatch({
                 type: SET_ENTRY_SEARCH_BTN,
                 payload: null
             })    
-        }  
+        }
+        return () => {isMounted = false}
     }, [entrySearchBtn])
 
     useEffect(() => {
+        let isMounted = true;
         if(search === ``) {
             getFoodsStores().then((response) => {
-                if(response.data.length !== 0){
+                if(response.data.length !== 0 && isMounted){
                     setFoodData(response.data);
                 }
             })
             getDrinksStores().then((response) => {
-                if(response.data.length !== 0) {
+                if(response.data.length !== 0 && isMounted) {
                     setDrinkData(response.data);
                 }
             })
         }
+        return () => {isMounted = false}
     }, [search])
 
     const onClickSearch = () => {
@@ -349,7 +369,7 @@ export default function GroupStoreList() {
     }
     const onClickJoin = () => {
         if(getAuthToken !== 'undefined') {
-            if(String(joinCode) !== null) {
+            if(joinCode !== '') {
                 if(localStorage.getItem("groupCode") !== joinCode) {
                     setPostJoinCode({
                         member: localStorage.getItem("userID"),
