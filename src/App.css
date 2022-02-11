@@ -898,6 +898,8 @@
   border: none;
   outline: none;
   width: 80%;
+  margin-top: 3vh;
+  background-color: transparent;
 }
 .confirmCode {
   background-color: var(--lightGreen);
@@ -911,6 +913,35 @@
   font-size: 1.9vw;
   letter-spacing: 0.1vw;
   margin-top: 9vh;
+  border: none;
+}
+.confirmCode:hover {
+  background-color: var(--lightGreen);
+  width: 10vw;
+  height: 7vh;
+  border-radius: 0.6vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--butterWhite);
+  font-size: 1.9vw;
+  letter-spacing: 0.1vw;
+  margin-top: 9vh;
+  border: none;
+}
+.confirmCode:focus {
+  background-color: var(--lightGreen);
+  width: 10vw;
+  height: 7vh;
+  border-radius: 0.6vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--butterWhite);
+  font-size: 1.9vw;
+  letter-spacing: 0.1vw;
+  margin-top: 9vh;
+  border: none;
 }
 .storeListStar {
   width: 1.5vw;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect, useContext } from 'react';
-import { Row, Col, Card, Empty, Popover, Divider, Popconfirm, message, Grid, Tabs, Modal } from 'antd';
+import { Row, Col, Card, Empty, Popover, Divider, Popconfirm, message, Grid, Tabs, Modal, Form, Input, Button } from 'antd';
 import { Link, useHistory } from 'react-router-dom';
 import { nanoid } from 'nanoid';
 import storeDot from '../img/img-store-dot.png';
@@ -17,15 +17,17 @@ import filledStar from '../img/img-menu-filledStar.png';
 import straightLine from '../img/img-storeList-straightLine.png';
 import { getDrinksStores,
          getFoodsStores, 
-         deleteAStore, 
-         getUsingUser, 
+         deleteAStore,
          getAuthToken, 
-         getScores } from '../api/index';
+         getScores,
+         getCode,
+         postGroupCode } from '../api/index';
 import { StoreContext } from '../store';
 import { SET_SEARCH_VALUE,
          SET_ENTRY_SEARCH_BTN,
          SET_DELETE_STORE,
-         SET_GROUP_ORDER_MODAL_VISIBLE
+         SET_GROUP_ORDER_MODAL_VISIBLE,
+         SET_GROUP_ORDER_CODE
 } from '../utils/constants';
 const { useBreakpoint } = Grid;
 const { TabPane } = Tabs;
@@ -50,7 +52,6 @@ function Cards(props) {
     useEffect(() => {
         setScore('無評分紀錄')
         getScores(props.id).then((response) => {
-            console.log(response.data.length);
             if(response.data.length !== 0) {
                 let score = response.data[0].avgScore.toFixed(1)
                 setScore(score);
@@ -122,7 +123,6 @@ function Cards(props) {
                         評分等級： {score}
                         {score !== '無評分紀錄' ? <img className="storeListStar" key={nanoid()} alt="" src={filledStar} /> :
                         ""}
-                        
                     </div>
                     <div className={informationDetail2}>公休日： {props.restDay}</div>
                 </Col>
@@ -152,9 +152,12 @@ export default function GroupStoreList() {
     const [drawFoodResult, setDrawFoodResult] = useState("");
     const [drawDrinkResult, setDrawDrinkResult] = useState("");
     const [drawUserResult, setDrawUserResult] = useState("");
-    const [groupOrderVisible, setGroupOrderVisible] = useState(false);
-    // const [code, setCode] = useState('get a code');
+    const [joinCode, setJoinCode] = useState('');
+    const [userID, setUserID] = useState(null);
+    const [groupCode, setGroupCode] = useState('');
+    const [postJoinCode, setPostJoinCode] = useState(null);
     const { sm } = useBreakpoint();
+    const [form] = Form.useForm();
     const history = useHistory();
     const storeBgc = sm ? "storeBgc" : "storeBgcMobile"
     const storeSearchBgc = sm ? "groupStoreSearchBgc" : "storeSearchBgcMobile";
@@ -169,9 +172,29 @@ export default function GroupStoreList() {
                 type: SET_GROUP_ORDER_MODAL_VISIBLE,
                 payload: true
             })
-            // setGroupOrderVisible(true);
+        }
+        setUserID({
+            user: localStorage.getItem("userID")
+        });
+        if(String(localStorage.getItem("groupCode")) !== 'undefined') {
+            dispatch({
+                type: SET_GROUP_ORDER_CODE,
+                payload: localStorage.getItem("groupCode")
+            })
+            setGroupCode(localStorage.getItem("groupCode"))
         }
     }, [])
+
+    useEffect(() => {
+        if(String(postJoinCode) !== 'null') {
+            postGroupCode(postJoinCode).then((response) => {
+                console.log(response.data);
+                localStorage.setItem("groupCode", joinCode)
+            }).catch(
+                input => {console.log(input.response)}
+            )
+        }
+    }, [postJoinCode])
 
     useEffect(() => {
         getFoodsStores().then((response) => {
@@ -256,7 +279,6 @@ export default function GroupStoreList() {
             type: SET_GROUP_ORDER_MODAL_VISIBLE,
             payload: false
         })
-        // setGroupOrderVisible(false);
     }
     const onClickDrawFood = () => {
         let i = 0;
@@ -278,20 +300,19 @@ export default function GroupStoreList() {
         } 
     }
     const onClickDrawUser = () => {
-        getUsingUser().then((response) => {
-            let i = 0;
-            response.data.map(() => {
-                return(i = i + 1)
-            })
-            setDrawUserResult(response.data[0].User_info[Math.floor(Math.random()*i)].UserName);
-        })
+        // getUsingUser().then((response) => {
+        //     let i = 0;
+        //     response.data.map(() => {
+        //         return(i = i + 1)
+        //     })
+        //     setDrawUserResult(response.data[0].User_info[Math.floor(Math.random()*i)].UserName);
+        // })
     }
     const onClickGroupOrderBtn = () => {
         dispatch({
             type: SET_GROUP_ORDER_MODAL_VISIBLE,
             payload: true
         })
-        // setGroupOrderVisible(true);
     }
     const onClickToSigninAlert = () => {
         message.warning("請先登入即可開始團購")
@@ -300,6 +321,57 @@ export default function GroupStoreList() {
     const onClickToSigninAlert2 = () => {
         message.warning("請先登入即可開始新增店家")
     }
+    const onClickGetCode = () => {
+        if(String(userID) !== 'null') {
+            if(String(localStorage.getItem("groupCode")) === 'undefined') {
+                getCode(userID).then((response) => {
+                    console.log(response.data);
+                    setGroupCode(response.data.groupBuyCode)
+                    dispatch({
+                        type: SET_GROUP_ORDER_CODE,
+                        payload: response.data.groupBuyCode
+                    })
+                    localStorage.setItem("groupCode", response.data.groupBuyCode)
+                }).catch(
+                    input => {console.log(input.response)}
+                )
+            } else {
+                message.warning("已經取得過團購碼了哦！")
+            }
+        } else {
+            message.warning("請先登入即可開始團購")
+            dispatch({
+                type: SET_GROUP_ORDER_MODAL_VISIBLE,
+                payload: false
+            })
+            history.push('/signin');
+        }
+    }
+    const onClickJoin = () => {
+        if(getAuthToken !== 'undefined') {
+            if(String(joinCode) !== null) {
+                if(localStorage.getItem("groupCode") !== joinCode) {
+                    setPostJoinCode({
+                        member: localStorage.getItem("userID"),
+                        groupBuyCode: joinCode
+                    })
+                } else {
+                    message.warning("已經在此團購訂單中囉！")
+                    form.resetFields();
+                }
+            } else {
+                message.warning("不可空白提交哦！")
+            }
+        } else {
+            message.warning("請先登入即可開始團購")
+            history.push('/signin');
+        }
+    }
+
+    const onClickCancelGroupOrder = () => {
+        localStorage.setItem("groupCode", undefined);
+    }
+
     return(
         <div className={storeBgc}>
             <Row>
@@ -356,22 +428,54 @@ export default function GroupStoreList() {
                 >
                     <Row>
                         <Col span={11} className="groupOrderModalInnerBox">
-                            <div><img alt="" src={getCodeBtn} className="getCodeBtn" /></div>
+                            <div onClick={onClickGetCode}><img alt="" src={getCodeBtn} className="getCodeBtn" /></div>
                             <div className="getCodeText">Your group order code:</div>
-                            <div className="code">01274700</div>
+                            {
+                                code === 'get a code' ?
+                                <div className="code"></div> :
+                                <div className="code">{code}</div>
+                            }
                             <div className="shareCodeText">Please share the code with your members.</div>
                         </Col>
                         <Col span={2} className="groupOrderModalOrLineBox"><img alt="" src={groupOrderModalOrLine} className="groupOrderModalOrLine" /></Col>
                         <Col span={11} className="groupOrderModalInnerBox">
                             <div className="inputCodeText inputCodeText1">Join other's group order.</div>
                             <div className="inputCodeText">Please enter the code below.</div>
-                            <div className="inputCodeBox"><input className="inputCode" /></div>
-                            <div className="confirmCode">Join</div>
+                            <Form
+                                form={form}
+                                name="inputCode"
+                                style={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center'}}
+                            >
+                                <div className="inputCodeBox">
+                                    <Form.Item
+                                        name="codeString"
+                                        rules={[
+                                            {required:true}
+                                        ]}
+                                    >
+                                        <Input
+                                            value={joinCode}
+                                            autoComplete="off"
+                                            onChange={(e) => setJoinCode(e.target.value)}
+                                            className="inputCode"
+                                        />
+                                    </Form.Item>
+                                </div>
+                                <Form.Item>
+                                    <Button
+                                        htmlType="submit"
+                                        className="confirmCode"
+                                        onClick={onClickJoin}
+                                    >
+                                        Join
+                                    </Button>
+                                </Form.Item>
+                            </Form>
                         </Col>
                     </Row>
                 </Modal>
                 <Col span={5} className="groupStoreListCancel">
-                    <Link to="stores" className="groupStoreListCancel">
+                    <Link to="stores" className="groupStoreListCancel" onClick={onClickCancelGroupOrder}>
                         Cancel
                     </Link>
                 </Col>

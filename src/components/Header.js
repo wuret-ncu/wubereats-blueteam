@@ -126,14 +126,23 @@ export default function Header() {
                 </Link> 
             </div>
             <div style={{display:'flex'}}>
-                {sm ? <>
-                    <Link to="/" className="headerName mgl-4">
-                        Home
-                    </Link>
-                    <Link to="/stores" className="headerName mgl-4">
-                        Stores
-                    </Link>
-                </> : ""}
+                {sm ?  String(localStorage.getItem("groupCode")) !== 'undefined' ?
+                    <>
+                        <Link to="/" className="headerName mgl-4">
+                            Home
+                        </Link>
+                        <Link to="/groupStores" className="headerName mgl-4">
+                            Stores
+                        </Link>
+                    </> : 
+                    <>
+                        <Link to="/" className="headerName mgl-4">
+                            Home
+                        </Link>
+                        <Link to="/stores" className="headerName mgl-4">
+                            Stores
+                        </Link>
+                    </> : ""}
                 <div onClick={showDrawer}>
                     <img className={homeBagMobile} src={bag} alt="" />
                 </div>

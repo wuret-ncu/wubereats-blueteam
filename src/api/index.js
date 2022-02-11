@@ -167,13 +167,15 @@ export const getCarts = data => instance.get('/carts/drawer', data);
 export const getAStore = (id, data) => imgInstance.get(`/store/${id}`, data);
 export const postEditedStore = (data, id) => instance.post(`/store/${id}`, data);
 export const deleteAStore = (id, data) => instance.delete(`/store/${id}`, data);
-export const getUsingUser = data => instance.get('/bill/user', data);
+// export const getUsingUser = data => instance.get('/bill/user', data);
 export const postRegister = data => userInstance.post('/register', data);
 export const postLogin = data => userInstance.post('/login', data);
 export const postScores = data => instance.post('/scores', data);
 export const getScores = (id, data) => instance.get(`/stores/${id}/score`, data);
 export const postComments = data => instance.post('/comments', data);
 export const getComments = (id, data) => instance.get(`/stores/${id}/comment`, data);
+export const getCode = data => instance.post('/groupbuy', data);
+export const postGroupCode = data => instance.post('addtogroup', data);
 // export const postMenu = (data, id) => {
 //     return instance.post(`/images/${id}`, data);
 // }

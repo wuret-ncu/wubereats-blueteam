@@ -9,16 +9,11 @@ import searchDelete from '../img/btn_cart_delete.png';
 import storeMore from '../img/btn-store-more.png';
 import addStoreMobile from '../img/btn-store-add-mobile.png';
 import draw from '../img/btn-draw.png';
-import groupOrderBtn from '../img/btn-store-groupOrder.png';
-import groupOrderHover from '../img/img-store-groupCodeHover.png';
-import groupOrderModalOrLine from '../img/img-store-groupOrderModalOrLine.png';
-import getCodeBtn from '../img/btn-store-getCode.png';
 import filledStar from '../img/img-menu-filledStar.png';
 import toGroupOrderPage from '../img/btn-storeList-toGroupOrderPage.png';
 import { getDrinksStores,
          getFoodsStores, 
-         deleteAStore, 
-         getUsingUser, 
+         deleteAStore,
          getAuthToken, 
          getScores } from '../api/index';
 import { StoreContext } from '../store';
@@ -49,7 +44,6 @@ function Cards(props) {
     useEffect(() => {
         setScore('無評分紀錄')
         getScores(props.id).then((response) => {
-            console.log(response.data.length);
             if(response.data.length !== 0) {
                 let score = response.data[0].avgScore.toFixed(1)
                 setScore(score);
@@ -142,7 +136,6 @@ export default function StoreList() {
     const [drawVisible, setDrawVisible] = useState(false);
     const [drawFoodResult, setDrawFoodResult] = useState("");
     const [drawDrinkResult, setDrawDrinkResult] = useState("");
-    const [drawUserResult, setDrawUserResult] = useState("");
     const [groupOrderVisible, setGroupOrderVisible] = useState(false);
     const { sm } = useBreakpoint();
     const history = useHistory();
@@ -253,22 +246,6 @@ export default function StoreList() {
             setDrawDrinkResult(drinkDatas[Math.floor(Math.random()*i)].StoreName);
         } 
     }
-    const onClickDrawUser = () => {
-        getUsingUser().then((response) => {
-            let i = 0;
-            response.data.map(() => {
-                return(i = i + 1)
-            })
-            setDrawUserResult(response.data[0].User_info[Math.floor(Math.random()*i)].UserName);
-        })
-    }
-    const onClickGroupOrderBtn = () => {
-        setGroupOrderVisible(true);
-    }
-    const onClickToSigninAlert = () => {
-        message.warning("請先登入即可開始團購")
-        history.push('/signin');
-    }
     const onClickToSigninAlert2 = () => {
         message.warning("請先登入即可開始新增店家")
     }
@@ -280,25 +257,20 @@ export default function StoreList() {
                 title="Click to start the draw" 
                 visible={drawVisible} 
                 className="drawModalBox"
-                width={'60vw'}
+                width={'50vw'}
                 footer={null}
                 onCancel={handleCancel}
             >
                 <Row>
-                    <Col span={8} className="drawCol">
+                    <Col span={12} className="drawCol">
                         <div className="drawTitle" onClick={onClickDrawFood}>吃什麼</div>
                         <div className="drawResult">{drawFoodResult}</div>
                     </Col>
-                    <Col span={8} className="drawCol">
+                    <Col span={12} className="drawCol">
                         <div className="drawTitle" onClick={onClickDrawDrink}>喝什麼</div>
                         <div className="drawResult">{drawDrinkResult}</div>
                     </Col>
-                    <Col span={8} className="drawCol">
-                        <div className="drawTitle" onClick={onClickDrawUser}>誰訂餐</div>
-                        <div className="drawResult">{drawUserResult}</div>
-                    </Col>
                 </Row>
-                
             </Modal>
                 {sm ? 
                     <Col span={6} className="storeSlogan">

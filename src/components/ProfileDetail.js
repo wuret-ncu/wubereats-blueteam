@@ -19,6 +19,7 @@ export default function ProfileDetail() {
     const handleLogout = () => {
         history.push('/')
         setAuthToken(undefined, undefined, undefined, undefined);
+        localStorage.setItem("groupCode", undefined);
         message.success("Successfully Logout!")
         setToLogoutVisible(false)
     }

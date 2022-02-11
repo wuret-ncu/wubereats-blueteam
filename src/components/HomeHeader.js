@@ -103,9 +103,16 @@ export default function HomeHeader() {
                 <Link to="/" className="homeHeaderName mgl-4" style={{color: headerNameColor}}>
                     Home
                 </Link>
-                <Link to="/stores" className="homeHeaderName mgl-4" style={{color: headerNameColor}}>
-                    Stores
-                </Link>
+                {
+                    String(localStorage.getItem("groupCode")) !== 'undefined' ?
+                    <Link to="/groupStores" className="homeHeaderName mgl-4" style={{color: headerNameColor}}>
+                        Stores
+                    </Link> :
+                    <Link to="/stores" className="homeHeaderName mgl-4" style={{color: headerNameColor}}>
+                        Stores
+                    </Link>
+                }
+                
                 <div onClick={showDrawer}>
                     <img className="homeBag mgl-4 pdb-10" src={bagColor} alt="" />
                 </div>
@@ -117,19 +124,7 @@ export default function HomeHeader() {
                     <Link to="/profile" >
                         <img className="homeMember mgl-4 pdb-10" src={memberColor} alt="" />
                     </Link>
-                    // <div style={{cursor:'pointer'}} onClick={onClickToLogout}>
-                    //     <img className="homeMember mgl-4 pdb-10" src={memberColor} alt="" />
-                    // </div>
                 }
-                {/* <Modal
-                    visible={toLogoutVisible}
-                    onOk={handleLogout}
-                    className="toLogoutModal"
-                    width={'40vw'}
-                    onCancel={()=>setToLogoutVisible(false)}
-                >
-                    Are you sure to logout?
-                </Modal> */}
             </div>
             <Drawer placement="right" onClose={onClose} visible={visible} width={'35vw'}>
                 <div className="drawerName">餐點資料</div>
