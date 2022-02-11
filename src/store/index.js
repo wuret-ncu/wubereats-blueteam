@@ -9,7 +9,9 @@ import { SET_VISIBLE,
          SET_ENTRY_SEARCH_BTN,
          SET_DELETE_STORE,
          SET_COMMENTS,
-         CLEAN_COMMENTS
+         CLEAN_COMMENTS,
+         SET_GROUP_ORDER_MODAL_VISIBLE,
+         SET_GROUP_ORDER_CODE
     } from '../utils/constants';
 
 export const StoreContext = createContext();
@@ -24,7 +26,9 @@ const initialState = {
     deleteStore: false,
     list: {
         listItems
-    }
+    },
+    groupOrderModalVisible: false,
+    code: 'get a code'
 }
 
 function reducer(state, action) {
@@ -80,6 +84,16 @@ function reducer(state, action) {
             return{
                 ...state,
                 list: {listItems}
+            }
+        case SET_GROUP_ORDER_MODAL_VISIBLE:
+            return{
+                ...state,
+                groupOrderModalVisible: action.payload
+            }
+        case SET_GROUP_ORDER_CODE:
+            return{
+                ...state,
+                code: action.payload
             }
         default: 
             return state;

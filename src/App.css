@@ -376,9 +376,49 @@
 /* StoreList~836 */
 .storeSlogan {
   color: var(--mainDarkGreen);
-  font-weight: bold;
-  font-size: 2.2vw;
+  font-weight: 600;
+  font-size: 2vw;
   font-family: Helvetica, Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.1vw;
+}
+.groupStoreListGetACode{
+  color: var(--mainDarkGreen);
+  font-weight: 600;
+  font-size: 1.5vw;
+  font-family: Helvetica, Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  text-shadow: 0.1em 0.1em 0.2em #C1C1C1;
+  justify-content: space-between;
+  padding-left: 2vw;
+  padding-right: 2.4vw;
+  cursor: pointer;
+}
+.groupStoreListCancel {
+  color: var(--mainDarkGreen);
+  font-weight: 600;
+  font-size: 1.5vw;
+  font-family: Helvetica, Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  text-shadow: 0.1em 0.1em 0.2em #C1C1C1;
+  cursor: pointer;
+}
+.groupStoreListCancel:hover {
+  color: var(--mainDarkGreen);
+}
+.groupStoresSlogan {
+  font-weight: 500;
+  justify-content: space-between;
+  letter-spacing: 0;
+}
+.groupStoreListStraightLine {
+  height: 6vh;
+}
+.toGroupOrderPage {
+  width: 100%;
 }
 .storeSloganMobile {
   color: var(--mainDarkGreen);
@@ -408,6 +448,19 @@
   justify-content: center;
   align-items: center;
   margin-left: 2vw;
+}
+.groupAddMenuBtn {
+  font-weight: 500;
+  font-size: 1.4vw;
+  color: var(--wordWhite);
+  letter-spacing: 0.1vw;
+  border-radius: 0.5vw;
+  width: 12.2vw;
+  height: 3.3vw;
+  background-color: var(--mainDarkGreen);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .addStoreMobile {
   width: 10vw;
@@ -578,6 +631,19 @@
   align-items: center;
   padding-left: 0.4vw;
   padding-right: 0.4vw;
+  height: 6.5vh;
+}
+.groupStoreSearchBgc {
+  border-radius: 0.6vw;
+  background-color: #EEEEEE;
+  box-shadow: 0 0 0.3vw 0.1vw rgba(114, 114, 114, 0.2);
+  display: flex;
+  align-items: center;
+  padding-left: 0.4vw;
+  padding-right: 0.4vw;
+  height: 6vh;
+  margin-left: -3vw;
+  margin-right: 1vw;
 }
 .addStoreBoxMobile {
   margin-top: 2vh;

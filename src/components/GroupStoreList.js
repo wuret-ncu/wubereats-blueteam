@@ -14,6 +14,7 @@ import groupOrderHover from '../img/img-store-groupCodeHover.png';
 import groupOrderModalOrLine from '../img/img-store-groupOrderModalOrLine.png';
 import getCodeBtn from '../img/btn-store-getCode.png';
 import filledStar from '../img/img-menu-filledStar.png';
+import straightLine from '../img/img-storeList-straightLine.png';
 import { getDrinksStores,
          getFoodsStores, 
          deleteAStore, 
@@ -23,13 +24,14 @@ import { getDrinksStores,
 import { StoreContext } from '../store';
 import { SET_SEARCH_VALUE,
          SET_ENTRY_SEARCH_BTN,
-         SET_DELETE_STORE
+         SET_DELETE_STORE,
+         SET_GROUP_ORDER_MODAL_VISIBLE
 } from '../utils/constants';
 const { useBreakpoint } = Grid;
 const { TabPane } = Tabs;
 
 function Cards(props) {
-    const { state: { deleteStore } , dispatch } = useContext(StoreContext);
+    const { state: { deleteStore, code } , dispatch } = useContext(StoreContext);
     const [score, setScore] = useState('無評分紀錄');
     const { sm } = useBreakpoint();
     const card = sm ? "card" : "cardMobile";
@@ -125,9 +127,16 @@ function Cards(props) {
                     <div className={informationDetail2}>公休日： {props.restDay}</div>
                 </Col>
                 <Col span={7} offset={3} className={storeToMenu}>
-                    {getAuthToken() !== 'undefined' ? 
-                        <Link to={`/menu/${props.id}`} className={storeToMenuWord}>前往點餐 {'>>'}</Link> :
-                        <div className={storeToMenuWord} onClick={onClickToSigninAlert}>前往點餐 {'>>'}</div>
+                    {getAuthToken() !== 'undefined' && code !== 'get a code' ?
+                        <Link to={`/menu/${props.id}`} className={storeToMenuWord}>前往點餐 {'>>'}</Link> : 
+                        getAuthToken() === 'undefined' ? 
+                         <div className={storeToMenuWord} onClick={onClickToSigninAlert}>前往點餐 {'>>'}</div> : 
+                         <div className={storeToMenuWord} onClick={() => {
+                            dispatch({
+                                type: SET_GROUP_ORDER_MODAL_VISIBLE,
+                                payload: true
+                            })
+                         }}>前往點餐 {'>>'}</div>
                     }
                 </Col>
             </Row>                        
@@ -136,7 +145,7 @@ function Cards(props) {
 }
 
 export default function GroupStoreList() {
-    const { state: { search, entrySearchBtn, deleteStore }, dispatch } = useContext(StoreContext);
+    const { state: { search, entrySearchBtn, deleteStore, groupOrderModalVisible, code }, dispatch } = useContext(StoreContext);
     const [foodDatas, setFoodData] = useState(null);
     const [drinkDatas, setDrinkData] = useState(null);
     const [drawVisible, setDrawVisible] = useState(false);
@@ -144,14 +153,25 @@ export default function GroupStoreList() {
     const [drawDrinkResult, setDrawDrinkResult] = useState("");
     const [drawUserResult, setDrawUserResult] = useState("");
     const [groupOrderVisible, setGroupOrderVisible] = useState(false);
+    // const [code, setCode] = useState('get a code');
     const { sm } = useBreakpoint();
     const history = useHistory();
     const storeBgc = sm ? "storeBgc" : "storeBgcMobile"
-    const storeSearchBgc = sm ? "storeSearchBgc" : "storeSearchBgcMobile";
+    const storeSearchBgc = sm ? "groupStoreSearchBgc" : "storeSearchBgcMobile";
     const storeSearchInput = sm ? "storeSearchInput" : "storeSearchInputMobile";
     const searchDeleteClass = sm ? "searchDeleteClass" : "searchDeleteClassMobile";
     const searchBtn = sm ? "searchBtn" : "searchBtnMobile";
     const listBgc = sm ? "listBgc" : "listBgcMobile";
+
+    useEffect(() => {
+        if(code === 'get a code') {
+            dispatch({
+                type: SET_GROUP_ORDER_MODAL_VISIBLE,
+                payload: true
+            })
+            // setGroupOrderVisible(true);
+        }
+    }, [])
 
     useEffect(() => {
         getFoodsStores().then((response) => {
@@ -232,7 +252,11 @@ export default function GroupStoreList() {
     }
     const handleCancel = () => {
         setDrawVisible(false);
-        setGroupOrderVisible(false);
+        dispatch({
+            type: SET_GROUP_ORDER_MODAL_VISIBLE,
+            payload: false
+        })
+        // setGroupOrderVisible(false);
     }
     const onClickDrawFood = () => {
         let i = 0;
@@ -263,7 +287,11 @@ export default function GroupStoreList() {
         })
     }
     const onClickGroupOrderBtn = () => {
-        setGroupOrderVisible(true);
+        dispatch({
+            type: SET_GROUP_ORDER_MODAL_VISIBLE,
+            payload: true
+        })
+        // setGroupOrderVisible(true);
     }
     const onClickToSigninAlert = () => {
         message.warning("請先登入即可開始團購")
@@ -300,14 +328,53 @@ export default function GroupStoreList() {
                 </Row>
                 
             </Modal>
-                {/* {sm ? 
-                    <Col span={12} className="storeSlogan">
-                        Choose what you want to eat.
+                {sm ? 
+                    <Col span={5} className="storeSlogan groupStoresSlogan">
+                        <div>Now: Group order</div>
+                        <div><img className="groupStoreListStraightLine" alt="" src={straightLine} /></div>
                     </Col> : 
                     <Col span={24} className="storeSloganMobile">
                         Choose what to eat...
                     </Col>
-                } */}
+                }
+                {
+                    getAuthToken() !== 'undefined' ?
+                    <Col sm={{span:4}} className="groupStoreListGetACode" onClick={onClickGroupOrderBtn}>
+                        <div>{code}</div>
+                        <div><img className="groupStoreListStraightLine" alt="" src={straightLine} /></div>
+                    </Col> : 
+                    <Col sm={{span:4}} className="storeSlogan" onClick={onClickToSigninAlert}>
+                        {code}
+                    </Col>
+                }
+                <Modal
+                    visible={groupOrderModalVisible}
+                    className="groupOrderModalBox"
+                    width={'70vw'}
+                    footer={null}
+                    onCancel={handleCancel}
+                >
+                    <Row>
+                        <Col span={11} className="groupOrderModalInnerBox">
+                            <div><img alt="" src={getCodeBtn} className="getCodeBtn" /></div>
+                            <div className="getCodeText">Your group order code:</div>
+                            <div className="code">01274700</div>
+                            <div className="shareCodeText">Please share the code with your members.</div>
+                        </Col>
+                        <Col span={2} className="groupOrderModalOrLineBox"><img alt="" src={groupOrderModalOrLine} className="groupOrderModalOrLine" /></Col>
+                        <Col span={11} className="groupOrderModalInnerBox">
+                            <div className="inputCodeText inputCodeText1">Join other's group order.</div>
+                            <div className="inputCodeText">Please enter the code below.</div>
+                            <div className="inputCodeBox"><input className="inputCode" /></div>
+                            <div className="confirmCode">Join</div>
+                        </Col>
+                    </Row>
+                </Modal>
+                <Col span={5} className="groupStoreListCancel">
+                    <Link to="stores" className="groupStoreListCancel">
+                        Cancel
+                    </Link>
+                </Col>
                 <Col sm={{span:7}} span={21} className={storeSearchBgc}>
                     <input
                         name='searchBar'
@@ -336,57 +403,23 @@ export default function GroupStoreList() {
                         Search
                     </button>
                 </Col>
-                {
-                    getAuthToken() !== 'undefined' ?
-                    <Col sm={{span:5, offset:8}} className="groupOrderBtnBox" onClick={onClickGroupOrderBtn}>
-                        <img alt="" src={groupOrderBtn} className="groupOrderBtn" />
-                        <img alt="" src={groupOrderHover} className="groupOrderHover" />
-                    </Col> : 
-                    <Col sm={{span:5, offset:8}} className="groupOrderBtnBox" onClick={onClickToSigninAlert}>
-                        <img alt="" src={groupOrderBtn} className="groupOrderBtn" />
-                        <img alt="" src={groupOrderHover} className="groupOrderHover" />
-                    </Col>
-                }
                 
-                <Modal
-                    visible={groupOrderVisible}
-                    className="groupOrderModalBox"
-                    width={'70vw'}
-                    footer={null}
-                    onCancel={handleCancel}
-                >
-                    <Row>
-                        <Col span={11} className="groupOrderModalInnerBox">
-                            <div><img alt="" src={getCodeBtn} className="getCodeBtn" /></div>
-                            <div className="getCodeText">Your group order code:</div>
-                            <div className="code">01274700</div>
-                            <div className="shareCodeText">Please share the code with your members.</div>
-                        </Col>
-                        <Col span={2} className="groupOrderModalOrLineBox"><img alt="" src={groupOrderModalOrLine} className="groupOrderModalOrLine" /></Col>
-                        <Col span={11} className="groupOrderModalInnerBox">
-                            <div className="inputCodeText inputCodeText1">Join other's group order.</div>
-                            <div className="inputCodeText">Please enter the code below.</div>
-                            <div className="inputCodeBox"><input className="inputCode" /></div>
-                            <div className="confirmCode">Join</div>
-                        </Col>
-                    </Row>
-                </Modal>
                 {sm ? 
                     <>
                     {
                         getAuthToken() !== 'undefined' ?
-                        <Col span={4}>
-                            <Link to="/addStore" className="addMenuBtn"><span className="addMenuPlus">+</span> Add a store</Link> 
+                        <Col span={3}>
+                            <Link to="/addStore" className="groupAddMenuBtn"><span className="addMenuPlus">+</span> Add a store</Link> 
                         </Col> :
-                        <Col span={4}>
-                            <Link to="/signin" className="addMenuBtn" onClick={onClickToSigninAlert2}><span className="addMenuPlus">+</span> Add menu</Link> 
+                        <Col span={3}>
+                            <Link to="/signin" className="groupAddMenuBtn" onClick={onClickToSigninAlert2}><span className="addMenuPlus">+</span> Add menu</Link> 
                         </Col>
                     } 
                     </> : 
                     <>
                     {
                         getAuthToken() !== 'undefined' ?
-                        <Col span={3} className="addStoreBoxMobile">
+                        <Col span={4} className="addStoreBoxMobile">
                             <Link to="/addStore"><img className="addStoreMobile" src={addStoreMobile} alt="" /></Link> 
                         </Col> :
                         <Col span={4} className="addStoreBoxMobile">

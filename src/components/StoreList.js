@@ -14,6 +14,7 @@ import groupOrderHover from '../img/img-store-groupCodeHover.png';
 import groupOrderModalOrLine from '../img/img-store-groupOrderModalOrLine.png';
 import getCodeBtn from '../img/btn-store-getCode.png';
 import filledStar from '../img/img-menu-filledStar.png';
+import toGroupOrderPage from '../img/btn-storeList-toGroupOrderPage.png';
 import { getDrinksStores,
          getFoodsStores, 
          deleteAStore, 
@@ -120,7 +121,6 @@ function Cards(props) {
                         評分等級： {score}
                         {score !== '無評分紀錄' ? <img className="storeListStar" key={nanoid()} alt="" src={filledStar} /> :
                         ""}
-                        
                     </div>
                     <div className={informationDetail2}>公休日： {props.restDay}</div>
                 </Col>
@@ -300,15 +300,20 @@ export default function StoreList() {
                 </Row>
                 
             </Modal>
-                {/* {sm ? 
-                    <Col span={12} className="storeSlogan">
-                        Choose what you want to eat.
+                {sm ? 
+                    <Col span={6} className="storeSlogan">
+                        Now: Order Solo
                     </Col> : 
                     <Col span={24} className="storeSloganMobile">
                         Choose what to eat...
                     </Col>
-                } */}
-                <Col sm={{span:7}} span={21} className={storeSearchBgc}>
+                }
+                <Col span={5}>
+                    <Link to="/groupStores">
+                        <img className="toGroupOrderPage" alt="" src={toGroupOrderPage} />
+                    </Link>
+                </Col>
+                <Col sm={{span:7, offset:2}} span={21} className={storeSearchBgc}>
                     <input
                         name='searchBar'
                         type='text'
@@ -336,13 +341,13 @@ export default function StoreList() {
                         Search
                     </button>
                 </Col>
-                {
+                {/* {
                     getAuthToken() !== 'undefined' ?
-                    <Col sm={{span:5, offset:8}} className="groupOrderBtnBox" onClick={onClickGroupOrderBtn}>
+                    <Col sm={{span:5}} className="groupOrderBtnBox" onClick={onClickGroupOrderBtn}>
                         <img alt="" src={groupOrderBtn} className="groupOrderBtn" />
                         <img alt="" src={groupOrderHover} className="groupOrderHover" />
                     </Col> : 
-                    <Col sm={{span:5, offset:8}} className="groupOrderBtnBox" onClick={onClickToSigninAlert}>
+                    <Col sm={{span:5}} className="groupOrderBtnBox" onClick={onClickToSigninAlert}>
                         <img alt="" src={groupOrderBtn} className="groupOrderBtn" />
                         <img alt="" src={groupOrderHover} className="groupOrderHover" />
                     </Col>
@@ -370,7 +375,7 @@ export default function StoreList() {
                             <div className="confirmCode">Join</div>
                         </Col>
                     </Row>
-                </Modal>
+                </Modal> */}
                 {sm ? 
                     <>
                     {
