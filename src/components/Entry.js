@@ -5,7 +5,7 @@ import { Link, useHistory } from 'react-router-dom';
 import homeTitle from '../img/img-home-title.png';
 import banner from '../img/img-home-banner.png';
 import homeToLogin from '../img/btn-home-toLogin.png';
-import homeToStore from '../img/btn-home-toStore.png';
+import homeToStore from '../img/btn-entry-toOrderSolo.png';
 import homeTitleMobile from '../img/img-home-title-mobile.png';
 import homeBannerMobile from '../img/img-home-banner-mobile.png';
 import homeToLoginMobile from '../img/btn-home-login-mobile.png';
@@ -77,7 +77,9 @@ export default function Entry() {
                             <img src={homeToLogin} alt=""/>
                         </div>
                     }
-                    {console.log(getAuthToken())}
+                    <Link to="/groupStores" className="entryLeftImg toGroupStores">
+                        <img src={homeToStore} alt=""/>
+                    </Link>
                     <Link to="/stores" className="entryLeftImg toStores">
                         <img src={homeToStore} alt=""/>
                     </Link>

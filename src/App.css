@@ -261,22 +261,31 @@
 .entryLeftImg {
   width: 22vw;
   margin-right: 2vw;
-  margin-top: 2.5vh;
+  margin-top: 2vh;
 }
 .toLogin {
   content: url('https://raw.githubusercontent.com/wuret-ncu/wubereats-blueteam/huoh/src/img/btn-home-toLogin.png');
   background-size: contain;
+  background-repeat: no-repeat;
 }
 .toStores {
-  content: url('https://raw.githubusercontent.com/wuret-ncu/wubereats-blueteam/huoh/src/img/btn-home-toStore.png');
+  content: url('https://raw.githubusercontent.com/wuret-ncu/wubereats-blueteam/huoh/src/img/btn-entry-toOrderSolo.png');
   background-size: contain;
 }
 .toLogin:hover {
-  content: url('https://raw.githubusercontent.com/wuret-ncu/wubereats-blueteam/huoh/src/img/btn-home-toLoginHover.png');
+  content: url('https://raw.githubusercontent.com/wuret-ncu/wubereats-blueteam/huoh/src/img/btn-entry-toLoginHover.png');
   background-size: contain;
 }
 .toStores:hover {
-  content: url('https://raw.githubusercontent.com/wuret-ncu/wubereats-blueteam/huoh/src/img/btn-home-toStoreHover.png');
+  content: url('https://raw.githubusercontent.com/wuret-ncu/wubereats-blueteam/huoh/src/img/btn-entry-toOrderSoloHover.png');
+  background-size: contain;
+}
+.toGroupStores {
+  content: url('https://raw.githubusercontent.com/wuret-ncu/wubereats-blueteam/huoh/src/img/btn-entry-toGroupOrder.png');
+  background-size: contain;
+}
+.toGroupStores:hover {
+  content: url('https://raw.githubusercontent.com/wuret-ncu/wubereats-blueteam/huoh/src/img/btn-entry-toGroupOrderHover.png');
   background-size: contain;
 }
 .banner {
