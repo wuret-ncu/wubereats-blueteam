@@ -67,22 +67,35 @@ export default function Entry() {
                 </div>
                 {sm ? "" : <div><img className="bannerMobile" src={homeBannerMobile} /></div>}
                 {sm ? 
-                    <>
+                <>
                     {
                         getAuthToken() === 'undefined' ? 
-                        <Link to="/signin" className="entryLeftImg toLogin">
-                            <img src={homeToLogin} alt=""/>
-                        </Link> :
-                        <div style={{cursor:'pointer'}} className="entryLeftImg toLogin" onClick={onClickToLogin}>
-                            <img src={homeToLogin} alt=""/>
-                        </div>
+                        <>
+                            <Link to="/signin" className="entryLeftImg toLogin">
+                                {/* <div></div> */}
+                                <img src={homeToStore} alt=""/>
+                            </Link>
+                            <Link to="/groupStores" className="entryLeftImg toGroupStores">
+                                {/* <div></div> */}
+                                <img src={homeToStore} alt=""/>
+                            </Link>
+                            <Link to="/stores" className="entryLeftImg toStores">
+                                {/* <div></div> */}
+                                <img src={homeToStore} alt=""/>
+                            </Link>
+                        </> :
+                        <>
+                            <div style={{cursor:'pointer'}} className="entryLeftImg toLogin" onClick={onClickToLogin}>
+                                {/* <img src={homeToLogin} alt=""/> */}
+                            </div>
+                            <Link to="/groupStores" className="entryLeftImg toGroupStores">
+                                {/* <img src={homeToStore} alt=""/> */}
+                            </Link>
+                            <Link to="/stores" className="entryLeftImg toStores">
+                                {/* <img src={homeToStore} alt=""/> */}
+                            </Link> 
+                        </>
                     }
-                    <Link to="/groupStores" className="entryLeftImg toGroupStores">
-                        <img src={homeToStore} alt=""/>
-                    </Link>
-                    <Link to="/stores" className="entryLeftImg toStores">
-                        <img src={homeToStore} alt=""/>
-                    </Link>
                     </> :
                     <>
                     {
