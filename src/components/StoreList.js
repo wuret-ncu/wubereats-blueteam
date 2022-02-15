@@ -19,7 +19,8 @@ import { getDrinksStores,
 import { StoreContext } from '../store';
 import { SET_SEARCH_VALUE,
          SET_ENTRY_SEARCH_BTN,
-         SET_DELETE_STORE
+         SET_DELETE_STORE,
+         SET_DRAWER_SUM
 } from '../utils/constants';
 const { useBreakpoint } = Grid;
 const { TabPane } = Tabs;
@@ -281,7 +282,12 @@ export default function StoreList() {
                     </Col>
                 }
                 <Col span={5}>
-                    <Link to="/groupStores">
+                    <Link to="/groupStores" onClick={() => {
+                        dispatch({
+                            type: SET_DRAWER_SUM,
+                            payload: 0
+                        })
+                    }}>
                         <img className="toGroupOrderPage" alt="" src={toGroupOrderPage} />
                     </Link>
                 </Col>

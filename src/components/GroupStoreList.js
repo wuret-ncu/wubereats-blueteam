@@ -22,13 +22,16 @@ import { getDrinksStores,
          getScores,
          getCode,
          postGroupCode,
-         getUsingUser } from '../api/index';
+         getUsingUser,
+         deleteGroupByLeader,
+         deleteGroupByMembers } from '../api/index';
 import { StoreContext } from '../store';
 import { SET_SEARCH_VALUE,
          SET_ENTRY_SEARCH_BTN,
          SET_DELETE_STORE,
          SET_GROUP_ORDER_MODAL_VISIBLE,
-         SET_GROUP_ORDER_CODE
+         SET_GROUP_ORDER_CODE,
+         SET_DRAWER_SUM
 } from '../utils/constants';
 const { useBreakpoint } = Grid;
 const { TabPane } = Tabs;
@@ -169,27 +172,6 @@ export default function GroupStoreList() {
     const listBgc = sm ? "listBgc" : "listBgcMobile";
 
     useEffect(() => {
-        setUserID(localStorage.getItem("userID"));
-        if(String(localStorage.getItem("groupCode")) !== 'undefined') {
-            dispatch({
-                type: SET_GROUP_ORDER_CODE,
-                payload: localStorage.getItem("groupCode")
-            })
-            setGroupCode(localStorage.getItem("groupCode"))
-        } else {
-            dispatch({
-                type: SET_GROUP_ORDER_CODE,
-                payload: 'get a code'
-            })
-            dispatch({
-                type: SET_GROUP_ORDER_MODAL_VISIBLE,
-                payload: true
-            })
-            setJoinCode('')
-        }
-    }, [])
-
-    useEffect(() => {
         let isMounted=true;
         if(String(postJoinCode) !== 'null') {
             postGroupCode(postJoinCode).then((response) => {
@@ -221,6 +203,33 @@ export default function GroupStoreList() {
         })
         return () => {isMounted = false}
     }, [deleteStore])
+
+    useEffect(() => {
+        let isMounted = true;
+        if(isMounted) {
+            setUserID({
+                user: localStorage.getItem("userID")
+            })
+            if(String(localStorage.getItem("groupCode")) !== 'undefined') {
+                dispatch({
+                    type: SET_GROUP_ORDER_CODE,
+                    payload: localStorage.getItem("groupCode")
+                })
+                setGroupCode(localStorage.getItem("groupCode"))
+            } else {
+                dispatch({
+                    type: SET_GROUP_ORDER_CODE,
+                    payload: 'get a code'
+                })
+                dispatch({
+                    type: SET_GROUP_ORDER_MODAL_VISIBLE,
+                    payload: true
+                })
+                setJoinCode('')
+            }
+        }
+        return () => {isMounted=false}
+    }, [])
 
     useEffect(() => {
         let isMounted = true
@@ -343,7 +352,10 @@ export default function GroupStoreList() {
         message.warning("請先登入即可開始新增店家")
     }
     const onClickGetCode = () => {
-        if(String(userID.user) !== 'undefined') {
+        if(String(userID) !== 'undefined') {
+            if(String(localStorage.getItem("orderSoloCode")) !== 'undefined') {
+                localStorage.setItem("orderSoloCode", undefined);
+            }
             if(String(localStorage.getItem("groupCode")) === 'undefined') {
                 getCode(userID).then((response) => {
                     console.log(response.data);
@@ -353,6 +365,7 @@ export default function GroupStoreList() {
                         payload: response.data.groupBuyCode
                     })
                     localStorage.setItem("groupCode", response.data.groupBuyCode)
+                    localStorage.setItem("groupStatus", 'main');
                 }).catch(
                     input => {console.log(input.response)}
                 )
@@ -368,6 +381,7 @@ export default function GroupStoreList() {
             history.push('/signin');
         }
     }
+
     const onClickJoin = () => {
         if(getAuthToken !== 'undefined') {
             if(joinCode !== '') {
@@ -376,6 +390,7 @@ export default function GroupStoreList() {
                         member: localStorage.getItem("userID"),
                         groupBuyCode: joinCode
                     })
+                    localStorage.setItem("groupStatus", 'members');
                 } else {
                     message.warning("已經在此團購訂單中囉！")
                     form.resetFields();
@@ -390,7 +405,27 @@ export default function GroupStoreList() {
     }
 
     const onClickCancelGroupOrder = () => {
+        if(code !== 'get a code') {
+            if(localStorage.getItem("groupStatus") === 'main') {
+                deleteGroupByLeader(localStorage.getItem("userID")).then((response) => {
+                    console.log(response.data)
+                }).catch(
+                    input => {console.log(input.response)}
+                )
+            } else {
+                deleteGroupByMembers(code, localStorage.getItem("userID")).then((response) => {
+                    console.log(response.data)
+                }).catch(
+                    input => {console.log(input.response)}
+                )
+            }
+        }
+        dispatch({
+            type: SET_DRAWER_SUM,
+            payload: 0
+        })
         localStorage.setItem("groupCode", undefined);
+        localStorage.setItem("groupStatus", undefined);
     }
 
     return(

@@ -3,7 +3,7 @@ import { useState, useContext, useEffect } from 'react';
 import { Row, Col, Checkbox, Popconfirm, message, Modal, Empty, Grid } from 'antd';
 import { useHistory } from 'react-router-dom';
 import { StoreContext } from '../store';
-import { setAuthToken } from '../api';
+import { setAuthToken, deleteGroupByLeader, deleteGroupByMembers } from '../api';
 import editIcon from '../img/icon-profile-edit.png';
 import straightLine from '../img/img-profile-straightLine.png';
 import profileLogout from '../img/icon-profile-logout.png';
@@ -11,16 +11,31 @@ import profileOrderRecord from '../img/icon-profile-orderRecord.png';
 const { useBreakpoint } = Grid;
 
 export default function ProfileDetail() {
+    const { state : { code }, dispatch } = useContext(StoreContext);
     const [toLogoutVisible, setToLogoutVisible] = useState(false);
     const history=useHistory();
     const onClickToLogout = () => {
         setToLogoutVisible(true);
     }
     const handleLogout = () => {
+        if(localStorage.getItem("groupStatus") === 'main' && code !== 'get a code') {
+            deleteGroupByLeader(localStorage.getItem("userID")).then((response) => {
+                console.log(response.data)
+            }).catch(
+                input => {console.log(input.response)}
+            )
+        } else if (localStorage.get("groupStatus") === 'members' && code !== 'get a code'){
+            deleteGroupByMembers(code, localStorage.getItem("userID")).then((response) => {
+                console.log(response.data)
+            }).catch(
+                input => {console.log(input.response)}
+            )
+        }
         history.push('/')
         setAuthToken(undefined, undefined, undefined, undefined);
         localStorage.setItem("groupCode", undefined);
         localStorage.setItem("orderSoloCode", undefined);
+        localStorage.setItem("groupStatus", undefined);
         message.success("Successfully Logout!")
         setToLogoutVisible(false)
     }

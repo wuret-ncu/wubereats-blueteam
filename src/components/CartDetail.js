@@ -79,12 +79,31 @@ export default function CartDetail() {
     const [drawVisible, setDrawVisible] = useState(false);
 
     useEffect(() => {
-        getCarts().then((response) => {
-            dispatch({
-                type: GET_CARTS_DATA,
-                payload: response.data
-            })
-        })
+        if(String(localStorage.getItem("groupCode")) === 'undefined') {
+            getCarts(localStorage.getItem("userID"), localStorage.getItem("orderSoloCode")).then((response) => {
+                console.log(response.data)
+                // dispatch({
+                //     type: GET_CARTS_DATA,
+                //     payload: response.data
+                // })
+                response.data.map(i => {
+                    console.log(i)
+                })
+            }).catch(
+                input => {console.log(input.response)}
+            )
+        } else {
+            getCarts(localStorage.getItem("userID"), localStorage.getItem("groupCode")).then((response) => {
+                console.log(response.data)
+                // dispatch({
+                //     type: GET_CARTS_DATA,
+                //     payload: response.data
+                // })
+            }).catch(
+                input => {console.log(input.response)}
+            )
+        }
+
         // let b = [];
         // let a = cartsData ? cartsData.map(s => {
         //     b.push(s.Price);

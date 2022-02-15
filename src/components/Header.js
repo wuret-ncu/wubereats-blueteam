@@ -69,7 +69,9 @@ export default function Header() {
                 )
             } else {
                 getCarts(localStorage.getItem("userID"), localStorage.getItem("groupCode")).then((response) => {
-                    console.log(response.data)
+                    if(isMounted) {
+                        setDrawerDatas(response.data); 
+                     }
                 }).catch(
                     input => {console.log(input.response)}
                 )
