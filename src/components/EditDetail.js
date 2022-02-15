@@ -14,7 +14,7 @@ export default function EditDetail(appProps) {
     const [restDay, setRestDay] = useState('');
     const [menuURL, setMenuURL] = useState('');
     const [storeObj, setStoreObj] = useState(null);
-    const [menu, setMenu] = useState([]);
+    const [menu, setMenu] = useState('');
     const [loading, setLoading] = useState(true);
     const activeFoodsBtn = "activeFoodsBtn"
     const activeDrinksBtn = "activeDrinksBtn"
@@ -24,29 +24,30 @@ export default function EditDetail(appProps) {
     const Dragger = Upload.Dragger;
 
     useEffect(() => {
-        let trytry = true;
+        let isMounted = true;
         console.log(appProps.storeId);
-        (async  () => {
-            getAStore(appProps.storeId).then(
-            function(response) {
+            getAStore(appProps.storeId).then((response) => {
                 console.log(response.data);
                 setName(response.data.StoreName)
                 setType(response.data.StoreType[0][0])
                 setPhone(response.data.Phone)
-                setRestDay(response.data.RestDate)
+                setRestDay(response.data.RestDate[0])
                 setMenuURL(response.data.MenuUrl)
                 setLoading(false);
             }).catch((error) => {
                 console.log(error);
             });
-        })();
-        return () => (trytry = false)
+        return () => (isMounted = false)
     }, [])
     
     useEffect(() => {
         if(storeObj !== null) {
-            postEditedStore(storeObj, appProps.storeId).then((res) => {
-                console.log(res.data);
+            let formData = new FormData();
+            for(let [key, value] of storeObj) {
+                formData.append(key, value)
+            }
+            postEditedStore(formData, appProps.storeId).then((res) => {
+                console.log(res);
                 history.push('/stores');
             }).catch((err) => {
                 console.log(err)
@@ -55,26 +56,33 @@ export default function EditDetail(appProps) {
     }, [storeObj])
 
     const onClickConfirm = () => {
-        setStoreObj({
-            StoreType: type,
-            Phone: phone,
-            RestDate: restDay,
-            MuneUrl: menuURL
-        })
+        if(menu === '') {
+            setStoreObj(new Map([
+                ['StoreType', type],
+                ['Phone', phone],
+                ['RestDate', restDay],
+                ['MenuUrl', menuURL]
+            ]))
+        } else {
+            setStoreObj(new Map([
+                ['StoreType', type],
+                ['Phone', phone],
+                ['RestDate', restDay],
+                ['MenuUrl', menuURL],
+                ['image', menu[0].originFileObj]
+            ]))
+        }
         console.log('onClickConfirm');
     }
 
     const props = {
-        beforeUpload: file => {
-            if(file.type !== 'image/png') {
-                message.error(`${file.name} is not an image file`);
-            }
-            return true
-        },
-        onChange: info => {
-            console.log(info.fileList);
+        name: 'image',
+        beforeUpload: () => false,
+        onChange: ({fileList}) => {
+            setMenu(fileList);
         }
     };
+    
     return(
         <Row className="addBgc">
             <Col span={12} className="uploadMenuBox">
