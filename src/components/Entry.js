@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useContext } from 'react';
 import { Row, Col, Grid, message } from 'antd';
 import { Link, useHistory } from 'react-router-dom';
@@ -16,6 +16,7 @@ import { SET_SEARCH_VALUE,
 } from '../utils/constants';
 import { getAuthToken } from '../api';
 const { useBreakpoint } = Grid;
+
 export default function Entry() {
     const { state: { search }, dispatch } = useContext(StoreContext);
     const history = useHistory();
@@ -37,6 +38,13 @@ export default function Entry() {
     const onClickToLogin = () => {
         message.error('You are already logged in.');
     }
+
+    useEffect(() => {
+        if(getAuthToken() === 'undefined' || getAuthToken() === 'null') {
+            localStorage.setItem('orderSoloCode', undefined);
+            localStorage.setItem('groupCode', undefined);
+        }
+    })
 
     return(
         <Row>
@@ -72,27 +80,24 @@ export default function Entry() {
                         getAuthToken() === 'undefined' ? 
                         <>
                             <Link to="/signin" className="entryLeftImg toLogin">
-                                {/* <div></div> */}
                                 <img src={homeToStore} alt=""/>
                             </Link>
                             <Link to="/groupStores" className="entryLeftImg toGroupStores">
-                                {/* <div></div> */}
                                 <img src={homeToStore} alt=""/>
                             </Link>
                             <Link to="/stores" className="entryLeftImg toStores">
-                                {/* <div></div> */}
                                 <img src={homeToStore} alt=""/>
                             </Link>
                         </> :
                         <>
                             <div style={{cursor:'pointer'}} className="entryLeftImg toLogin" onClick={onClickToLogin}>
-                                {/* <img src={homeToLogin} alt=""/> */}
+                                <img src={homeToLogin} alt=""/>
                             </div>
                             <Link to="/groupStores" className="entryLeftImg toGroupStores">
-                                {/* <img src={homeToStore} alt=""/> */}
+                                <img src={homeToStore} alt=""/>
                             </Link>
                             <Link to="/stores" className="entryLeftImg toStores">
-                                {/* <img src={homeToStore} alt=""/> */}
+                                <img src={homeToStore} alt=""/>
                             </Link> 
                         </>
                     }

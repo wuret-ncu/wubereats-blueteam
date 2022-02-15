@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { Drawer, Row, Col, Empty, Grid, message, Modal } from 'antd';
+import { Drawer, Row, Col, Empty, Grid, message, Modal, Spin } from 'antd';
 import { nanoid } from 'nanoid';
 import logo from '../img/btn-Logo.png';
 import homeBag from '../img/btn-home-bag.png';
@@ -12,10 +12,10 @@ import member from '../img/btn-member.png';
 // import logoMobile from '../img/btn-header-logo-mobile.png';
 import { StoreContext } from '../store';
 import { SET_VISIBLE,
-         GET_CARTS_DATA
+         SET_DRAWER_SUM
 } from '../utils/constants';
 import drawerLine from '../img/img_drawer_line.png';
-import { getAuthToken, setAuthToken } from '../api';
+import { getAuthToken, getCarts } from '../api';
 // const { useBreakpoint } = Grid;
 function JustOrdered(props) {
     return(
@@ -33,33 +33,55 @@ function JustOrdered(props) {
 }
 
 export default function HomeHeader() {
-    const { state: { visible, cartsData }, dispatch} = useContext(StoreContext);
+    const { state: { visible, drawerSum }, dispatch} = useContext(StoreContext);
     const [headerNameColor, setHeaderNameColor] = useState("#FFF")
     const [bagColor, setBagColor] = useState(homeBag)
     const [memberColor, setMemberColor] = useState(homeMember)
+    const [drawerDatas, setDrawerDatas] = useState(null);
     const [toLogoutVisible, setToLogoutVisible] = useState(false);
+    const [loading, setLoading] = useState(true);
     var lodash = require('lodash');
     // const { sm } = useBreakpoint();
     // const displayNone = sm ? "displayNone" : "";
     // const displayWeb = sm ? "" : "displayNone";
 
     useEffect(() => {
-        // getCarts().then((response) => {
-        //     if(response.data !== ""){
-        //         dispatch({
-        //             type: GET_CARTS_DATA,
-        //             payload: response.data
-        //         })
-        //         console.log(response.data[0])
-        //         console.log(response.data[0].Total)
-        //         console.log(response.data[0].List)
-        //         console.log(response.data[0].List[0])
-        //         console.log(response.data[0].List[0].Store)
-        //         console.log(response.data[0].List[0].Store.StoreName)
-        //     }
-            
-        // })
+        let isMounted = true;
+        if(String(localStorage.getItem("groupCode")) !== 'undefined' || String(localStorage.getItem("orderSoloCode")) !== 'undefined') {
+            if(String(localStorage.getItem("groupCode")) === 'undefined') {
+                getCarts(localStorage.getItem("userID"), localStorage.getItem("orderSoloCode")).then((response) => {
+                    if(isMounted) {
+                        setDrawerDatas(response.data);  
+                        setLoading(false)
+                    }
+                }).catch(
+                    input => {console.log(input.response)}
+                )
+            } else {
+                getCarts(localStorage.getItem("userID"), localStorage.getItem("groupCode")).then((response) => {
+                    console.log(response.data)
+                }).catch(
+                    input => {console.log(input.response)}
+                )
+            }
+        }
+        return () => {isMounted = false}
     }, [visible]);
+
+    useEffect(() => {
+        if(drawerDatas) {
+            let a = [];
+            let b = [];
+            a = drawerDatas ? drawerDatas.map(s => {
+                b.push(s.Price);
+            }) : ""
+            dispatch({
+                type: SET_DRAWER_SUM,
+                payload: lodash.sum(b)
+            })
+        }
+        
+    }, [drawerDatas])
 
     const showDrawer = () => {
         dispatch({
@@ -134,16 +156,15 @@ export default function HomeHeader() {
                     <Col className="drawerTitle" span={6}>價格</Col>
                 </Row>
                 {
-                    cartsData ? cartsData[0].List.map(data =>
-                    <JustOrdered key={nanoid()} store={data.Store.StoreName} item={data.Order.Meals} sum={data.Order.Price} />)
+                    loading ? <Spin style={{display:"flex", justifyContent:"center", margin:"10vh 0"}} size="large" /> : 
+                    drawerDatas ? drawerDatas.map(data =>
+                    <JustOrdered key={nanoid()} store={data.storeprofiles.StoreName} item={data.Meals} sum={data.Price} />)
                     : <Empty style={{margin:"8vh auto"}}/>
+                    
                 }
                 <Row>
                     <Col className="drawerContentRight" span={5} offset={13}>總價</Col>
-                    {
-                        cartsData ? <Col className="drawerContent" span={6}>{cartsData[0].Total}</Col> :
-                        <Col className="drawerContent" span={6}></Col>
-                    }
+                    <Col className="drawerContent" span={6}>{drawerSum}</Col>
                 </Row>
                 {
                     getAuthToken() !== 'undefined' ?

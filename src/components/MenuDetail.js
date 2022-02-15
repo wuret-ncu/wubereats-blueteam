@@ -3,7 +3,13 @@ import { useState, useEffect, useContext } from 'react';
 import { Row, Col, Form, Button, Input, message, Spin } from 'antd';
 import { Link } from 'react-router-dom';
 import { nanoid } from 'nanoid';
-import { postCart, postScores, getScores, postComments, getComments } from '../api';
+import Zmage from 'react-zmage';
+import { postCart, 
+         postScores, 
+         getScores, 
+         postComments, 
+         getComments, 
+         getCode } from '../api';
 import { SET_VISIBLE,
          SET_COMMENTS, 
          CLEAN_COMMENTS
@@ -51,6 +57,7 @@ export default function MenuDetail(menuDetailProps) {
     const [comments, setComments] = useState(null);
     const [sendComments, setSendComments] = useState(null);
     const [allComments, setAllComments] = useState([]);
+    const[size, setSize] = useState('');
     const [form] = Form.useForm();
     const { TextArea } = Input;
 
@@ -93,28 +100,65 @@ export default function MenuDetail(menuDetailProps) {
             input => {console.log(input.response)}
         )
     }, [sendComments, sendRate])
-    
-    const onClickAddToCart = async (e) => {
-        setAddToCart({
-            Meals: orderItem,
-            Price: orderSum
-        })
-        form.resetFields();
-    }
 
     useEffect(() => {
+        let isMounted = true;
         if(addToCart !== null) {
            postCart(addToCart).then((response) => {
             console.log(response);
-            dispatch({
-                type: SET_VISIBLE,
-                payload: true
-            })
+            if(isMounted) {
+                dispatch({
+                    type: SET_VISIBLE,
+                    payload: true
+                })
+                setAddToCart(null);
+            }
             }).catch(
                 input => {console.log(input.response)}
             ) 
         }
+        return () => {isMounted = false}
     }, [addToCart])
+    
+    const onClickAddToCart = async (e) => {
+        if(String(localStorage.getItem("groupCode")) === 'undefined') {
+            if(String(localStorage.getItem("orderSoloCode")) === 'undefined') {
+                getCode().then((response) => {
+                    localStorage.setItem("orderSoloCode", response.data.groupBuyCode);
+                    setAddToCart({
+                        groupbuycode: response.data.groupBuyCode,
+                        storeprofiles: menuDetailProps.storeId,
+                        userprofiles: localStorage.getItem("userID"),
+                        Meals: orderItem,
+                        Price: orderSum,
+                        owe: true
+                    })
+                }).catch(
+                    input => {console.log(input.response)}
+                )
+            }else {
+                setAddToCart({
+                    groupbuycode: localStorage.getItem("orderSoloCode"),
+                    storeprofiles: menuDetailProps.storeId,
+                    userprofiles: localStorage.getItem("userID"),
+                    Meals: orderItem,
+                    Price: orderSum,
+                    owe: true
+                })
+            }
+        } else {
+            setAddToCart({
+                groupbuycode: localStorage.getItem("groupCode"),
+                storeprofiles: menuDetailProps.storeId,
+                userprofiles: localStorage.getItem("userID"),
+                Meals: orderItem,
+                Price: orderSum,
+                owe: true
+            })
+        }
+        
+        form.resetFields();
+    }
 
     const handleRating = (rate) => {
         setRating(rate/20);
@@ -169,7 +213,22 @@ export default function MenuDetail(menuDetailProps) {
                     <Link to="/stores" className="MenubackToStore">{'<'} 返回Stores</Link>
                     <Link to={imgUrl} className="MenuToUrl">菜單網址</Link>
                 </Row>
-                <Row className="menuImg"></Row>
+                <Row className="menuImg">
+                    <img 
+                        className="menuDetail" 
+                        alt="" src={`http://localhost:8080/menu/${menuDetailProps.storeId}`}
+                        onLoad={event => {
+                            setSize({
+                              height: event.target.naturalHeight,
+                              width: event.target.naturalWidth
+                            })}} 
+                    />
+                    {
+                        size.width >= size.height ? <Zmage controller={{close:true, zoom:true}} className="menuDetailWidth" src={`http://localhost:8080/menu/${menuDetailProps.storeId}`} alt="" /> :
+                        size.width <= size.height ? <Zmage controller={{close:true, zoom:true}} className="menuDetailHeight" src={`http://localhost:8080/menu/${menuDetailProps.storeId}`} alt="" /> :
+                        ''
+                    }
+                </Row>
             </Col>
             <Col span={11} className="menuRightBox">
                 <div className="orderBox">

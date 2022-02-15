@@ -21,7 +21,8 @@ import { getDrinksStores,
          getAuthToken, 
          getScores,
          getCode,
-         postGroupCode } from '../api/index';
+         postGroupCode,
+         getUsingUser } from '../api/index';
 import { StoreContext } from '../store';
 import { SET_SEARCH_VALUE,
          SET_ENTRY_SEARCH_BTN,
@@ -51,7 +52,6 @@ function Cards(props) {
     }
     useEffect(() => {
         let isMounted = true;
-        setScore('無評分紀錄')
         getScores(props.id).then((response) => {
             if(response.data.length !== 0 && isMounted) {
                 let ss = response.data[0].avgScore.toFixed(1)
@@ -169,9 +169,7 @@ export default function GroupStoreList() {
     const listBgc = sm ? "listBgc" : "listBgcMobile";
 
     useEffect(() => {
-        setUserID({
-            user: localStorage.getItem("userID")
-        });
+        setUserID(localStorage.getItem("userID"));
         if(String(localStorage.getItem("groupCode")) !== 'undefined') {
             dispatch({
                 type: SET_GROUP_ORDER_CODE,
@@ -183,18 +181,13 @@ export default function GroupStoreList() {
                 type: SET_GROUP_ORDER_CODE,
                 payload: 'get a code'
             })
-            setJoinCode('')
-        }
-    }, [])
-    
-    useEffect(() => {
-        if(code === 'get a code') {
             dispatch({
                 type: SET_GROUP_ORDER_MODAL_VISIBLE,
                 payload: true
             })
+            setJoinCode('')
         }
-    }, [code])
+    }, [])
 
     useEffect(() => {
         let isMounted=true;
@@ -320,13 +313,21 @@ export default function GroupStoreList() {
         } 
     }
     const onClickDrawUser = () => {
-        // getUsingUser().then((response) => {
-        //     let i = 0;
-        //     response.data.map(() => {
-        //         return(i = i + 1)
-        //     })
-        //     setDrawUserResult(response.data[0].User_info[Math.floor(Math.random()*i)].UserName);
-        // })
+        if(code !== 'get a code') {
+            getUsingUser(code).then((response) => {
+                // console.log(response.data[0].user.UserName);
+                // let i = 0;
+                // response.data.map(() => {
+                //     return(i = i + 1)
+                // })
+                // setDrawUserResult(response.data[0].User_info[Math.floor(Math.random()*i)].UserName);
+                setDrawUserResult(response.data[0].user.NickName);
+            }).catch(
+                input => {console.log(input.response)}
+            )
+        } else {
+            message.warning("尚未加入團購無法使用此功能，快去取得團購碼吧！")
+        }
     }
     const onClickGroupOrderBtn = () => {
         dispatch({
@@ -342,7 +343,7 @@ export default function GroupStoreList() {
         message.warning("請先登入即可開始新增店家")
     }
     const onClickGetCode = () => {
-        if(String(userID) !== 'null') {
+        if(String(userID.user) !== 'undefined') {
             if(String(localStorage.getItem("groupCode")) === 'undefined') {
                 getCode(userID).then((response) => {
                     console.log(response.data);
@@ -435,9 +436,10 @@ export default function GroupStoreList() {
                         <div>{code}</div>
                         <div><img className="groupStoreListStraightLine" alt="" src={straightLine} /></div>
                     </Col> : 
-                    <Col sm={{span:4}} className="storeSlogan" onClick={onClickToSigninAlert}>
-                        {code}
-                    </Col>
+                    <Col sm={{span:4}} className="groupStoreListGetACode" onClick={onClickGroupOrderBtn}>
+                        <div>{code}</div>
+                        <div><img className="groupStoreListStraightLine" alt="" src={straightLine} /></div>
+                    </Col> 
                 }
                 <Modal
                     visible={groupOrderModalVisible}

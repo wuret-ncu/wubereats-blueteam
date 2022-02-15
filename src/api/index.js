@@ -162,12 +162,12 @@ export const getFoodsStores = data => instance.get('/stores/Foods', data);
 export const getDrinksStores = data => instance.get('/stores/Drinks', data);
 export const postStore = data => imgInstance.post('/stores', data);
 export const postCart = data => instance.post('/carts', data);
-export const getCarts = data => instance.get('/carts/drawer', data);
+export const getCarts = (userID, code, data) => instance.get(`/carts/drawer/${userID}/${code}`, data);
 // export const postMenu = data => imgInstance.post('/images', data);
-export const getAStore = (id, data) => imgInstance.get(`/store/${id}`, data);
+export const getAStore = (id, data) => instance.get(`/store/${id}`, data);
 export const postEditedStore = (data, id) => instance.post(`/store/${id}`, data);
 export const deleteAStore = (id, data) => instance.delete(`/store/${id}`, data);
-// export const getUsingUser = data => instance.get('/bill/user', data);
+export const getUsingUser = (id, data) => instance.get(`/groupmembers/${id}`, data);
 export const postRegister = data => userInstance.post('/register', data);
 export const postLogin = data => userInstance.post('/login', data);
 export const postScores = data => instance.post('/scores', data);
@@ -176,6 +176,7 @@ export const postComments = data => instance.post('/comments', data);
 export const getComments = (id, data) => instance.get(`/stores/${id}/comment`, data);
 export const getCode = data => instance.post('/groupbuy', data);
 export const postGroupCode = data => instance.post('addtogroup', data);
+export const getMenuImg = (id, data) => imgInstance.get(`/menu/${id}`, data);
 // export const postMenu = (data, id) => {
 //     return instance.post(`/images/${id}`, data);
 // }

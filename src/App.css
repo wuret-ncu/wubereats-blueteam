@@ -29,7 +29,7 @@
 .ant-layout-content {
   background-color: var(--butterWhite);
 }
-/* homeheader~231 */
+/* homeheader~241 */
 .ant-layout-header {
   display: flex;
   background-color: transparent;
@@ -119,6 +119,7 @@
   margin-top: 2vw;
   margin-bottom: 2vw;
   letter-spacing: 0.1vw;
+  padding: 0 0.5vw;
 }
 .drawerContentMobile {
   color: white;
@@ -239,7 +240,7 @@
   border: none;
   outline: none;
 }
-/* home~351 */
+/* home~370 */
 .entryLeft {
   display: flex;
   flex-direction: column;
@@ -261,10 +262,10 @@
 .entryLeftImg {
   width: 22vw;
   margin-right: 2vw;
-  margin-top: 1.8vh;
+  margin-top: 1vh;
 }
 .toLogin {
-  content: url('https://raw.githubusercontent.com/wuret-ncu/wubereats-blueteam/huoh/src/img/btn-home-toLogin.png');
+  content: url('https://raw.githubusercontent.com/wuret-ncu/wubereats-blueteam/huoh/src/img/btn-entry-toLogin.png');
   background-size: contain;
   background-repeat: no-repeat;
 }
@@ -368,7 +369,7 @@
   margin-top: 2vh;
   align-self: center;
 }
-/* footer~365 */
+/* footer~384 */
 .layout-footer-home {
   background-color: var(--footerGreen);
   width: 100vw;
@@ -382,7 +383,7 @@
   font-weight: 400;
   font-size: 1.5vw;
 }
-/* StoreList~836 */
+/* StoreList~959 */
 .storeSlogan {
   color: var(--mainDarkGreen);
   font-weight: 600;
@@ -957,7 +958,7 @@
   margin-left: 0.5vw;
   margin-top: -0.6vh;
 }
-/* AddStore~1134 */
+/* AddStore~1257 */
 .addBgc {
   background-color: var(--mainLightGreen);
   width: 100%;
@@ -1255,7 +1256,7 @@
 .uploadMenuBoxMobile .anticon svg {
   color: var(--mainDarkGreen);
 }
-/* Cart~1368 */
+/* Cart~1491 */
 .cartTitle {
   font-size: 2.6vw;
   color: var(--mainDarkGreen);
@@ -1489,12 +1490,51 @@
   background-color: var(--hoverBlue);
 }
 
-/* Menu~1464 */
+/* Menu~1646 */
 .menuImg {
   background-color: var(--mainLightGreen);
   height: 74vh;
   margin-top: 1.5vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor:zoom-in;
 }
+
+.menuDetail {
+  display: none;
+}
+.menuDetailWidth {
+  width: 100%;
+}
+.menuDetailHeight {
+  height: 100%;
+}
+.imageLayer__207N- {
+  position: absolute;
+  top: 50vh;
+  left: 50vw;
+}
+.controls__3BU3E .show__1tLY6 {
+  position: absolute;
+  top: 23vh;
+  left: 4.5vw;
+  z-index: 10000;
+  background-color: #EEEEEE;
+}
+.backgroundLayer__L59ju {
+  background: black;
+  position: absolute;
+  top:50vh;
+  left: 50vw;
+}
+/* .controls__3BU3E .show__1tLY6 {
+  position: absolute;
+  top: 2vh;
+  left: 40vw;
+  z-index: 10000;
+  background-color: #EEEEEE;
+} */
 .menuImgHead {
   display: flex;
   justify-content: space-between;
@@ -1644,7 +1684,7 @@
   background-color: var(--mainMediumGreen);
   border: none;
 }
-/* Signin~1567 */
+/* Signin~1749 */
 .signinForm {
   width: 70%;
 }
@@ -1747,7 +1787,7 @@ input#signin_password.ant-input {
   background-size: contain;
   background-repeat: no-repeat;
 }
-/* profile~1661 */
+/* profile~1862 */
 .profileEditIcon {
   width: 2vw;
   margin: 0 1vw;

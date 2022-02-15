@@ -20,6 +20,7 @@ export default function ProfileDetail() {
         history.push('/')
         setAuthToken(undefined, undefined, undefined, undefined);
         localStorage.setItem("groupCode", undefined);
+        localStorage.setItem("orderSoloCode", undefined);
         message.success("Successfully Logout!")
         setToLogoutVisible(false)
     }
