@@ -9,7 +9,8 @@ import { postCart,
          getScores, 
          postComments, 
          getComments, 
-         getCode } from '../api';
+         getCode,
+         getAStore } from '../api';
 import { SET_VISIBLE,
          SET_COMMENTS, 
          CLEAN_COMMENTS
@@ -48,7 +49,7 @@ function Comments(commentProps) {
 
 export default function MenuDetail(menuDetailProps) {
     const { state : { list : { listItems } } , dispatch } = useContext(StoreContext);
-    const [imgUrl, setImgUrl] = useState("/");
+    const [imgUrl, setImgUrl] = useState("");
     const [orderItem, setOrderItem] = useState('');
     const [orderSum, setOrderSum] = useState('');
     const [addToCart, setAddToCart] = useState(null);
@@ -60,6 +61,14 @@ export default function MenuDetail(menuDetailProps) {
     const[size, setSize] = useState('');
     const [form] = Form.useForm();
     const { TextArea } = Input;
+
+    useEffect(() => {
+        getAStore(menuDetailProps.storeId).then((response) => {
+            setImgUrl(response.data.MenuUrl)
+        }).catch((error) => {
+            console.log(error);
+        })
+    }, [])
 
     useEffect(() => {
         dispatch({
@@ -120,6 +129,31 @@ export default function MenuDetail(menuDetailProps) {
         return () => {isMounted = false}
     }, [addToCart])
     
+    useEffect(() => {
+        if(String(sendRate) !== 'null') {
+            postScores(sendRate).then((response) => {
+                console.log(response);
+                setRating(0);
+                setSendRate(null);
+                message.success("評分已送出！")
+            }).catch(
+                input => {console.log(input.response)}
+            )
+        }
+    }, [sendRate])
+
+    useEffect(() => {
+        if(String(sendComments) !== 'null') {
+            postComments(sendComments).then((response) => {
+                console.log(response);
+                setComments(null);
+                setSendComments(null);
+                form.resetFields();
+                message.success("評論已送出！")
+            })
+        }
+    }, [sendComments])
+
     const onClickAddToCart = async (e) => {
         if(String(localStorage.getItem("groupCode")) === 'undefined') {
             if(String(localStorage.getItem("orderSoloCode")) === 'undefined') {
@@ -181,37 +215,15 @@ export default function MenuDetail(menuDetailProps) {
         }
     }
 
-    useEffect(() => {
-        if(String(sendRate) !== 'null') {
-            postScores(sendRate).then((response) => {
-                console.log(response);
-                setRating(0);
-                setSendRate(null);
-                message.success("評分已送出！")
-            }).catch(
-                input => {console.log(input.response)}
-            )
-        }
-    }, [sendRate])
-
-    useEffect(() => {
-        if(String(sendComments) !== 'null') {
-            postComments(sendComments).then((response) => {
-                console.log(response);
-                setComments(null);
-                setSendComments(null);
-                form.resetFields();
-                message.success("評論已送出！")
-            })
-        }
-    }, [sendComments])
-
     return(
         <Row className="menuBox">
             <Col span={13} className="menuLeftBox">
                 <Row className="menuImgHead">
                     <Link to="/stores" className="MenubackToStore">{'<'} 返回Stores</Link>
-                    <Link to={imgUrl} className="MenuToUrl">菜單網址</Link>
+                    {
+                        imgUrl === '' ? <div className="MenuToUrl" style={{cursor:'default',color:'gray'}}>菜單網址</div> :
+                        <Link to={imgUrl} className="MenuToUrl">菜單網址</Link>
+                    }
                 </Row>
                 <Row className="menuImg">
                     <img 

@@ -49,6 +49,7 @@ export default function EditDetail(appProps) {
             postEditedStore(formData, appProps.storeId).then((res) => {
                 console.log(res);
                 history.push('/stores');
+                message.success("成功編輯！")
             }).catch((err) => {
                 console.log(err)
             })
@@ -82,7 +83,7 @@ export default function EditDetail(appProps) {
             setMenu(fileList);
         }
     };
-    
+
     return(
         <Row className="addBgc">
             <Col span={12} className="uploadMenuBox">

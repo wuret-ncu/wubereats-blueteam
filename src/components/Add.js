@@ -72,6 +72,7 @@ export default function Add() {
                     console.log(response);
                     history.push('/stores')
                     setStoreObj(null);
+                    message.success("成功新增！")
                 }).catch(
                     input => {console.log(input.response)}
                 )
