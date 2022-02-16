@@ -57,7 +57,9 @@ export default function EditDetail(appProps) {
     }, [storeObj])
 
     const onClickConfirm = () => {
-        if(menu === '') {
+        if(!isNaN(Number(phone))) {
+            message.warning('電話欄位只能填數字哦！')
+        } else if(menu === '') {
             setStoreObj(new Map([
                 ['StoreType', type],
                 ['Phone', phone],
