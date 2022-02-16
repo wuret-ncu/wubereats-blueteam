@@ -47,6 +47,8 @@ export default function Add() {
     const onClickCreate = () => {
         if(menu === null) {
             message.warning('請記得上傳菜單圖片！');
+        } else if(!isNaN(Number(phone))) {
+            message.warning('電話欄位只能填數字哦！')
         } else {
             setStoreObj(new Map([
                 ['StoreType', type],
@@ -72,7 +74,7 @@ export default function Add() {
                     console.log(response);
                     history.push('/stores')
                     setStoreObj(null);
-                    message.success("成功新增！")
+                    message.success("Successfully added！")
                 }).catch(
                     input => {console.log(input.response)}
                 )
@@ -161,7 +163,7 @@ export default function Add() {
                             >
                                 <Input 
                                     value={phone}
-                                    className={addInputs} 
+                                    className={addInputs}
                                     autoComplete="off"
                                     onChange={(e) => setPhone(e.target.value)}
                                 />

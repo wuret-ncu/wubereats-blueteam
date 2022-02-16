@@ -49,7 +49,7 @@ export default function EditDetail(appProps) {
             postEditedStore(formData, appProps.storeId).then((res) => {
                 console.log(res);
                 history.push('/stores');
-                message.success("成功編輯！")
+                message.success("Successfully edited！")
             }).catch((err) => {
                 console.log(err)
             })
