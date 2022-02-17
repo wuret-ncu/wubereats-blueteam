@@ -6,13 +6,14 @@ import { nanoid } from 'nanoid';
 import cartDelete from '../img/btn_cart_delete.png';
 import draw from '../img/btn-draw.png';
 import { SET_CHECKING_VISIBLE,
-         GET_CARTS_DATA
+         GET_CARTS_DATA,
+         SET_CARTITEM_DELETED
 } from '../utils/constants';
 import { StoreContext } from '../store';
-import { getAllCarts, getDrinksStores, getFoodsStores } from '../api';
+import { getAllCarts, getDrinksStores, getFoodsStores, deleteADish } from '../api';
 const { useBreakpoint } = Grid;
 function CartItemList(props) {
-    const { state: { checkingVisible } } = useContext(StoreContext);
+    const { state: { checkingVisible , deleteFlag } , dispatch } = useContext(StoreContext);
     const { sm } = useBreakpoint();
     const cartBlockContent = sm ? "cartBlockContent" : "cartBlockContentMobile";
     const cartBlockContents = sm ? "cartBlockContents" : "cartBlockContentsMobile";
@@ -21,8 +22,18 @@ function CartItemList(props) {
 
     function confirm(e){
         console.log(e);
-        message.success('Click on Yes');
+        
         // 還需添加remove item事件
+        deleteADish(props.id).then((response) => {
+            console.log(response);
+            dispatch({
+                type: SET_CARTITEM_DELETED,
+                payload: !deleteFlag
+            })
+            message.success('Successfully deleted!');
+        }).catch(
+            input => {console.log(input.response)}
+        )
     }
 
     return(
@@ -58,7 +69,7 @@ function CartItemList(props) {
 }
 
 export default function CartDetail() {
-    const { state: { checkingVisible, cartsData }, dispatch } = useContext(StoreContext);
+    const { state: { checkingVisible , cartsData , deleteFlag }, dispatch } = useContext(StoreContext);
     const [modalVisible, setModalVisible] = useState(false);
     const [modalLoading, setModalLoading] = useState(false);
     const [modalText, setModalText] = useState('已確認完成這筆訂單嗎？');
@@ -119,7 +130,7 @@ export default function CartDetail() {
                 input => {console.log(input.response)}
             )
         }
-    }, []);
+    }, [deleteFlag]);
 
     useEffect(() => {
         // if(cartsData) {
@@ -256,7 +267,9 @@ export default function CartDetail() {
                         <CartItemList key={data.OrderList._id} id={data.OrderList._id} name={data.User_info[0].UserName} item={data.OrderList.Meals} sum={data.OrderList.Price} />)
                     }
                     <Row className={cartBtnsBox}>
-                        <Col className="cartBtnBox" sm={{span:3, offset:18}} span={9} offset={6} onClick={onClickCheckingBtn}><div className={cartMarkPaying}>{checkingBtn}</div></Col>
+                        <Col className="cartBtnBox" sm={{span:3, offset:18}} span={9} offset={6} onClick={onClickCheckingBtn}>
+                            <div className={cartMarkPaying}>{checkingBtn}</div>
+                        </Col>
                         <Col className="cartBtnBox" sm={{span:3}} span={9} onClick={showModal}>
                             <div className={cartFinish}>完成訂單</div>
                             <Modal

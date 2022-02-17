@@ -12,7 +12,8 @@ import { SET_VISIBLE,
          CLEAN_COMMENTS,
          SET_GROUP_ORDER_MODAL_VISIBLE,
          SET_GROUP_ORDER_CODE,
-         SET_DRAWER_SUM
+         SET_DRAWER_SUM,
+         SET_CARTITEM_DELETED
     } from '../utils/constants';
 
 export const StoreContext = createContext();
@@ -30,7 +31,8 @@ const initialState = {
     },
     groupOrderModalVisible: false,
     code: 'get a code',
-    drawerSum: ''
+    drawerSum: '',
+    deleteFlag: false
 }
 
 function reducer(state, action) {
@@ -101,6 +103,11 @@ function reducer(state, action) {
             return {
                 ...state,
                 drawerSum: action.payload
+            }
+        case SET_CARTITEM_DELETED:
+            return {
+                ...state,
+                deleteFlag: action.payload
             }
         default: 
             return state;

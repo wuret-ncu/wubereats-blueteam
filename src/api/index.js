@@ -181,6 +181,7 @@ export const postGroupCode = data => instance.post('addtogroup', data);
 export const getMenuImg = (id, data) => imgInstance.get(`/menu/${id}`, data);
 export const deleteGroupByLeader = (id, data) => instance.delete(`groupleader/${id}`, data);
 export const deleteGroupByMembers = (code, userID, data) => instance.delete(`groupmember/${code}/${userID}`, data);
+export const deleteADish = (id, data) => instance.delete(`/${id}`, data);
 // export const postMenu = (data, id) => {
 //     return instance.post(`/images/${id}`, data);
 // }
