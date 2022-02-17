@@ -2,13 +2,14 @@ import React from 'react';
 import { useState, useContext, useEffect } from 'react';
 import { Row, Col, Checkbox, Popconfirm, message, Modal, Empty, Grid } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { nanoid } from 'nanoid';
 import cartDelete from '../img/btn_cart_delete.png';
 import draw from '../img/btn-draw.png';
 import { SET_CHECKING_VISIBLE,
          GET_CARTS_DATA
 } from '../utils/constants';
 import { StoreContext } from '../store';
-import { getCarts, getDrinksStores, getFoodsStores } from '../api';
+import { getAllCarts, getDrinksStores, getFoodsStores } from '../api';
 const { useBreakpoint } = Grid;
 function CartItemList(props) {
     const { state: { checkingVisible } } = useContext(StoreContext);
@@ -29,15 +30,15 @@ function CartItemList(props) {
             {
                 sm ? 
                 <>
-                    <Col className={cartBlockContent} span={8}>{checkingVisible ? <span><Checkbox className="checkPay"></Checkbox></span> : ""}Jenny</Col>
-                    <Col className="cartBlockContent cartBlockContent2" span={8}>{props.item}</Col>
+                    <Col className={cartBlockContent} span={8}>{checkingVisible ? <span><Checkbox className="checkPay"></Checkbox></span> : ""}{props.name}</Col>
+                    <Col className="cartBlockContent cartBlockContent2" span={12}>{props.item}</Col>
                 </> : 
                 <Col span={16} className={cartBlockContent}>
-                    <div>{checkingVisible ? <span><Checkbox className="checkPay"></Checkbox></span> : ""}Jenny</div>
+                    <div>{checkingVisible ? <span><Checkbox className="checkPay"></Checkbox></span> : ""}{props.name}</div>
                     <div className={cartBlockContent2}>{props.item}</div>
                 </Col>
             }
-            <Col className={cartBlockContent3} sm={{span:7}} push={5}>{props.sum}</Col>
+            <Col className={cartBlockContent3} sm={{span:3}}>{props.sum}</Col>
             {
                 sm ? 
                 <Col span={1}>
@@ -80,50 +81,65 @@ export default function CartDetail() {
 
     useEffect(() => {
         if(String(localStorage.getItem("groupCode")) === 'undefined') {
-            getCarts(localStorage.getItem("userID"), localStorage.getItem("orderSoloCode")).then((response) => {
+            getAllCarts(localStorage.getItem("orderSoloCode")).then((response) => {
                 console.log(response.data)
                 // dispatch({
                 //     type: GET_CARTS_DATA,
                 //     payload: response.data
                 // })
-                response.data.map(i => {
-                    console.log(i)
-                })
+                // response.data.map(i => {
+                //     console.log(i.Store_info[0].StoreName)
+                //     console.log(i.Store_info[0].Phone)
+                //     i.TotalList.map(j => {
+                //         console.log(j.User_info[0].UserName)
+                //         console.log(j.OrderList.Meals)
+                //         console.log(j.OrderList.Price)
+                //     })
+                // })
             }).catch(
                 input => {console.log(input.response)}
             )
         } else {
-            getCarts(localStorage.getItem("userID"), localStorage.getItem("groupCode")).then((response) => {
+            getAllCarts(localStorage.getItem("groupCode")).then((response) => {
                 console.log(response.data)
-                // dispatch({
-                //     type: GET_CARTS_DATA,
-                //     payload: response.data
-                // })
+                dispatch({
+                    type: GET_CARTS_DATA,
+                    payload: response.data
+                })
+                response.data.map(i => {
+                    console.log(i.Store_info[0].StoreName)
+                    // console.log(i.Store_info[0].Phone)
+                    // i.TotalList.map(j => {
+                    //     console.log(j.User_info[0].UserName)
+                    //     console.log(j.OrderList.Meals)
+                    //     console.log(j.OrderList.Price)
+                    // })
+                })
             }).catch(
                 input => {console.log(input.response)}
             )
         }
-
-        // let b = [];
-        // let a = cartsData ? cartsData.map(s => {
-        //     b.push(s.Price);
-        // }) : ""
-        // dispatch({
-        //     type: SET_TOTAL_PRICE,
-        //     payload: lodash.sum(b)
-        // })
     }, []);
 
-    // useEffect(() => {
-    //     let b = [];
-    //     let a = cartsData ? cartsData.map(s => {
-    //         b.push(s.Price);
-    //     }) : ""
-    //     dispatch({
-    //         type: SET_TOTAL_PRICE,
-    //         payload: lodash.sum(b)
-    //     })
-    // }, [cartsData]);
+    useEffect(() => {
+        // if(cartsData) {
+        //     let b = [];
+        //     let a = cartsData ? cartsData.map(s => {
+        //         b.push(s.Price);
+        //     }) : ""
+        //     dispatch({
+        //         type: SET_TOTAL_PRICE,
+        //         payload: lodash.sum(b)
+        //     })
+        // }
+        if(cartsData) {
+            cartsData.map(i => {
+            console.log(i)
+        })
+        console.log(cartsData)
+        }
+        
+    }, [cartsData]);
 
     const onClickCheckingBtn = () => {
         dispatch({
@@ -219,41 +235,46 @@ export default function CartDetail() {
                 
             </Modal>
             <div className={cartTitle}>Shopping Cart</div>
-            <div style={{display: "flex", justifyContent: "space-between", borderBottom: "0.2vw solid lightgray"}}>
-                <div className={cartStoreName}>大嗑蔬菜蛋餅<span className={cartPhone}>(03)5777557</span></div>
-                {/* <div className={cartStoreMoney}>Total: {total} 元</div> */}
-            </div>
             {
-                sm ? 
-                <Row className="cartBlockTitles">
-                    <Col className="cartBlockTitle" span={8}>點餐者</Col>
-                    <Col className="cartBlockTitle" span={8}>項目</Col>
-                    <Col className="cartBlockTitle" span={8}>金額</Col>
-                </Row> : 
-                ""
+                cartsData ? cartsData.map((store) => (
+                <div key={nanoid()}>
+                    <div style={{display: "flex", justifyContent: "space-between", borderBottom: "0.2vw solid lightgray", marginTop:'2vh'}}>
+                        <div className={cartStoreName}>{store.Store_info[0].StoreName}<span className={cartPhone}>{store.Store_info[0].Phone}</span></div>
+                        <div className={cartStoreMoney}>Total: {store.Total} 元</div>
+                    </div>
+                    {
+                        sm ? 
+                        <Row className="cartBlockTitles">
+                            <Col className="cartBlockTitle" span={8}>點餐者</Col>
+                            <Col className="cartBlockTitle" span={12}>項目</Col>
+                            <Col className="cartBlockTitle" span={4}>金額</Col>
+                        </Row> : 
+                        ""
+                    }
+                    {
+                        store.TotalList.map(data =>
+                        <CartItemList key={data.OrderList._id} id={data.OrderList._id} name={data.User_info[0].UserName} item={data.OrderList.Meals} sum={data.OrderList.Price} />)
+                    }
+                    <Row className={cartBtnsBox}>
+                        <Col className="cartBtnBox" sm={{span:3, offset:18}} span={9} offset={6} onClick={onClickCheckingBtn}><div className={cartMarkPaying}>{checkingBtn}</div></Col>
+                        <Col className="cartBtnBox" sm={{span:3}} span={9} onClick={showModal}>
+                            <div className={cartFinish}>完成訂單</div>
+                            <Modal
+                                title={<div><ExclamationCircleOutlined className="modalIcon" /><span className="modalTitle">請確認</span></div>}
+                                visible={modalVisible}
+                                onOk={modalOk}
+                                confirm={modalLoading}
+                                onCancel={modalCancel}
+                                className={modal}
+                            >
+                                <div className="modalText">{modalText}</div>
+                            </Modal>
+                        </Col>
+                    </Row>
+                </div>
+                )) : <Empty style={{marginTop:"10vh"}}/>
             }
             
-            {
-                cartsData ? cartsData.map(data =>
-                <CartItemList key={data._id} item={data.Meals} sum={data.Price} />)
-                : <Empty style={{marginTop: "10vh"}} />
-            }
-            <Row className={cartBtnsBox}>
-                <Col className="cartBtnBox" sm={{span:3, offset:18}} span={9} offset={6} onClick={onClickCheckingBtn}><div className={cartMarkPaying}>{checkingBtn}</div></Col>
-                <Col className="cartBtnBox" sm={{span:3}} span={9} onClick={showModal}>
-                    <div className={cartFinish}>完成訂單</div>
-                    <Modal
-                        title={<div><ExclamationCircleOutlined className="modalIcon" /><span className="modalTitle">請確認</span></div>}
-                        visible={modalVisible}
-                        onOk={modalOk}
-                        confirm={modalLoading}
-                        onCancel={modalCancel}
-                        className={modal}
-                    >
-                        <div className="modalText">{modalText}</div>
-                    </Modal>
-                </Col>
-            </Row>
         </div>
         
     );

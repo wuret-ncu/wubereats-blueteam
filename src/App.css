@@ -1338,6 +1338,7 @@
 .cartDelete {
   width: 1vw;
   cursor: pointer;
+  margin-left: 2.5vw;
 }
 .cartBlockContent2 {
   padding-left: 0.5vw;
@@ -1349,8 +1350,11 @@
   margin-top: 0.4vh;
 }
 .cartBlockContent3 {
-  padding-left: 1vw;
+  padding: 0 1vw;
   font-size: 1.5vw;
+  display: flex;
+  justify-content: center;
+  margin-left: -2.5vw;
 }
 .cartBlockContent3Mobile {
   font-size: 4vw;

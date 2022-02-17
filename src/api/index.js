@@ -163,6 +163,7 @@ export const getDrinksStores = data => instance.get('/stores/Drinks', data);
 export const postStore = data => imgInstance.post('/stores', data);
 export const postCart = data => instance.post('/carts', data);
 export const getCarts = (userID, code, data) => instance.get(`/carts/drawer/${userID}/${code}`, data);
+export const getAllCarts = (id, data) => instance.get(`/shoppingcart/${id}`, data);
 export const getHistories = (id, data) => instance.get(`/carts/history/${id}`, data);
 // export const postMenu = data => imgInstance.post('/images', data);
 export const getAStore = (id, data) => instance.get(`/store/${id}`, data);
