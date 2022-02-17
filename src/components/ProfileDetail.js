@@ -101,23 +101,24 @@ export default function ProfileDetail() {
                 >
                     <Row className="editProfileRow">
                         
-                        <Col span={12} className="profileLabel">
+                        <Col span={12} className="profileLabel" style={{display:'flex', alignItems:'center'}}>
                             Username
-                            <span><img className="straightLine" src={straightLine} alt="" /></span>
+                            <div><img className="straightLine" src={straightLine} alt="" /></div>
                             <Form.Item>
-                            <span>
+                            <div>
                                 <Input
                                     value={username}
                                     autoComplete="off"
                                     onChange={(e) => setUsername(e.target.value)}
+                                    className="profileInput"
                                 />
-                            </span>
+                            </div>
                             </Form.Item>
                             {/* <span className="profileName">{localStorage.getItem("username")}</span> */}
                         </Col>
                         
                        
-                        <Col span={12} className="profileLabel">
+                        <Col span={12} className="profileLabel" style={{display:'flex', alignItems:'center'}}>
                             Nickname
                             <span><img className="straightLine" src={straightLine} alt="" /></span>
                             <Form.Item>
@@ -126,6 +127,7 @@ export default function ProfileDetail() {
                                     value={nickname}
                                     autoComplete="off"
                                     onChange={(e) => setNickname(e.target.value)}
+                                    className="profileInput"
                                 />
                             </span>
                             </Form.Item>
@@ -134,9 +136,9 @@ export default function ProfileDetail() {
                        
                     </Row>
                     <Row className="editProfileRow">
-                        <Col span={12} className="profileLabel">
+                        <Col span={12} className="profileLabel" style={{display:'flex', alignItems:'center'}}>
                             Password
-                            <span><img className="straightLine" src={straightLine} alt="" /></span>
+                            <div><img className="straightLine" src={straightLine} alt="" /></div>
                             <span className="resetPasswordBtn">reset password</span>
                         </Col>
                         

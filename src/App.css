@@ -1816,7 +1816,7 @@ input#signin_password.ant-input {
   padding: 0 4vw;
 }
 .editProfileRow {
-  margin-top: 5vh;
+  margin-top: 2vh;
 }
 .straightLine {
   margin-left: 2vw;
@@ -1833,11 +1833,20 @@ input#signin_password.ant-input {
 .editProfileBtns {
   display: flex;
   justify-content: flex-end;
-  margin-top: 1vh;
+  margin-top: 5vh;
 }
 .profileLogoutIcon {
   width: 1.6vw;
   margin-right: 0.5vw;
+}
+.profileInput {
+  background-color: transparent;
+  width: 110%;
+  border-style: none;
+  outline: none;
+  font-size: 1.3vw;
+  color: var(--wordDarkGreen);
+  margin-top: 2.5vh;
 }
 .saveChangesBtn {
   background-color: var(--mainDarkGreen);
