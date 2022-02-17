@@ -1852,6 +1852,32 @@ input#signin_password.ant-input {
   height: 5.5vh;
   cursor: pointer;
 }
+.saveChangesBtn:focus {
+  background-color: var(--mainDarkGreen);
+  color: white;
+  font-size: 1.4vw;
+  padding: 0 1.5vw;
+  letter-spacing: 0.1vw;
+  border-radius: 0.6vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 5.5vh;
+  cursor: pointer;
+}
+.saveChangesBtn:hover {
+  background-color: var(--mainDarkGreen);
+  color: white;
+  font-size: 1.4vw;
+  padding: 0 1.5vw;
+  letter-spacing: 0.1vw;
+  border-radius: 0.6vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 5.5vh;
+  cursor: pointer;
+}
 .profileLogoutBtn {
   color: var(--mainDarkGreen);
   border: 0.2vw solid var(--mainDarkGreen);

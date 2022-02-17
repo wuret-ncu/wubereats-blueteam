@@ -46,7 +46,9 @@ export default function EditDetail(appProps) {
             for(let [key, value] of storeObj) {
                 formData.append(key, value)
             }
+            
             postEditedStore(formData, appProps.storeId).then((res) => {
+                console.log(appProps.storeId)
                 console.log(res);
                 history.push('/stores');
                 message.success("Successfully edited！")
