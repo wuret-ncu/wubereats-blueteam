@@ -2,8 +2,9 @@ import React from 'react';
 import { useState, useContext, useEffect } from 'react';
 import { Row, Col, Checkbox, Popconfirm, message, Modal, Empty, Grid } from 'antd';
 import { useHistory } from 'react-router-dom';
+import { nanoid } from 'nanoid';
 import { StoreContext } from '../store';
-import { setAuthToken, deleteGroupByLeader, deleteGroupByMembers } from '../api';
+import { setAuthToken, deleteGroupByLeader, deleteGroupByMembers, getHistories } from '../api';
 import editIcon from '../img/icon-profile-edit.png';
 import straightLine from '../img/img-profile-straightLine.png';
 import profileLogout from '../img/icon-profile-logout.png';
@@ -13,7 +14,21 @@ const { useBreakpoint } = Grid;
 export default function ProfileDetail() {
     const { state : { code }, dispatch } = useContext(StoreContext);
     const [toLogoutVisible, setToLogoutVisible] = useState(false);
+    const [record, setRecord] = useState('');
     const history=useHistory();
+
+    useEffect(() => {
+        let isMounted = true
+        getHistories(localStorage.getItem("userID")).then((response) => {
+            if(isMounted) {
+                setRecord(response.data)
+            }
+        }).catch(
+            input => {console.log(input.response)}
+        )
+        return () => {isMounted=false}
+    }, [])
+
     const onClickToLogout = () => {
         setToLogoutVisible(true);
     }
@@ -88,22 +103,22 @@ export default function ProfileDetail() {
                     <Col span={4} className="pastOrderColTitle pastOrderBorder">金額</Col>
                     <Col span={5} className="pastOrderColTitle">訂購時間</Col>
                 </Row>
-                <Row className="pastOrderContentsRow">
-                    <Col span={7} className="pastOrderContent">大嗑蔬菜蛋餅</Col>
-                    <Col span={8} className="pastOrderContent">牛肉蔥捲餅、大溫紅</Col>
-                    <Col span={4} className="pastOrderContent">80</Col>
-                    <Col span={5} className="pastOrderContent">2022-02-08</Col>
-                </Row>
-                {/* <Row className="pastOrderContentsRow">
-                    <Col span={7} className="pastOrderContent">大嗑蔬菜蛋餅</Col>
-                    <Col span={8} className="pastOrderContent">牛肉蔥捲餅、大溫紅</Col>
-                    <Col span={4} className="pastOrderContent">80</Col>
-                    <Col span={5} className="pastOrderContent">2022-02-08</Col>
-                </Row> */}
+                {
+                    record ? record.List.map(item => 
+                    <Row className="pastOrderContentsRow" key={nanoid()}>
+                        <Col span={7} className="pastOrderContent">{item.Store.StoreName}</Col>
+                        <Col span={8} className="pastOrderContent">{item.Order.Meals}</Col>
+                        <Col span={4} className="pastOrderContent">{item.Order.Price}</Col>
+                        <Col span={5} className="pastOrderContent">2022-02-08</Col>
+                    </Row>
+                    )
+                    : ""
+                }
+                {
+                    record ? <Row style={{display:'flex', justifyContent:'center', padding:'5vh 0', fontWeight:'500', fontSize:'1.6vw'}}>總花費：{record.Total}</Row> : ""
+                }
+                
             </div>
         </div>
-
-        
-        
     );
 }
