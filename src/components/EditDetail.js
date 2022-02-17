@@ -46,11 +46,10 @@ export default function EditDetail(appProps) {
             for(let [key, value] of storeObj) {
                 formData.append(key, value)
             }
-            
             postEditedStore(formData, appProps.storeId).then((res) => {
                 console.log(appProps.storeId)
                 console.log(res);
-                history.push('/stores');
+                // history.push('/stores');
                 message.success("Successfully edited！")
             }).catch((err) => {
                 console.log(err)
@@ -59,9 +58,7 @@ export default function EditDetail(appProps) {
     }, [storeObj])
 
     const onClickConfirm = () => {
-        if(!isNaN(Number(phone))) {
-            message.warning('電話欄位只能填數字哦！')
-        } else if(menu === '') {
+        if(menu === '') {
             setStoreObj(new Map([
                 ['StoreType', type],
                 ['Phone', phone],
@@ -95,8 +92,9 @@ export default function EditDetail(appProps) {
                 <Dragger {...props}
                     className="dragger"
                 >
-                    <p className="ant-upload-drag-icon">
+                    <p className="ant-upload-drag-icon" style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
                         <InboxOutlined />
+                        <div style={{fontSize:'1.6vw', color:'#222E16', fontWeight:'400', marginTop:'5vh', width:'80%', letterSpacing:'0.1vw'}}>Click or drag the menu to this area to upload</div>
                     </p>
                 </Dragger>
             </Col>

@@ -62,7 +62,7 @@ export default function ProfileDetail() {
             }).catch(
                 input => {console.log(input.response)}
             )
-        } else if (localStorage.get("groupStatus") === 'members' && code !== 'get a code'){
+        } else if (localStorage.getItem("groupStatus") === 'members' && code !== 'get a code'){
             deleteGroupByMembers(code, localStorage.getItem("userID")).then((response) => {
                 console.log(response.data)
             }).catch(

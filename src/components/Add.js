@@ -106,8 +106,9 @@ export default function Add() {
                 <Dragger {...props}
                     className={dragger}
                 >
-                    <p className="ant-upload-drag-icon">
+                    <p className="ant-upload-drag-icon" style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
                         <InboxOutlined />
+                        <div style={{fontSize:'1.6vw', color:'#222E16', fontWeight:'400', marginTop:'5vh', width:'80%', letterSpacing:'0.1vw'}}>Click or drag the menu to this area to upload</div>
                     </p>
                 </Dragger>
             </Col>
