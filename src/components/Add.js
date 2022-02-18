@@ -47,8 +47,6 @@ export default function Add() {
     const onClickCreate = () => {
         if(menu === null) {
             message.warning('請記得上傳菜單圖片！');
-        } else if(!isNaN(Number(phone))) {
-            message.warning('電話欄位只能填數字哦！')
         } else {
             setStoreObj(new Map([
                 ['StoreType', type],
@@ -58,8 +56,8 @@ export default function Add() {
                 ['MenuUrl', menuURL],
                 ['image', menu[0].originFileObj]
             ]));
+            form.resetFields()
         }
-        form.resetFields();
     }
 
     useEffect(() => {

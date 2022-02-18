@@ -352,7 +352,7 @@ export default function GroupStoreList() {
         message.warning("請先登入即可開始新增店家")
     }
     const onClickGetCode = () => {
-        if(String(userID) !== 'undefined') {
+        if(String(localStorage.getItem("userID")) !== 'undefined') {
             if(String(localStorage.getItem("orderSoloCode")) !== 'undefined') {
                 localStorage.setItem("orderSoloCode", undefined);
             }

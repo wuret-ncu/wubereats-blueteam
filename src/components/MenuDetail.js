@@ -57,6 +57,7 @@ export default function MenuDetail(menuDetailProps) {
     const [sendRate, setSendRate] = useState(null);
     const [comments, setComments] = useState(null);
     const [sendComments, setSendComments] = useState(null);
+    const [avgScore, setAvgScore] = useState('');
     const [allComments, setAllComments] = useState([]);
     const[size, setSize] = useState('');
     const [form] = Form.useForm();
@@ -76,35 +77,39 @@ export default function MenuDetail(menuDetailProps) {
             payload:[]
         })
         getComments(menuDetailProps.storeId).then((response) => {
-            response.data.comment.map(b => {
-                dispatch({
-                    type: SET_COMMENTS,
-                    payload: {
-                        id: nanoid(),
-                        commentName: b.User[0].NickName,
-                        commentContent: b.Comment,
-                        commentTime: b.date,
-                        commentScore:0
-                    }
-                })
-            })
-            
+            if(response.data.length !== 0) {
+                response.data.comment.map(b => {
+                    dispatch({
+                        type: SET_COMMENTS,
+                        payload: {
+                            id: nanoid(),
+                            commentName: b.User[0].NickName,
+                            commentContent: b.Comment,
+                            commentTime: b.date,
+                            commentScore:0
+                        }
+                    })
+                }) 
+            }
         }).catch(
             input => {console.log(input.response)}
         )
         getScores(menuDetailProps.storeId).then((response) => {
-            response.data[0].score.map(a => {
-                dispatch({
-                    type: SET_COMMENTS,
-                    payload: {
-                        id: nanoid(),
-                        commentName: a.User[0].NickName,
-                        commentContent:'',
-                        commentScore: a.Score,
-                        commentTime: a.date
-                    }
+            if(response.data.length !== 0) {
+                response.data[0].score.map(a => {
+                    dispatch({
+                        type: SET_COMMENTS,
+                        payload: {
+                            id: nanoid(),
+                            commentName: a.User[0].NickName,
+                            commentContent:'',
+                            commentScore: a.Score,
+                            commentTime: a.date
+                        }
+                    })
                 })
-            })
+                setAvgScore(response.data[0].avgScore.toFixed(1))
+            }
         }).catch(
             input => {console.log(input.response)}
         )
@@ -222,7 +227,7 @@ export default function MenuDetail(menuDetailProps) {
                     <Link to="/stores" className="MenubackToStore">{'<'} 返回Stores</Link>
                     {
                         imgUrl === '' ? <div className="MenuToUrl" style={{cursor:'default',color:'gray'}}>菜單網址</div> :
-                        <Link to={imgUrl} className="MenuToUrl">菜單網址</Link>
+                        <a target="_blank" href={imgUrl} className="MenuToUrl">菜單網址</a>
                     }
                 </Row>
                 <Row className="menuImg">
@@ -240,6 +245,13 @@ export default function MenuDetail(menuDetailProps) {
                         size.width <= size.height ? <Zmage controller={{close:true, zoom:true}} className="menuDetailHeight" src={`http://localhost:8080/menu/${menuDetailProps.storeId}`} alt="" /> :
                         ''
                     }
+                    {
+                        avgScore === '' ? "" :
+                        <div className="showScoreAvg">
+                            {avgScore}<span><img className="storeListStar" src={filledStar} alt="" /></span>
+                        </div>
+                    }
+                    
                 </Row>
             </Col>
             <Col span={11} className="menuRightBox">

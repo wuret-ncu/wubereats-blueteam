@@ -1572,6 +1572,18 @@
   color: var(--mainDarkGreen);
   text-decoration: underline;
 }
+.showScoreAvg{
+  background-color: white;
+  width: 6vw;
+  height: 5vh;
+  border-radius: 2vw;
+  position: absolute;
+  bottom: 2vh;
+  right: 5vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .orderBox {
   padding-left: 3vw;
   border-bottom: 0.2vw solid var(--mainDarkGreen);

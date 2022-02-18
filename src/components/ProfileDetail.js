@@ -114,7 +114,6 @@ export default function ProfileDetail() {
                                 />
                             </div>
                             </Form.Item>
-                            {/* <span className="profileName">{localStorage.getItem("username")}</span> */}
                         </Col>
                         
                        
@@ -131,7 +130,6 @@ export default function ProfileDetail() {
                                 />
                             </span>
                             </Form.Item>
-                            {/* <span className="profileName">{localStorage.getItem("nickname")}</span> */}
                         </Col>
                        
                     </Row>
@@ -185,7 +183,7 @@ export default function ProfileDetail() {
                         <Col span={7} className="pastOrderContent">{item.Store.StoreName}</Col>
                         <Col span={8} className="pastOrderContent">{item.Order.Meals}</Col>
                         <Col span={4} className="pastOrderContent">{item.Order.Price}</Col>
-                        <Col span={5} className="pastOrderContent">2022-02-08</Col>
+                        <Col span={5} className="pastOrderContent">{item.Order.createdAt.split('T')[0]}</Col>
                     </Row>
                     )
                     : ""

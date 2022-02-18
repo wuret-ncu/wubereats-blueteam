@@ -10,7 +10,12 @@ import { SET_CHECKING_VISIBLE,
          SET_CARTITEM_DELETED
 } from '../utils/constants';
 import { StoreContext } from '../store';
-import { getAllCarts, getDrinksStores, getFoodsStores, deleteADish } from '../api';
+import { getAllCarts, 
+         getDrinksStores, 
+         getFoodsStores, 
+         deleteADish, 
+         getUsingUser
+        } from '../api';
 const { useBreakpoint } = Grid;
 function CartItemList(props) {
     const { state: { checkingVisible , deleteFlag } , dispatch } = useContext(StoreContext);
@@ -22,7 +27,6 @@ function CartItemList(props) {
 
     function confirm(e){
         console.log(e);
-        
         // 還需添加remove item事件
         deleteADish(props.id).then((response) => {
             console.log(response);
@@ -69,7 +73,7 @@ function CartItemList(props) {
 }
 
 export default function CartDetail() {
-    const { state: { checkingVisible , cartsData , deleteFlag }, dispatch } = useContext(StoreContext);
+    const { state: { checkingVisible , cartsData , deleteFlag , code }, dispatch } = useContext(StoreContext);
     const [modalVisible, setModalVisible] = useState(false);
     const [modalLoading, setModalLoading] = useState(false);
     const [modalText, setModalText] = useState('已確認完成這筆訂單嗎？');
@@ -94,10 +98,10 @@ export default function CartDetail() {
         if(String(localStorage.getItem("groupCode")) === 'undefined') {
             getAllCarts(localStorage.getItem("orderSoloCode")).then((response) => {
                 console.log(response.data)
-                // dispatch({
-                //     type: GET_CARTS_DATA,
-                //     payload: response.data
-                // })
+                dispatch({
+                    type: GET_CARTS_DATA,
+                    payload: response.data
+                })
                 // response.data.map(i => {
                 //     console.log(i.Store_info[0].StoreName)
                 //     console.log(i.Store_info[0].Phone)
@@ -117,40 +121,20 @@ export default function CartDetail() {
                     type: GET_CARTS_DATA,
                     payload: response.data
                 })
-                response.data.map(i => {
-                    console.log(i.Store_info[0].StoreName)
-                    // console.log(i.Store_info[0].Phone)
-                    // i.TotalList.map(j => {
-                    //     console.log(j.User_info[0].UserName)
-                    //     console.log(j.OrderList.Meals)
-                    //     console.log(j.OrderList.Price)
-                    // })
-                })
+                // response.data.map(i => {
+                //     console.log(i.Store[0].StoreName)
+                //     console.log(i.Store[0].Phone)
+                //     i.TotalList.map(j => {
+                //         console.log(j.User[0].NickName)
+                //         console.log(j.OrderList.Meals)
+                //         console.log(j.OrderList.Price)
+                //     })
+                // })
             }).catch(
                 input => {console.log(input.response)}
             )
         }
     }, [deleteFlag]);
-
-    useEffect(() => {
-        // if(cartsData) {
-        //     let b = [];
-        //     let a = cartsData ? cartsData.map(s => {
-        //         b.push(s.Price);
-        //     }) : ""
-        //     dispatch({
-        //         type: SET_TOTAL_PRICE,
-        //         payload: lodash.sum(b)
-        //     })
-        // }
-        if(cartsData) {
-            cartsData.map(i => {
-            console.log(i)
-        })
-        console.log(cartsData)
-        }
-        
-    }, [cartsData]);
 
     const onClickCheckingBtn = () => {
         dispatch({
@@ -209,13 +193,21 @@ export default function CartDetail() {
         })
     }
     const onClickDrawUser = () => {
-        // getUsingUser().then((response) => {
-        //     let i = 0;
-        //     response.data.map(() => {
-        //         i = i + 1;
-        //     })
-        //     setDrawUserResult(response.data[0].User_info[Math.floor(Math.random()*i)].UserName);
-        // })
+        if(code !== 'get a code') {
+            getUsingUser(code).then((response) => {
+                // console.log(response.data[0].user.UserName);
+                // let i = 0;
+                // response.data.map(() => {
+                //     return(i = i + 1)
+                // })
+                // setDrawUserResult(response.data[0].User_info[Math.floor(Math.random()*i)].UserName);
+                setDrawUserResult(response.data[0].user.NickName);
+            }).catch(
+                input => {console.log(input.response)}
+            )
+        } else {
+            message.warning("尚未加入團購無法使用此功能，快去取得團購碼吧！")
+        }
     }
 
     return(
@@ -238,10 +230,15 @@ export default function CartDetail() {
                         <div className="drawTitle" onClick={onClickDrawDrink}>喝什麼</div>
                         <div className="drawResult">{drawDrinkResult}</div>
                     </Col>
-                    <Col span={8} className="drawCol">
-                        <div className="drawTitle" onClick={onClickDrawUser}>誰訂餐</div>
-                        <div className="drawResult">{drawUserResult}</div>
-                    </Col>
+                    {
+                        String(localStorage.getItem("orderSoloCode")) !== 'undefined' ?
+                        "" :
+                        <Col span={8} className="drawCol">
+                            <div className="drawTitle" onClick={onClickDrawUser}>誰訂餐</div>
+                            <div className="drawResult">{drawUserResult}</div>
+                        </Col>
+                    }
+                    
                 </Row>
                 
             </Modal>
@@ -250,7 +247,7 @@ export default function CartDetail() {
                 cartsData ? cartsData.map((store) => (
                 <div key={nanoid()}>
                     <div style={{display: "flex", justifyContent: "space-between", borderBottom: "0.2vw solid lightgray", marginTop:'2vh'}}>
-                        <div className={cartStoreName}>{store.Store_info[0].StoreName}<span className={cartPhone}>{store.Store_info[0].Phone}</span></div>
+                        <div className={cartStoreName}>{store.Store[0].StoreName}<span className={cartPhone}>{store.Store[0].Phone}</span></div>
                         <div className={cartStoreMoney}>Total: {store.Total} 元</div>
                     </div>
                     {
@@ -264,7 +261,7 @@ export default function CartDetail() {
                     }
                     {
                         store.TotalList.map(data =>
-                        <CartItemList key={data.OrderList._id} id={data.OrderList._id} name={data.User_info[0].UserName} item={data.OrderList.Meals} sum={data.OrderList.Price} />)
+                        <CartItemList key={data.OrderList._id} id={data.OrderList._id} name={data.User[0].UserName} item={data.OrderList.Meals} sum={data.OrderList.Price} />)
                     }
                     <Row className={cartBtnsBox}>
                         <Col className="cartBtnBox" sm={{span:3, offset:18}} span={9} offset={6} onClick={onClickCheckingBtn}>
